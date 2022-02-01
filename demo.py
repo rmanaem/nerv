@@ -1,7 +1,9 @@
 from turtle import color
 import dash
 import dash_core_components as dcc
+import plotly.graph_objects as go
 import dash_html_components as html
+import numpy as np
 
 app = dash.Dash(__name__)
 port = 8881
@@ -11,6 +13,11 @@ colors = {
     'plot': '#778899',
     'paper': 'white'
 }
+
+np.random.seed(0)
+x = np.random.randint(1, 61, 60)
+y = np.random.randint(1, 61, 60)
+
 
 # Specifying the app layout
 app.layout = html.Div([
@@ -29,7 +36,7 @@ app.layout = html.Div([
 
 
     dcc.Graph(
-        id='SampleChart',
+        id='bar_plot',
         figure={
             'data': [
                 {'x': [4, 6, 8], 'y':[12, 16, 18],
@@ -46,6 +53,25 @@ app.layout = html.Div([
                 },
                 'title': 'Simple Bar Chart'
             }
+        }
+    ),
+
+    dcc.Graph(
+        id='scatter_plit',
+        figure={
+            'data': [
+                go.Scatter(
+                    x=x,
+                    y=y,
+                    mode='markers'
+                )
+            ],
+            'layout': go.Layout(
+                title='Scatterplot of random values',
+                xaxis={'title': 'random x values'},
+                yaxis={'title': 'random y values'}
+            )
+
         }
     )
 ])
