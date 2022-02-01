@@ -58,6 +58,15 @@ app.layout = html.Div([
         marks={i: i for i in range(10)}
     ),
 
+    html.Label('Range slider'),
+    dcc.RangeSlider(
+        min=1,
+        max=10,
+        step=0.5,
+        value=[3, 7],
+        marks={i: i for i in range(10)}
+    ),
+
     dcc.Graph(
         id='bar_plot',
         figure={
@@ -65,7 +74,7 @@ app.layout = html.Div([
                 {'x': [4, 6, 8], 'y':[12, 16, 18],
                     'type':'bar', 'name':'First Chart'},
                 {'x': [4, 6, 8], 'y':[10, 24, 26],
-                    'type':'bar', 'name':'First Chart'}
+                    'type':'bar', 'name':'Second Chart'}
             ],
             'layout': {
                 'plot_bgcolor': colors['plot'],
