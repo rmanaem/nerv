@@ -1,3 +1,4 @@
+from turtle import color
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -31,6 +32,12 @@ app.layout = html.Div([
                     'type':'bar', 'name':'First Chart'}
             ],
             'layout': {
+                'plot_bgcolor': '#778899',
+                'paper_bgcolor': '#F5FFFA',  # Plot bg color
+                'font': {
+                    'color': '#191970'
+
+                },
                 'title': 'Simple Bar Chart'
             }
         }
