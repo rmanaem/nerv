@@ -67,6 +67,17 @@ app.layout = html.Div([
         marks={i: i for i in range(10)}
     ),
 
+    html.Br(),
+    html.Br(),
+    html.Div([
+        html.Label('Input box'),
+        dcc.Input(
+            placeholder='Input name',
+            type='text',
+            value=''
+        ),
+    ]),
+
     dcc.Graph(
         id='bar_plot',
         figure={
