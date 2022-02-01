@@ -7,8 +7,18 @@ port = 8881
 
 # Specifying the app layout
 app.layout = html.Div([
-    html.H1("Hello Dash!!!"),
-    html.Div("Dash - GUI"),
+    html.H1(children="Hello Dash!!!",
+            style={
+                'textAlign': 'center',
+                'color':  '#778899'
+            }
+            ),
+    html.Div(children="Dash - A Data product development framework from plotly",
+             style={
+                 'textAlign': 'center',
+                 'color': '#778899'
+             }
+             ),
 
 
     dcc.Graph(
