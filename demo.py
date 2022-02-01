@@ -1,3 +1,4 @@
+from pickle import TRUE
 from turtle import color
 import dash
 import dash_core_components as dcc
@@ -43,7 +44,9 @@ app.layout = html.Div([
             {'label': 'San Francisco', 'value': 'SF'},
             {'label': 'New York City', 'value': 'NYC'}
         ],
-        value='NYC'
+        value='NYC',
+        multi=True,
+        placeholder='City',
     ),
 
     dcc.Graph(
