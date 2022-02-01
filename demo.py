@@ -49,6 +49,15 @@ app.layout = html.Div([
         placeholder='City',
     ),
 
+    html.Label('Slider'),
+    dcc.Slider(
+        min=1,
+        max=10,
+        value=7,
+        step=0.5,
+        marks={i: i for i in range(10)}
+    ),
+
     dcc.Graph(
         id='bar_plot',
         figure={
