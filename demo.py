@@ -6,18 +6,24 @@ import dash_html_components as html
 app = dash.Dash(__name__)
 port = 8881
 
+colors = {
+    'text': 'black',
+    'plot': '#778899',
+    'paper': 'white'
+}
+
 # Specifying the app layout
 app.layout = html.Div([
     html.H1(children="Hello Dash!!!",
             style={
                 'textAlign': 'center',
-                'color':  '#778899'
+                'color':  colors['text']
             }
             ),
     html.Div(children="Dash - A Data product development framework from plotly",
              style={
                  'textAlign': 'center',
-                 'color': '#778899'
+                 'color': colors['text']
              }
              ),
 
@@ -32,10 +38,10 @@ app.layout = html.Div([
                     'type':'bar', 'name':'First Chart'}
             ],
             'layout': {
-                'plot_bgcolor': '#778899',
-                'paper_bgcolor': '#F5FFFA',  # Plot bg color
+                'plot_bgcolor': colors['plot'],
+                'paper_bgcolor': colors['paper'],  # Plot bg color
                 'font': {
-                    'color': '#191970'
+                    'color': colors['text']
 
                 },
                 'title': 'Simple Bar Chart'
