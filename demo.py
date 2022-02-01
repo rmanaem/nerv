@@ -3,6 +3,7 @@ import dash
 import dash_core_components as dcc
 import plotly.graph_objects as go
 import dash_html_components as html
+import pandas as pd
 import numpy as np
 
 app = dash.Dash(__name__)
@@ -34,6 +35,16 @@ app.layout = html.Div([
              }
              ),
 
+    html.Label("Select a city"),
+
+    dcc.Dropdown(
+        id='first-dropdown',
+        options=[
+            {'label': 'San Francisco', 'value': 'SF'},
+            {'label': 'New York City', 'value': 'NYC'}
+        ],
+        value='NYC'
+    ),
 
     dcc.Graph(
         id='bar_plot',
