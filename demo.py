@@ -121,6 +121,18 @@ app.layout = html.Div([
         end_date_placeholder_text='End date'
     ),
 
+    dcc.Markdown(
+        '''
+        ### Dash and Markdown
+        Dash support s [Markdown](https://commonmark.org/help/).
+
+        Markdown is a simple way to write and format text.
+        It includes a syntax for things like **bold text** and *italic*,
+        [links](https://commonmark.org/help/), inline `code` snippets, lists,
+        quotes, and more.
+        '''
+    ),
+
     dcc.Graph(
         id='bar_plot',
         figure={
