@@ -84,8 +84,21 @@ app.layout = html.Div([
         style={'width': '50%'}
     ),
 
+    html.Br(),
+    html.Br(),
     dcc.Checklist(
         id='checklist',
+        options=[
+            {'label': 'San Francisco', 'value': 'SF'},
+            {'label': 'New York City', 'value': 'NYC'}
+        ],
+        value=['NYC']
+    ),
+
+    html.Br(),
+    html.Br(),
+    dcc.RadioItems(
+        id='radiobutton',
         options=[
             {'label': 'San Francisco', 'value': 'SF'},
             {'label': 'New York City', 'value': 'NYC'}
