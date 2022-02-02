@@ -115,6 +115,12 @@ app.layout = html.Div([
         date=date(2021, 12, 11)
     ),
 
+    dcc.DatePickerRange(
+        id='date-picker-range',
+        start_date=date(2021, 12, 11),
+        end_date_placeholder_text='End date'
+    ),
+
     dcc.Graph(
         id='bar_plot',
         figure={
