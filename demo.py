@@ -39,7 +39,7 @@ app.layout = html.Div([
     html.Label("Select a city"),
 
     dcc.Dropdown(
-        id='first-dropdown',
+        id='dropdown',
         options=[
             {'label': 'San Francisco', 'value': 'SF'},
             {'label': 'New York City', 'value': 'NYC'}
@@ -82,6 +82,15 @@ app.layout = html.Div([
         placeholder='Input feedback',
         value='Placeholder',
         style={'width': '50%'}
+    ),
+
+    dcc.Checklist(
+        id='checklist',
+        options=[
+            {'label': 'San Francisco', 'value': 'SF'},
+            {'label': 'New York City', 'value': 'NYC'}
+        ],
+        value=['NYC']
     ),
 
     dcc.Graph(
