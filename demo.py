@@ -78,6 +78,12 @@ app.layout = html.Div([
         ),
     ]),
 
+    dcc.Textarea(
+        placeholder='Input feedback',
+        value='Placeholder',
+        style={'width': '50%'}
+    ),
+
     dcc.Graph(
         id='bar_plot',
         figure={
