@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import dash_html_components as html
 import pandas as pd
 import numpy as np
+from datetime import date
 
 app = dash.Dash(__name__)
 port = 8881
@@ -85,6 +86,9 @@ app.layout = html.Div([
     ),
 
     html.Br(),
+    html.Button('submit', id='submit-form'),
+
+    html.Br(),
     html.Br(),
     dcc.Checklist(
         id='checklist',
@@ -104,6 +108,11 @@ app.layout = html.Div([
             {'label': 'New York City', 'value': 'NYC'}
         ],
         value=['NYC']
+    ),
+
+    dcc.DatePickerSingle(
+        id='date-picker-single',
+        date=date(2021, 12, 11)
     ),
 
     dcc.Graph(
