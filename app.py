@@ -47,5 +47,18 @@ def parse_contents(contents):
     return base64.b64decode(content_string)
 
 
+@app.callback(
+    Output(component_id='Scatter-plot', component_property='figure'),
+    Input(component_id='upload-data', component_property='contents'))
+def parse_data(data):
+    data = parse_contents(data)
+    data = json.load(data)
+    fsl = [(k, k['FSL']['Result']['result']) for k, v in data.items()]
+    freesurfer = [(k, k['FreeSurfer']['Result']['result'])
+                  for k, v in data.items()]
+    fig = go.Figure(data=[go.Scatter(x=[i[0]
+                    for i in fsl], y=[i[1] for i in fsl])])
+
+
 if __name__ == '__main__':
     app.run_server(port=port)
