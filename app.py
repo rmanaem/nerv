@@ -1,13 +1,13 @@
 import base64
-from tkinter import Y
 import dash
 import dash_core_components as dcc
-import plotly.graph_objects as go
+import plotly.express as px
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
 import numpy as np
 import json
+
 
 app = dash.Dash(__name__)
 port = 7777
@@ -36,8 +36,9 @@ app.layout = html.Div([
             'textAlign': 'center',
             'margin': '10px'
         },
-        multiple=True
     ),
+
+    html.Div(id='output-div')
 
 ])
 
@@ -48,16 +49,23 @@ def parse_contents(contents):
 
 
 @app.callback(
-    Output(component_id='Scatter-plot', component_property='figure'),
+    Output(component_id='output-div', component_property='children'),
     Input(component_id='upload-data', component_property='contents'))
-def parse_data(data):
-    data = parse_contents(data)
-    data = json.load(data)
-    fsl = [(k, k['FSL']['Result']['result']) for k, v in data.items()]
-    freesurfer = [(k, k['FreeSurfer']['Result']['result'])
+def parse_data(contents):
+    data = str(parse_contents(contents).decode('utf8').replace("\'", '\"'))
+    data = json.loads(data)
+    fsl = [(k, data[k]['FSL']['Result']['result']) for k, v in data.items()]
+    freesurfer = [(k, data[k]['FreeSurfer']['Result']['result'])
                   for k, v in data.items()]
-    fig = go.Figure(data=[go.Scatter(x=[i[0]
-                    for i in fsl], y=[i[1] for i in fsl])])
+    return dcc.Graph(id='line-plot',
+                     figure={
+                         'data': [
+                             {'x': [i[0] for i in fsl], 'y':[i[1] for i in fsl],
+                              'name': 'FSL'},
+                             {'x': [i[0] for i in freesurfer], 'y':[i[1] for i in freesurfer],
+                              'name':'FreeSurfer'}
+                         ]},
+                     )
 
 
 if __name__ == '__main__':
