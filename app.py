@@ -1,8 +1,10 @@
 import base64
+from turtle import bgcolor
 import dash
 import dash_core_components as dcc
-import plotly.express as px
 import dash_html_components as html
+import plotly.graph_objs as go
+import plotly.express as px
 from dash.dependencies import Input, Output
 import pandas as pd
 import numpy as np
@@ -15,7 +17,7 @@ port = 7777
 app.layout = html.Div([
     html.H1(children='Dashboard',
             style={
-                'textAlign': 'center'
+                'textAlign': 'center',
             }),
     html.Br(),
     html.Br(),
@@ -61,10 +63,24 @@ def parse_data(contents):
                      figure={
                          'data': [
                              {'x': [i[0] for i in fsl], 'y':[i[1] for i in fsl],
-                              'name': 'FSL'},
+                              'name': 'FSL', 'color': '#7FFFD4', 'marker': {'color': '#B82E2E'}},
                              {'x': [i[0] for i in freesurfer], 'y':[i[1] for i in freesurfer],
-                              'name':'FreeSurfer'}
-                         ]},
+                              'name':'FreeSurfer', 'marker': {'color': '#54A24B'}},
+                         ],
+                         'layout': {
+                             'height': 500,
+                             'xaxis': {'title': 'Subject', 'showgrid': False, 'showticklabels': False},
+                             'yaxis': {'title': 'Result'}
+                         },
+                     },
+                     style={
+                         'plot-bgcolor': 'rgba(0,0,0,0)',
+                         'paper-bgcolor': 'rgba(0,0,0,0)'
+
+                     },
+                     config={
+                         'displaylogo': False,
+                     }
                      )
 
 
