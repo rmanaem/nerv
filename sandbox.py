@@ -1,5 +1,3 @@
-from pickle import TRUE
-from turtle import color
 import dash
 import dash_core_components as dcc
 import plotly.graph_objects as go
