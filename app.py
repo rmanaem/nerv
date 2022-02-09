@@ -39,7 +39,8 @@ app.layout = html.Div([
         },
     ),
 
-    html.Div(id='plot-div')
+    html.Div(id='plot-div'),
+    html.Div(id='info-div')
 
 ])
 
@@ -76,5 +77,14 @@ def plot_data(contents):
     return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False})
 
 
+@app.callback(
+    Output('info-div', 'children'),
+    Input('plot', 'clickData'))
+def process_click(clickData):
+    if not clickData:
+        return dash.no_update
+    return clickData
+
+
 if __name__ == '__main__':
-    app.run_server(port=port)
+    app.run_server(port=port, debug=True)
