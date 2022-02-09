@@ -89,12 +89,22 @@ def plot_data(contents):
 def process_click(clickData):
     if not clickData:
         return dash.no_update
-    # subject = clickData['points'][0]['customdata'][0]
-    # pipeline = clickData['points'][0]['customdata'][1]
-    # s = "Subject:" + subject + "\n" + "Pipeline: " + pipeline
-    # for i in clickData['points'][0]['customdata'][2].:
-        s += "\n" + ""
-    return clickData
+    subject = "Subject: " + \
+        clickData['points'][0]['customdata'][0]
+    pipeline = "Pipeline: " + clickData['points'][0]['y']
+    result = "Result: " + str(clickData['points'][0]['x'])
+    info = [subject, html.Br(), pipeline, html.Br(), result, html.Br()]
+    for k, v in list(clickData['points'][0]['customdata'][2].items())[:-1]:
+        status = v['status']
+        inp = str(v['inputID'])
+        out = str(v['outputID'])
+        task = str(v['taskID'])
+        config = str(v['toolConfigID'])
+        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: " + inp,
+                                      html.Br(), "Output ID: " + out, html.Br(), "Task ID " + task, html.Br(), "Tool Configuration ID: " + config])
+        info.append(step)
+
+    return info
 
 
 if __name__ == '__main__':
