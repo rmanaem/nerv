@@ -40,7 +40,7 @@ app.layout = html.Div([
     ),
     html.Div([
         html.Div(id='plot-div',
-                 style={'width': '49%', 'display': 'inline-block'}),
+                 style={'width': '200%', 'display': 'inline-block'}),
         html.Div(id='info-div',
                  style={'width': '49%', 'display': 'inline-block'})
     ],
@@ -103,9 +103,11 @@ def process_click(clickData):
         out = "N/A" if v['outputID'] == None else str(v['outputID'])
         task = "N/A" if v['taskID'] == None else str(v['taskID'])
         config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
-        step = [k + ":", html.Br(), "Status: " + status, html.Br(), "Input ID: " + inp, html.Br(),
-                "Output ID: " + out, html.Br(), "Task ID: " + task, html.Br(), "Tool Configuration ID: " + config]
-        info += step
+        # step = [k + ":", html.Br(), "Status: " + status, html.Br(), "Input ID: " + inp, html.Br(),
+        #         "Output ID: " + out, html.Br(), "Task ID: " + task, html.Br(), "Tool Configuration ID: " + config]
+        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: " + inp,
+                                      html.Br(), "Output ID: " + out, html.Br(), "Task ID: " + task, html.Br(), "Tool Configuration ID: " + config])
+        info.append(step)
 
     return info
 
