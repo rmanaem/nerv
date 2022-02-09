@@ -103,9 +103,8 @@ def process_click(clickData):
         out = "N/A" if v['outputID'] == None else str(v['outputID'])
         task = "N/A" if v['taskID'] == None else str(v['taskID'])
         config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
-        step = ["Status: " + status, html.Br(), "Input ID: " + inp,
-                html.Br(), "Output ID: " + out, html.Br(), "Task ID: " +
-                task, html.Br(), "Tool Configuration ID: " + config]
+        step = [k + ":", html.Br(), "Status: " + status, html.Br(), "Input ID: " + inp, html.Br(),
+                "Output ID: " + out, html.Br(), "Task ID: " + task, html.Br(), "Tool Configuration ID: " + config]
         info += step
 
     return info
