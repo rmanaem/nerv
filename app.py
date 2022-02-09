@@ -69,31 +69,10 @@ def process_data(contents):
 @app.callback(
     Output(component_id='output-div', component_property='children'),
     Input(component_id='upload-data', component_property='contents'))
-def parse_data(contents):
-    # df = process_data(contents)
-    # fsl = [(k, data[k]['FSL']['Result']['result']) for k, v in data.items()]
-    # freesurfer = [(k, data[k]['FreeSurfer']['Result']['result'])
-    #               for k, v in data.items()][:100]
+def plot_data(contents):
+    df = process_data(contents)
     fig = px.histogram(df, x='Result', color='Pipeline', barmode='overlay')
     return dcc.Graph(id='line-plot', figure=fig)
-    # return dcc.Graph(id='line-plot',
-    #                  figure={
-    #                      'data': [
-    #                          {'x': [i[0] for i in fsl], 'y':[i[1] for i in fsl],
-    #                           'name': 'FSL', 'type': 'histogram', 'nbins': 20, 'color': '#7FFFD4', 'marker': {'color': '#B82E2E'}},
-    #                          {'x': [i[0] for i in freesurfer], 'y':[i[1] for i in freesurfer],
-    #                           'name':'FreeSurfer', 'type': 'histogram', 'nbins': 20, 'marker': {'color': '#54A24B'}},
-    #                      ],
-    #                      'layout': {
-    #                          'height': 500,
-    #                          'xaxis': {'title': 'Subject', 'showgrid': False, 'showticklabels': False},
-    #                          'yaxis': {'title': 'Result'}
-    #                      },
-    #                  },
-    #                  config={
-    #                      'displaylogo': False,
-    #                  }
-    #                  )
 
 
 if __name__ == '__main__':
