@@ -72,7 +72,7 @@ def process_data(contents):
 def plot_data(contents):
     df = process_data(contents)
     fig = px.histogram(df, x='Result', color='Pipeline', barmode='overlay')
-    return dcc.Graph(id='line-plot', figure=fig)
+    return dcc.Graph(id='line-plot', figure=fig, config={'displaylogo': False})
 
 
 if __name__ == '__main__':
