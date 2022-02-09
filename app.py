@@ -80,6 +80,8 @@ def process_data(contents):
     Output(component_id='plot-div', component_property='children'),
     Input(component_id='upload-data', component_property='contents'))
 def plot_data(contents):
+    if not contents:
+        return dash.no_update
     df = process_data(contents)
     fig = px.histogram(df, x='Result', color='Pipeline',
                        barmode='overlay', marginal='rug', hover_data=df.columns)
@@ -89,7 +91,16 @@ def plot_data(contents):
 @app.callback(Output('summary-div', 'children'),
               Input('upload-data', 'contents'))
 def generate_summary(contents):
-    pass
+    if not contents:
+        return dash.no_update
+    df = process_data(contents)
+    total = str(df.shape[0])
+    miss = str(df[df['Result'] == -1].shape[0])
+    fsl = str(df[(df['Pipeline'] == 'FSL') & (df['Result'] == -1)].shape[0])
+    freesurfer = str(df[(df['Pipeline'] == 'FreeSurfer')
+                     & (df['Result'] == -1)].shape[0])
+    return ["Total number of datapoints: " + total, html.Br(), "Total number of missing datapoints: "
+            + miss, html.Br(), "FSL: " + fsl, html.Br(), "FreeSurfer:" + freesurfer]
 
 
 @app.callback(
