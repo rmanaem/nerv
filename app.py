@@ -41,8 +41,9 @@ app.layout = html.Div([
     html.Div([
         html.Div(id='plot-div',
                  style={'width': '200%', 'display': 'inline-block'}),
+        html.Div(id='summary-div'),
         html.Div(id='info-div',
-                 style={'width': '49%', 'display': 'inline-block'})
+                 style={'width': '50%', 'display': 'inline-block'})
     ],
         style={
         'display': 'flex'
@@ -83,6 +84,12 @@ def plot_data(contents):
     fig = px.histogram(df, x='Result', color='Pipeline',
                        barmode='overlay', marginal='rug', hover_data=df.columns)
     return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False})
+
+
+@app.callback(Output('summary-div', 'children'),
+              Input('upload-data', 'contents'))
+def generate_summary(contents):
+    pass
 
 
 @app.callback(
