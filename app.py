@@ -62,8 +62,14 @@ def process_data(contents):
     freesurfer = [(i[0], i[1], 0) if i[2] == None else (
         i[0], i[1], float(i[2])) for i in freesurfer]
     x = fsl + freesurfer
+    # data for info panel
+    info = []
+    for k, v in data.items():
+        for i in v.keys():
+            info.append(v[i])
+    # info = [v[i] for i in v.keys() for k, v in data.items()]
     df = pd.DataFrame({'Subject': [i[0] for i in x], 'Pipeline': [
-                      i[1] for i in x], 'Result': [i[2] for i in x]})
+                      i[1] for i in x], 'Result': [i[2] for i in x], 'Info': info})
     return df
 
 
@@ -83,6 +89,11 @@ def plot_data(contents):
 def process_click(clickData):
     if not clickData:
         return dash.no_update
+    # subject = clickData['points'][0]['customdata'][0]
+    # pipeline = clickData['points'][0]['customdata'][1]
+    # s = "Subject:" + subject + "\n" + "Pipeline: " + pipeline
+    # for i in clickData['points'][0]['customdata'][2].:
+        s += "\n" + ""
     return clickData
 
 
