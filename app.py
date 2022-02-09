@@ -1,5 +1,4 @@
 import base64
-from turtle import bgcolor
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -15,7 +14,7 @@ app = dash.Dash(__name__)
 port = 7777
 
 app.layout = html.Div([
-    html.H1(children='Dashboard',
+    html.H1(children='Dash',
             style={
                 'textAlign': 'center',
             }),
@@ -50,38 +49,51 @@ def parse_contents(contents):
     return base64.b64decode(content_string)
 
 
+def process_data(contents):
+    # Assuming the data was in json format
+    data = str(parse_contents(contents).decode('utf8').replace("\'", '\"'))
+    data = json.loads(data)
+    fsl = [(k, 'FSL', data[k]['FSL']['Result']['result']) for k in data.keys()]
+    fsl = [(i[0], i[1], 0) if i[2] == None else (
+        i[0], i[1], float(i[2])) for i in fsl]
+    freesurfer = [(k, 'FreeSurfer', data[k]['FreeSurfer']
+                   ['Result']['result']) for k in data.keys()]
+    freesurfer = [(i[0], i[1], 0) if i[2] == None else (
+        i[0], i[1], float(i[2])) for i in freesurfer]
+    x = fsl + freesurfer
+    df = pd.DataFrame({'subject': [i[0] for i in x], 'Pipeline': [
+                      i[1] for i in x], 'Result': [i[2] for i in x]})
+    return df
+
+
 @app.callback(
     Output(component_id='output-div', component_property='children'),
     Input(component_id='upload-data', component_property='contents'))
 def parse_data(contents):
-    data = str(parse_contents(contents).decode('utf8').replace("\'", '\"'))
-    data = json.loads(data)
-    fsl = [(k, data[k]['FSL']['Result']['result']) for k, v in data.items()]
-    freesurfer = [(k, data[k]['FreeSurfer']['Result']['result'])
-                  for k, v in data.items()]
-    return dcc.Graph(id='line-plot',
-                     figure={
-                         'data': [
-                             {'x': [i[0] for i in fsl], 'y':[i[1] for i in fsl],
-                              'name': 'FSL', 'color': '#7FFFD4', 'marker': {'color': '#B82E2E'}},
-                             {'x': [i[0] for i in freesurfer], 'y':[i[1] for i in freesurfer],
-                              'name':'FreeSurfer', 'marker': {'color': '#54A24B'}},
-                         ],
-                         'layout': {
-                             'height': 500,
-                             'xaxis': {'title': 'Subject', 'showgrid': False, 'showticklabels': False},
-                             'yaxis': {'title': 'Result'}
-                         },
-                     },
-                     style={
-                         'plot-bgcolor': 'rgba(0,0,0,0)',
-                         'paper-bgcolor': 'rgba(0,0,0,0)'
-
-                     },
-                     config={
-                         'displaylogo': False,
-                     }
-                     )
+    # df = process_data(contents)
+    # fsl = [(k, data[k]['FSL']['Result']['result']) for k, v in data.items()]
+    # freesurfer = [(k, data[k]['FreeSurfer']['Result']['result'])
+    #               for k, v in data.items()][:100]
+    fig = px.histogram(df, x='Result', color='Pipeline', barmode='overlay')
+    return dcc.Graph(id='line-plot', figure=fig)
+    # return dcc.Graph(id='line-plot',
+    #                  figure={
+    #                      'data': [
+    #                          {'x': [i[0] for i in fsl], 'y':[i[1] for i in fsl],
+    #                           'name': 'FSL', 'type': 'histogram', 'nbins': 20, 'color': '#7FFFD4', 'marker': {'color': '#B82E2E'}},
+    #                          {'x': [i[0] for i in freesurfer], 'y':[i[1] for i in freesurfer],
+    #                           'name':'FreeSurfer', 'type': 'histogram', 'nbins': 20, 'marker': {'color': '#54A24B'}},
+    #                      ],
+    #                      'layout': {
+    #                          'height': 500,
+    #                          'xaxis': {'title': 'Subject', 'showgrid': False, 'showticklabels': False},
+    #                          'yaxis': {'title': 'Result'}
+    #                      },
+    #                  },
+    #                  config={
+    #                      'displaylogo': False,
+    #                  }
+    #                  )
 
 
 if __name__ == '__main__':
