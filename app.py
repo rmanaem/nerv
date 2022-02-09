@@ -38,9 +38,16 @@ app.layout = html.Div([
             'margin': '10px'
         },
     ),
+    html.Div([
+        html.Div(id='plot-div',
+                 style={'width': '49%', 'display': 'inline-block'}),
+        html.Div(id='info-div',
+                 style={'width': '49%', 'display': 'inline-block'})
+    ],
+        style={
+        'display': 'flex'
+    })
 
-    html.Div(id='plot-div'),
-    html.Div(id='info-div')
 
 ])
 
