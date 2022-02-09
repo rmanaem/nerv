@@ -94,15 +94,15 @@ def process_click(clickData):
     subject = "Subject: " + \
         clickData['points'][0]['customdata'][0]
     pipeline = "Pipeline: " + clickData['points'][0]['y']
-    result = "Result: n/a" if clickData['points'][0]['x'] == - \
+    result = "Result: N/A" if clickData['points'][0]['x'] == - \
         1 else "Result: " + str(clickData['points'][0]['x'])
     info = [subject, html.Br(), pipeline, html.Br(), result, html.Br()]
     for k, v in list(clickData['points'][0]['customdata'][2].items())[:-1]:
         status = "Incomplete" if v['status'] == None else v['status']
-        inp = "n/a" if v['inputID'] == None else str(v['inputID'])
-        out = "n/a" if v['outputID'] == None else str(v['outputID'])
-        task = "n/a" if v['taskID'] == None else str(v['taskID'])
-        config = "n/a" if v['toolConfigID'] == None else str(v['toolConfigID'])
+        inp = "N/A" if v['inputID'] == None else str(v['inputID'])
+        out = "N/A" if v['outputID'] == None else str(v['outputID'])
+        task = "N/A" if v['taskID'] == None else str(v['taskID'])
+        config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
         step = ["Status: " + status, html.Br(), "Input ID: " + inp,
                 html.Br(), "Output ID: " + out, html.Br(), "Task ID: " +
                 task, html.Br(), "Tool Configuration ID: " + config]
