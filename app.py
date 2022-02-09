@@ -39,7 +39,7 @@ app.layout = html.Div([
         },
     ),
 
-    html.Div(id='output-div')
+    html.Div(id='plot-div')
 
 ])
 
@@ -61,18 +61,19 @@ def process_data(contents):
     freesurfer = [(i[0], i[1], 0) if i[2] == None else (
         i[0], i[1], float(i[2])) for i in freesurfer]
     x = fsl + freesurfer
-    df = pd.DataFrame({'subject': [i[0] for i in x], 'Pipeline': [
+    df = pd.DataFrame({'Subject': [i[0] for i in x], 'Pipeline': [
                       i[1] for i in x], 'Result': [i[2] for i in x]})
     return df
 
 
 @app.callback(
-    Output(component_id='output-div', component_property='children'),
+    Output(component_id='plot-div', component_property='children'),
     Input(component_id='upload-data', component_property='contents'))
 def plot_data(contents):
     df = process_data(contents)
-    fig = px.histogram(df, x='Result', color='Pipeline', barmode='overlay')
-    return dcc.Graph(id='line-plot', figure=fig, config={'displaylogo': False})
+    fig = px.histogram(df, x='Result', color='Pipeline',
+                       barmode='overlay', marginal='rug', hover_data=df.columns)
+    return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False})
 
 
 if __name__ == '__main__':
