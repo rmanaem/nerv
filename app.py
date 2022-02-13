@@ -1,4 +1,5 @@
 import base64
+from turtle import width
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -28,22 +29,25 @@ app.layout = html.Div([
             html.A('Select Files')
         ]),
         style={
-            'width': '100%',
+            'width': '40%',
             'height': '60px',
             'lineHeight': '60px',
             'borderWidth': '1px',
             'borderStyle': 'dashed',
             'borderRadius': '5px',
             'textAlign': 'center',
-            'margin': '10px'
+            'margin': 'auto'
         },
     ),
+    html.Br(),
     html.Div([
         html.Div(id='plot-div',
-                 style={'width': '200%', 'display': 'inline-block'}),
-        html.Div(id='summary-div'),
-        html.Div(id='info-div',
-                 style={'width': '50%', 'display': 'inline-block'})
+                 style={'display': 'inline-block', 'width': '75%'}),
+        html.Div(
+            [html.Div(id='summary-div'),
+             html.Div(id='info-div')],
+            style={'width': '25%', 'margin-top': '20px'}
+        )
     ],
         style={
         'display': 'flex'
@@ -85,7 +89,7 @@ def plot_data(contents):
     df = process_data(contents)
     fig = px.histogram(df, x='Result', color='Pipeline',
                        barmode='overlay', marginal='rug', hover_data=df.columns)
-    return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False})
+    return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False}, style={'height': 700})
 
 
 @app.callback(Output('summary-div', 'children'),
