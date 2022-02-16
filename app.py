@@ -46,7 +46,7 @@ app.layout = html.Div([
         html.Div(
             [html.Div(id='summary-div'),
              html.Div(id='info-div')],
-            style={'width': '25%', 'margin-top': '20px'}
+            style={'width': '25%', 'margin-top': '60px'}
         )
     ],
         style={
