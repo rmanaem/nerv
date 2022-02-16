@@ -6,7 +6,6 @@ import plotly.graph_objs as go
 import plotly.express as px
 from dash.dependencies import Input, Output
 import pandas as pd
-import numpy as np
 import json
 
 
@@ -18,6 +17,7 @@ app.layout = html.Div([
             style={
                 'textAlign': 'center',
             }),
+
     html.Br(),
     html.Br(),
 
@@ -37,7 +37,9 @@ app.layout = html.Div([
             'margin': 'auto'
         },
     ),
+
     html.Br(),
+
     html.Div([
         html.Div(id='plot-div',
                  style={'display': 'inline-block', 'width': '75%'}),
@@ -123,12 +125,15 @@ def process_click(clickData):
 
     for k, v in list(clickData['points'][0]['customdata'][2].items())[:-1]:
         status = "Incomplete" if v['status'] == None else v['status']
-        inp = "N/A" if v['inputID'] == None else str(v['inputID'])
-        out = "N/A" if v['outputID'] == None else str(v['outputID'])
-        task = "N/A" if v['taskID'] == None else str(v['taskID'])
+        inp = "N/A" if v['inputID'] == None else html.A(str(
+            v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']))
+        out = "N/A" if v['outputID'] == None else html.A(str(
+            v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']))
+        task = "N/A" if v['taskID'] == None else html.A(str(
+            v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
         config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
-        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: " + inp,
-                                      html.Br(), "Output ID: " + out, html.Br(), "Task ID: " + task, html.Br(), "Tool Configuration ID: " + config])
+        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: ", inp,
+                                      html.Br(), "Output ID: ", out, html.Br(), "Task ID: ", task, html.Br(), "Tool Configuration ID: " + config])
         info.append(step)
 
     return info
