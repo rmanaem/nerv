@@ -24,13 +24,12 @@ app.layout = html.Div([
     dcc.Upload(
         id='upload-data',
         children=html.Div([
-            'Drag and Drop or ',
-            html.A('Select Files')
+            'Drag and Drop or Select Files'
         ]),
         style={
-            'width': '40%',
-            'height': '60px',
-            'lineHeight': '60px',
+            'width': '20%',
+            'height': '80px',
+            'lineHeight': '80px',
             'borderWidth': '1px',
             'borderStyle': 'dashed',
             'borderRadius': '5px',
