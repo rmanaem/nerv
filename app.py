@@ -82,7 +82,7 @@ def plot_data(contents):
     if not contents:
         return dash.no_update
     df = process_data(contents)
-    fig = px.histogram(df, x='Result', color='Pipeline',
+    fig = px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
                        barmode='overlay', marginal='rug', hover_data=df.columns)
     return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False}, style={'height': 700})
 
