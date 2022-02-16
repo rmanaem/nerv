@@ -1,5 +1,4 @@
 import base64
-from re import X
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -63,18 +62,8 @@ def parse_contents(contents):
 
 
 def process_data(contents):
-    # Assuming the data was in json format
     data = str(parse_contents(contents).decode('utf8').replace("\'", '\"'))
     data = json.loads(data)
-    # fsl = [(k, 'FSL', data[k]['FSL']['Result']['result'], data[k]['FSL'])
-    #        for k in data.keys()]
-    # fsl = [(i[0], i[1], -1, i[3]) if i[2] ==
-    #        None else (i[0], i[1], float(i[2]), i[3]) for i in fsl]
-    # freesurfer = [(k, 'FreeSurfer', data[k]['FreeSurfer']['Result']
-    #                ['result'], data[k]['FreeSurfer']) for k in data.keys()]
-    # freesurfer = [(i[0], i[1], -1, i[3]) if i[2] ==
-    #               None else (i[0], i[1], float(i[2]), i[3]) for i in freesurfer]
-    # x = fsl + freesurfer
     x = []
     for k in data.keys():
         for v in data[k].keys():
@@ -114,9 +103,6 @@ def generate_summary(contents):
                               (df['Result'] == -1)].shape[0])
         summary.append(s)
         summary.append(html.Br())
-    # fsl = str(df[(df['Pipeline'] == 'FSL') & (df['Result'] == -1)].shape[0])
-    # freesurfer = str(df[(df['Pipeline'] == 'FreeSurfer')
-    #                  & (df['Result'] == -1)].shape[0])
     return summary
 
 
@@ -139,8 +125,6 @@ def process_click(clickData):
         out = "N/A" if v['outputID'] == None else str(v['outputID'])
         task = "N/A" if v['taskID'] == None else str(v['taskID'])
         config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
-        # step = [k + ":", html.Br(), "Status: " + status, html.Br(), "Input ID: " + inp, html.Br(),
-        #         "Output ID: " + out, html.Br(), "Task ID: " + task, html.Br(), "Tool Configuration ID: " + config]
         step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: " + inp,
                                       html.Br(), "Output ID: " + out, html.Br(), "Task ID: " + task, html.Br(), "Tool Configuration ID: " + config])
         info.append(step)
