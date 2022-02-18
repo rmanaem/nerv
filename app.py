@@ -12,7 +12,7 @@ import dash_bootstrap_components as dbc
 # For latex
 import dash_defer_js_import as dji
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO])
 port = 7777
 
 # For latex
