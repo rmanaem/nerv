@@ -150,7 +150,10 @@ def generate_summary(contents):
                               (df['Result'] == -1)].shape[0])
         summary.append(s)
         summary.append(html.Br())
-    return summary
+    return html.Div(html.P(summary, style={'margin-left': '10px'}), style={
+        'box-shadow': 'rgba(0, 0, 0, 0.56) 0px 22px 70px 4px',
+        'border-radius': '7px',
+        'border': '0.25px solid'})
 
 
 @app.callback(
