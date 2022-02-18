@@ -8,6 +8,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import pandas as pd
 import json
+import dash_bootstrap_components as dbc
 # For latex
 import dash_defer_js_import as dji
 
@@ -87,13 +88,12 @@ app.layout = html.Div([
         html.Div(
             [html.Div(id='summary-div'),
              html.Div(id='info-div')],
-            style={'width': '25%', 'margin-top': '60px'}
+            style={'width': '25%', 'margin-top': '60px', 'margin-left': '20px'}
         )
     ],
         style={
         'display': 'flex'
     })
-
 
 ])
 
@@ -128,7 +128,8 @@ def plot_data(contents):
         return dash.no_update
     df = process_data(contents)
     fig = px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
-                       barmode='overlay', marginal='rug', hover_data=df.columns, labels={'Result': r'$\text {Hippocampus Volume } (mm^3)$'}).update_layout(yaxis_title='Count')
+                       barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
+                           xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count', template='plotly_dark')
     return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False}, style={'height': 700})
 
 
