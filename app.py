@@ -86,9 +86,9 @@ app.layout = html.Div([
         html.Div(id='plot-div',
                  style={'display': 'inline-block', 'width': '75%'}),
         html.Div(
-            [html.Div(id='summary-div'),
-             html.Div(id='info-div')],
-            style={'width': '25%', 'margin-top': '60px', 'margin-left': '20px'}
+            [
+                html.Div(id='summary-div'),
+                html.Div(id='info-div')], style={'width': '25%', 'margin-top': '60px', 'margin-left': '20px'}
         )
     ],
         style={
@@ -141,7 +141,8 @@ def generate_summary(contents):
     df = process_data(contents)
     total = str(df.shape[0])
     miss = str(df[df['Result'] == -1].shape[0])
-    summary = ["Total number of datapoints: " + total, html.Br(), "Total number of missing datapoints: "
+    header = html.H3('Summary', style={'textAlign': 'center'})
+    summary = [header, "Total number of datapoints: " + total, html.Br(), "Total number of missing datapoints: "
                + miss, html.Br()]
     pipelines = df['Pipeline'].unique().tolist()
     for p in pipelines:
