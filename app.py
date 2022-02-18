@@ -164,7 +164,8 @@ def process_click(clickData):
     pipeline = "Pipeline: " + clickData['points'][0]['y']
     result = "Result: N/A" if clickData['points'][0]['x'] == - \
         1 else "Result: " + str(clickData['points'][0]['x'])
-    info = [subject, html.Br(), pipeline, html.Br(), result, html.Br()]
+    header = html.H3('Information', style={'textAlign': 'center'})
+    info = [header, subject, html.Br(), pipeline, html.Br(), result, html.Br()]
 
     for k, v in list(clickData['points'][0]['customdata'][2].items())[:-1]:
         status = "Incomplete" if v['status'] == None else v['status']
