@@ -128,7 +128,7 @@ def plot_data(contents):
         return dash.no_update
     df = process_data(contents)
     fig = px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
-                       barmode='overlay', marginal='rug', hover_data=df.columns, labels={'Result': r'$\text {Hippocampus Volume } (mm^3)$', 'count': 'Count'})
+                       barmode='overlay', marginal='rug', hover_data=df.columns, labels={'Result': r'$\text {Hippocampus Volume } (mm^3)$'}).update_layout(yaxis_title='Count')
     return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False}, style={'height': 700})
 
 
