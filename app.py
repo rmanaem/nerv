@@ -1,3 +1,4 @@
+# Implementation of latex for axis label was derived from: https://github.com/yueyericardo/dash_latex
 import base64
 import dash
 import dash_core_components as dcc
@@ -7,12 +8,52 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import pandas as pd
 import json
-
+# For latex
+import dash_defer_js_import as dji
 
 app = dash.Dash(__name__)
 port = 7777
 
+# For latex
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                inlineMath: [ ['$','$'],],
+                processEscapes: true
+                }
+            });
+            </script>
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
+# For latex
+axis_latex_script = dji.Import(
+    src="https://cdn.jsdelivr.net/gh/yueyericardo/simuc@master/apps/dash/resources/redraw.js")
+mathjax_script = dji.Import(
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_SVG")
+
 app.layout = html.Div([
+    # For latex
+    axis_latex_script,
+    # For latex
+    mathjax_script,
     html.H1(children='Dash',
             style={
                 'textAlign': 'center',
@@ -87,7 +128,7 @@ def plot_data(contents):
         return dash.no_update
     df = process_data(contents)
     fig = px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
-                       barmode='overlay', marginal='rug', hover_data=df.columns)
+                       barmode='overlay', marginal='rug', hover_data=df.columns, labels={'Result': r'$\text {Hippocampus Volume } (mm^3)$', 'count': 'Count'})
     return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False}, style={'height': 700})
 
 
