@@ -141,7 +141,7 @@ def generate_summary(contents):
     df = process_data(contents)
     total = str(df.shape[0])
     miss = str(df[df['Result'] == -1].shape[0])
-    header = html.H3('Summary', style={'textAlign': 'center'})
+    header = html.H4('Summary', style={'textAlign': 'center'})
     summary = [header, "Total number of datapoints: " + total, html.Br(), "Total number of missing datapoints: "
                + miss, html.Br()]
     pipelines = df['Pipeline'].unique().tolist()
@@ -169,7 +169,7 @@ def process_click(clickData):
     pipeline = "Pipeline: " + clickData['points'][0]['y']
     result = "Result: N/A" if clickData['points'][0]['x'] == - \
         1 else "Result: " + str(clickData['points'][0]['x'])
-    header = html.H3('Information', style={'textAlign': 'center'})
+    header = html.H4('Information', style={'textAlign': 'center'})
     info = [header, subject, html.Br(), pipeline, html.Br(), result, html.Br()]
 
     for k, v in list(clickData['points'][0]['customdata'][2].items())[:-1]:
