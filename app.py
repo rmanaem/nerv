@@ -12,7 +12,7 @@ import dash_bootstrap_components as dbc
 # For latex
 import dash_defer_js_import as dji
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
 port = 7777
 
 # For latex
@@ -86,9 +86,8 @@ app.layout = html.Div([
         html.Div(id='plot-div',
                  style={'display': 'inline-block', 'width': '75%'}),
         html.Div(
-            [
-                html.Div(id='summary-div'),
-                html.Div(id='info-div')], style={'width': '25%', 'margin-left': '20px'}
+            [html.Div(id='summary-div'), html.Br(), html.Div(id='info-div')],
+            style={'width': '25%', 'margin-left': '30px'}
         )
     ],
         style={
@@ -130,7 +129,7 @@ def plot_data(contents):
     fig = px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
                        barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
                            xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count', template='plotly_dark')
-    return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False}, style={'height': 700})
+    return dcc.Graph(id='plot', figure=fig, config={'displaylogo': False}, style={'height': 760})
 
 
 @app.callback(Output('summary-div', 'children'),
@@ -153,7 +152,7 @@ def generate_summary(contents):
     return html.Div(html.P(summary, style={'margin-left': '10px'}),
                     style={
         'width': '90%',
-        'box-shadow': 'rgba(0, 0, 0, 0.56) 0px 22px 70px 4px',
+        'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
         'border-radius': '7px',
         'border': '0.25px solid'})
 
@@ -188,7 +187,7 @@ def process_click(clickData):
     return html.Div(html.P(info, style={'margin-left': '10px'}),
                     style={
         'width': '90%',
-        'box-shadow': 'rgba(0, 0, 0, 0.56) 0px 22px 70px 4px',
+        'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
         'border-radius': '7px',
         'border': '0.25px solid'})
 
