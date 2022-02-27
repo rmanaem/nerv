@@ -92,7 +92,9 @@ app.layout = html.Div([
     ],
         style={
         'display': 'flex'
-    })
+    }),
+
+    html.Div(id="scatter-matrix-div")
 
 ])
 
