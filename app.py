@@ -191,5 +191,11 @@ def process_click(clickData):
         'border': '0.25px solid'})
 
 
+@app.callback(Output('scatter-matrix-div', 'children'),
+              Input('upload-data', 'contents'))
+def scatter_matrix(contents):
+    pass
+
+
 if __name__ == '__main__':
     app.run_server(port=port, debug=True)
