@@ -111,9 +111,6 @@ def process_data(contents):
             x.append((k, v, data[k][v]['Result']['result'], data[k][v]))
     x = [(i[0], i[1], -1, i[3]) if i[2] ==
          None else (i[0], i[1], float(i[2]), i[3]) for i in x]
-    # Test data for third pipeline
-    for i in range(len(x)//2):
-        x.append((x[i][0], 'test', int(x[i][2]) + 10, x[i][3]))
     df = pd.DataFrame({'Subject': [i[0] for i in x], 'Pipeline': [
                       i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x]})
     return df
