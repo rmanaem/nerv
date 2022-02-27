@@ -1,10 +1,13 @@
 # Implementation of latex for axis label was derived from: https://github.com/yueyericardo/dash_latex
+from asyncio.windows_utils import pipe
 import base64
+from tkinter.ttk import Style
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 import plotly.express as px
+from plotly.subplots import make_subplots
 from dash.dependencies import Input, Output
 import pandas as pd
 import json
@@ -194,7 +197,22 @@ def process_click(clickData):
 @app.callback(Output('scatter-matrix-div', 'children'),
               Input('upload-data', 'contents'))
 def scatter_matrix(contents):
-    pass
+    if not contents:
+        return dash.no_update
+    df1 = process_data(contents)
+    df = pd.DataFrame()
+    pipelines = df1['Pipeline'].unique().tolist()
+    df['Subject'] = df1['Subject'].unique()
+    for i in pipelines:
+        df[i] = df1[df1['Pipeline'] == i]['Result'].reset_index(drop=True)
+    fig = make_subplots(rows=len(pipelines), cols=len(pipelines))
+    for i, j in enumerate(pipelines):
+        for z, w in enumerate(pipelines):
+            scatter = px.scatter(
+                df, x=j, y=w, marginal_x='histogram', marginal_y='histogram')
+            for trace in range(len(scatter['data'])):
+                fig.append_trace(scatter['data'][trace], row=i+1, col=z+1)
+    return dcc.Graph(id='scatter-matrix', figure=fig, style={'height': '700px'})
 
 
 if __name__ == '__main__':
