@@ -97,7 +97,7 @@ app.layout = html.Div([
         'display': 'flex'
     }),
 
-    html.Div(id="scatter-matrix-div")
+    html.Div(id="scatter-matrix-div", style={'display': 'block'})
 
 ])
 
@@ -116,6 +116,10 @@ def process_data(contents):
             x.append((k, v, data[k][v]['Result']['result'], data[k][v]))
     x = [(i[0], i[1], -1, i[3]) if i[2] ==
          None else (i[0], i[1], float(i[2]), i[3]) for i in x]
+    # Test data for third pipeline
+    for i in range(len(x)//2):
+        x.append((x[i][0], 'test', int(x[i][2]) + 10, x[i][3]))
+        # x.append((x[i][0], 'test1', int(x[i][2]) + 20, x[i][3]))
     df = pd.DataFrame({'Subject': [i[0] for i in x], 'Pipeline': [
                       i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x]})
     return df
@@ -205,14 +209,14 @@ def scatter_matrix(contents):
     df['Subject'] = df1['Subject'].unique()
     for i in pipelines:
         df[i] = df1[df1['Pipeline'] == i]['Result'].reset_index(drop=True)
-    fig = make_subplots(rows=len(pipelines), cols=len(pipelines))
+    plots = []
     for i, j in enumerate(pipelines):
         for z, w in enumerate(pipelines):
-            scatter = px.scatter(
-                df, x=j, y=w, marginal_x='histogram', marginal_y='histogram')
-            for trace in range(len(scatter['data'])):
-                fig.append_trace(scatter['data'][trace], row=i+1, col=z+1)
-    return dcc.Graph(id='scatter-matrix', figure=fig, style={'height': '700px'})
+            if j != w:
+                scatter = px.scatter(
+                    df, x=j, y=w, marginal_x='histogram', marginal_y='histogram')
+                plots.append(dcc.Graph(figure=scatter))
+    return plots
 
 
 if __name__ == '__main__':
