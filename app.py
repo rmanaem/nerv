@@ -1,7 +1,5 @@
 # Implementation of latex for axis label was derived from: https://github.com/yueyericardo/dash_latex
-from asyncio.windows_utils import pipe
 import base64
-from tkinter.ttk import Style
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -97,29 +95,24 @@ app.layout = html.Div([
         'display': 'flex'
     }),
 
-    html.Div(id="scatter-matrix-div", style={'display': 'block'})
+    html.Div(id="scatter-matrix-div")
 
 ])
 
 
 def parse_contents(contents):
     content_type, content_string = contents.split(',')
-    return base64.b64decode(content_string)
+    return str(base64.b64decode(content_string).decode('utf8').replace("\'", '\"'))
 
 
 def process_data(contents):
-    data = str(parse_contents(contents).decode('utf8').replace("\'", '\"'))
-    data = json.loads(data)
+    data = json.loads(parse_contents(contents))
     x = []
     for k in data.keys():
         for v in data[k].keys():
             x.append((k, v, data[k][v]['Result']['result'], data[k][v]))
     x = [(i[0], i[1], -1, i[3]) if i[2] ==
          None else (i[0], i[1], float(i[2]), i[3]) for i in x]
-    # Test data for third pipeline
-    for i in range(len(x)//2):
-        x.append((x[i][0], 'test', int(x[i][2]) + 10, x[i][3]))
-        # x.append((x[i][0], 'test1', int(x[i][2]) + 20, x[i][3]))
     df = pd.DataFrame({'Subject': [i[0] for i in x], 'Pipeline': [
                       i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x]})
     return df
