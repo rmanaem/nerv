@@ -69,8 +69,8 @@ def plot_scatters(df1):
             if i != j:
                 scatter = px.scatter(
                     df, x=i, y=j, marginal_x='histogram', marginal_y='histogram')
-                plots.append(dcc.Graph(figure=scatter))
-    return plots
+                plots.append(dcc.Tab(dcc.Graph(figure=scatter)))
+    return dcc.Tabs(plots)
 
 
 files = pull_files('./data')
