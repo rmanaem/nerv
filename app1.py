@@ -67,7 +67,7 @@ app.layout = html.Div([
     dcc.Tabs([
         dcc.Tab(
             html.Div([
-                html.Div([dcc.Graph(id='histogram', figure=utility.plot_histogram(utility.all_data), config={'displaylogo': False}, style={'height': 760})], 'histogram-div',
+                html.Div([dcc.Graph('histogram', figure=utility.plot_histogram(utility.all_data), config={'displaylogo': False}, style={'height': 760})], 'histogram-div',
                          style={'display': 'inline-block', 'width': '75%'}),
                 html.Div(
                     [html.Div([utility.generate_summary(utility.all_data)], 'summary-div'),

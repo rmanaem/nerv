@@ -1,5 +1,6 @@
 import os
 import json
+from tkinter.ttk import Style
 import pandas as pd
 import dash
 import dash_core_components as dcc
@@ -68,8 +69,9 @@ def plot_scatters(df1):
         for j in pipelines:
             if i != j:
                 scatter = px.scatter(
-                    df, x=i, y=j, marginal_x='histogram', marginal_y='histogram')
-                plots.append(dcc.Tab(dcc.Graph(figure=scatter)))
+                    df, x=i, y=j, marginal_x='histogram', marginal_y='histogram', template='plotly_dark')
+                plots.append(dcc.Tab(dcc.Graph(figure=scatter, config={
+                             'displaylogo': False}, style={'height': 760, 'width': '100%'})))
     return dcc.Tabs(plots)
 
 
