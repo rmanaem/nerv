@@ -71,27 +71,25 @@ app.layout = html.Div([
 
     html.Br(),
     html.Br(),
-    html.Br(),
-
-    html.Div([
-        html.Div(dcc.Graph(id='histogram',
-                           figure=px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
-                                               barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
-                               xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count',
-                               template='plotly_dark', xaxis={'rangeslider': {'visible': True}}),
-                           config={'displaylogo': False}, style={'height': 760}), id='histogram-div',
-                 style={'display': 'inline-block', 'width': '75%'}),
-        html.Div(
-            [html.Div(util.generate_summary(df), id='summary-div'),
-             html.Br(), html.Div(id='info-div')],
-            style={'width': '25%', 'margin-left': '30px'}
-        )
-    ],
-        style={
-        'display': 'flex'
-    }),
-
-    html.Div(util.plot_scatters(df), id="scatter-matrix-div")
+    dcc.Tabs([
+        dcc.Tab(html.Div([
+            html.Div(dcc.Graph(id='histogram',
+                               figure=px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
+                                                   barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
+                                   xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count',
+                                   template='plotly_dark', xaxis={'rangeslider': {'visible': True}}),
+                               config={'displaylogo': False}, style={'height': 760}), id='histogram-div',
+                     style={'display': 'inline-block', 'width': '75%'}),
+            html.Div(
+                [html.Div(util.generate_summary(df), id='summary-div'),
+                 html.Br(), html.Div(id='info-div')],
+                style={'width': '25%', 'margin-left': '30px'}
+            )
+        ],
+            style={
+            'display': 'flex'
+        })),
+        dcc.Tab(html.Div(util.plot_scatters(df), id="scatter-matrix-div"))])
 
 ])
 
