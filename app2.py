@@ -78,7 +78,7 @@ app.layout = html.Div([
                            figure=px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
                                                barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
                                xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count',
-                               template='plotly_dark'),
+                               template='plotly_dark', xaxis={'rangeslider': {'visible': True}}),
                            config={'displaylogo': False}, style={'height': 760}), id='histogram-div',
                  style={'display': 'inline-block', 'width': '75%'}),
         html.Div(
