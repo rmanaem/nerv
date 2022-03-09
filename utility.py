@@ -61,5 +61,5 @@ def plot_scatters(df1):
                 scatter = px.scatter(
                     df, x=i, y=j, marginal_x='histogram', marginal_y='histogram', template='plotly_dark').update_layout(xaxis={'rangeslider': {'visible': True}})
                 plots.append(dcc.Tab(dcc.Graph(figure=scatter, config={
-                             'displaylogo': False}, style={'height': 760, 'width': '100%'})))
+                             'displaylogo': False}, style={'height': 760, 'width': '100%'}), label=i+'-'+j))
     return dcc.Tabs(plots)
