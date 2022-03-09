@@ -48,13 +48,6 @@ def generate_summary(df):
         'border': '0.25px solid'})
 
 
-def plot_histogram(df):
-    fig = px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
-                       barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
-                           xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count', template='plotly_dark')
-    return fig
-
-
 def plot_scatters(df1):
     df = pd.DataFrame()
     pipelines = df1['Pipeline'].unique().tolist()
@@ -70,11 +63,3 @@ def plot_scatters(df1):
                 plots.append(dcc.Tab(dcc.Graph(figure=scatter, config={
                              'displaylogo': False}, style={'height': 760, 'width': '100%'})))
     return dcc.Tabs(plots)
-
-
-files = pull_files('./data')
-dataframes = []
-for i in files:
-    dataframes.append(process_file(i))
-
-all_data = pd.concat(dataframes)
