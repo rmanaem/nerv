@@ -63,21 +63,28 @@ app.layout = html.Div(
         # For latex
         mathjax_script,
         html.Br(),
-        dcc.Tabs(
+        dcc.Tabs
+        (
             [
-                dcc.Tab(
-                    html.Div(
+                dcc.Tab
+                (
+                    html.Div
+                    (
                         [
-                            html.Div(
-                                dcc.Graph(
+                            html.Div
+                            (
+                                dcc.Graph
+                                (
                                     id='histogram',
-                                    figure=px.histogram(
+                                    figure=px.histogram
+                                    (
                                         df[df['Result'] != -1],
                                         x='Result', color='Dataset-Pipeline',
                                         barmode='overlay',
                                         marginal='rug',
                                         hover_data=df.columns
-                                    ).update_layout(
+                                    ).update_layout
+                                    (
                                         xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
                                         yaxis_title='Count',
                                         template='plotly_dark',
@@ -94,11 +101,14 @@ app.layout = html.Div(
                                     'width': '75%'
                                 }
                             ),
-                            html.Div(
+                            html.Div
+                            (
                                 [
-                                    html.Div(
+                                    html.Div
+                                    (
                                         util.generate_summary(df),
-                                        id='summary-div'),
+                                        id='summary-div'
+                                    ),
                                     html.Br(),
                                     html.Div(id='info-div')
                                 ],
@@ -123,36 +133,33 @@ app.layout = html.Div(
                                         html.Div
                                         (
                                             [
-                                                html.Label('X: '),
                                                 dcc.Dropdown
                                                 (
                                                     id='x',
                                                     options=[{'label': k, 'value': v} for k, v in zip(
                                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                                    style={'width': '300px'},
+                                                    style={'width': '250px'},
                                                     value=df['Dataset-Pipeline'].unique().tolist()[
                                                         0]
-                                                )
-                                            ]
-                                        ),
-                                        html.Div
-                                        (
-                                            [
-                                                html.Label('Y: '),
+                                                ),
                                                 dcc.Dropdown
                                                 (
                                                     id='y',
                                                     options=[{'label': k, 'value': v} for k, v in zip(
                                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                                    style={'width': '300px'},
+                                                    style={'width': '250px'},
                                                     value=df['Dataset-Pipeline'].unique().tolist()[-1]
                                                 )
-                                            ]
-                                        )
+                                            ],
+                                            style={
+                                                'display': 'flex',
+                                                'margin-left': 'auto',
+                                                'margin-right': 'auto',
+                                                'width': '75%'
+                                            }
+                                        ),
                                     ],
-                                    style={
-                                        'display': 'flex',
-                                    }
+                                    style={'display': 'flex'}
                                 ),
                                 html.Div
                                 (
@@ -194,7 +201,6 @@ app.layout = html.Div(
                                 )
                             ],
                             id='scatter-div',
-                            style={'text-align': 'center'},
                         )
                     ]
                 )
