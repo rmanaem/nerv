@@ -77,16 +77,30 @@ app.layout = html.Div([
                                config={'displaylogo': False}, style={'height': 760}), id='histogram-div',
                      style={'display': 'inline-block', 'width': '75%'}),
             html.Div(
-                [html.Div(util.generate_summary(df), id='summary-div'),
-                 html.Br(), html.Div(id='info-div')],
+                [
+                    html.Div(util.generate_summary(df), id='summary-div'),
+                    html.Br(),
+                    html.Div(id='info-div')
+                ],
                 style={'width': '25%', 'margin-left': '30px'}
             )
         ],
             style={
             'display': 'flex'
         })),
-        dcc.Tab(html.Div(util.plot_scatters(df), id="scatter-matrix-div"))])
 
+        dcc.Tab(html.Div([
+            html.Div(
+                [
+                    html.Label('X: '),
+                    dcc.Dropdown(
+                        id='x-dropdown',
+                        options=[{'label': k, 'value': v} for k, v in zip(
+                            df['Pipeline'].unique().tolist(), df['Pipeline'].unique().tolist())],
+                    )
+                ],
+                style={'display': 'flex', 'width': '50%'})
+        ]))])
 ])
 
 
