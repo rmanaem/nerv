@@ -139,8 +139,7 @@ app.layout = html.Div(
                                                     options=[{'label': k, 'value': v} for k, v in zip(
                                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                                     style={'width': '250px'},
-                                                    value=df['Dataset-Pipeline'].unique().tolist()[
-                                                        0]
+                                                    placeholder='x'
                                                 ),
                                                 dcc.Dropdown
                                                 (
@@ -148,7 +147,7 @@ app.layout = html.Div(
                                                     options=[{'label': k, 'value': v} for k, v in zip(
                                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                                     style={'width': '250px'},
-                                                    value=df['Dataset-Pipeline'].unique().tolist()[-1]
+                                                    placeholder='y'
                                                 )
                                             ],
                                             style={
