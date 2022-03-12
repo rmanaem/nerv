@@ -1,4 +1,5 @@
 # Implementation of latex for axis label was derived from: https://github.com/yueyericardo/dash_latex
+from turtle import filling
 import dash
 from dash import dcc
 from dash import html
@@ -136,6 +137,7 @@ app.layout = html.Div([
                                      df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
                                 marginal_x='histogram',
                                 marginal_y='histogram',
+                                template='plotly_dark'
                             ).update_layout
                             (
                                 xaxis={'rangeslider': {'visible': True}},
@@ -189,6 +191,27 @@ def process_click(clickData):
         'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
         'border-radius': '7px',
         'border': '0.25px solid'})
+
+
+@app.callback(
+    Output('scatter', 'figure'),
+    Input('x', 'value'),
+    Input('y', 'value')
+)
+def plot_scatter(x, y):
+    fig = px.scatter(
+        df,
+        x=df[df['Dataset-Pipeline'] == x]['Result'],
+        y=df[df['Dataset-Pipeline'] == y]['Result'],
+        marginal_x='histogram',
+        marginal_y='histogram',
+        template='plotly_dark'
+    ).update_layout(
+        xaxis={'rangeslider': {'visible': True}},
+        xaxis_title=x,
+        yaxis_title=y
+    )
+    return fig
 
 
 if __name__ == '__main__':
