@@ -68,61 +68,67 @@ app.layout = html.Div(
             [
                 dcc.Tab
                 (
-                    html.Div
-                    (
-                        [
-                            html.Div
-                            (
-                                dcc.Graph
+                    [
+                        html.Br(),
+                        html.Br(),
+                        html.Div
+                        (
+                            [
+                                html.Div
                                 (
-                                    id='histogram',
-                                    figure=px.histogram
+                                    dcc.Graph
                                     (
-                                        df[df['Result'] != -1],
-                                        x='Result', color='Dataset-Pipeline',
-                                        barmode='overlay',
-                                        marginal='rug',
-                                        hover_data=df.columns
-                                    ).update_layout
-                                    (
-                                        xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
-                                        yaxis_title='Count',
-                                        template='plotly_dark',
-                                        xaxis={
-                                            'rangeslider': {'visible': True}
-                                        }
+                                        id='histogram',
+                                        figure=px.histogram
+                                        (
+                                            df[df['Result'] != -1],
+                                            x='Result', color='Dataset-Pipeline',
+                                            barmode='overlay',
+                                            marginal='rug',
+                                            hover_data=df.columns
+                                        ).update_layout
+                                        (
+                                            xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
+                                            yaxis_title='Count',
+                                            template='plotly_dark',
+                                            xaxis={
+                                                'rangeslider': {'visible': True}
+                                            }
+                                        ),
+                                        config={'displaylogo': False},
+                                        style={'height': 760}
                                     ),
-                                    config={'displaylogo': False},
-                                    style={'height': 760}
+                                    id='histogram-div',
+                                    style={
+                                        'display': 'inline-block',
+                                        'width': '75%'
+                                    }
                                 ),
-                                id='histogram-div',
-                                style={
-                                    'display': 'inline-block',
-                                    'width': '75%'
-                                }
-                            ),
-                            html.Div
-                            (
-                                [
-                                    html.Div
-                                    (
-                                        util.generate_summary(df),
-                                        id='summary-div'
-                                    ),
-                                    html.Br(),
-                                    html.Div(id='info-div')
-                                ],
-                                style={'width': '25%', 'margin-left': '30px'}
-                            )
-                        ],
-                        style={
-                            'display': 'flex'
-                        }
-                    )
+                                html.Div
+                                (
+                                    [
+                                        html.Div
+                                        (
+                                            util.generate_summary(df),
+                                            id='summary-div'
+                                        ),
+                                        html.Br(),
+                                        html.Div(id='info-div')
+                                    ],
+                                    style={'width': '25%',
+                                           'margin-left': '30px'}
+                                )
+                            ],
+                            style={
+                                'display': 'flex'
+                            }
+                        )
+                    ]
                 ),
                 dcc.Tab
                 (
                     [
+                        html.Br(),
                         html.Br(),
                         html.Div
                         (
@@ -199,7 +205,6 @@ app.layout = html.Div(
                                     ]
                                 )
                             ],
-                            id='scatter-div',
                         )
                     ]
                 )
