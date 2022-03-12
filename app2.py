@@ -100,7 +100,7 @@ app.layout = html.Div([
                             [
                                 html.Label('X: '),
                                 dcc.Dropdown(
-                                    id='x-dropdown',
+                                    id='x',
                                     options=[{'label': k, 'value': v} for k, v in zip(
                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                     style={'width': '300px'}
@@ -114,7 +114,7 @@ app.layout = html.Div([
                                 html.Label('Y: '),
                                 dcc.Dropdown
                                 (
-                                    id='y-dropdown',
+                                    id='y',
                                     options=[{'label': k, 'value': v} for k, v in zip(
                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                     style={'width': '300px'}
@@ -122,6 +122,25 @@ app.layout = html.Div([
                             ],
                             style={'display': 'flex', 'width': '50%'}
                         ),
+                        dcc.Graph
+                        (
+                            id='scatter',
+                            figure=px.scatter
+                            (
+                                df,
+                                x=df[df['Dataset-Pipeline'] ==
+                                     df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
+                                y=df[df['Dataset-Pipeline'] ==
+                                     df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
+                                marginal_x='histogram',
+                                marginal_y='histogram',
+                            ).update_layout
+                            (
+                                xaxis={'rangeslider': {'visible': True}}
+                            ),
+                            config={'displaylogo': False},
+                            style={'height': 760, 'width': '100%'}
+                        )
                     ],
                     id='scatter-div',
                     style={'text-align': 'center'},
@@ -134,7 +153,8 @@ app.layout = html.Div([
 
 @app.callback(
     Output('info-div', 'children'),
-    Input('histogram', 'clickData'))
+    Input('histogram', 'clickData')
+)
 def process_click(clickData):
     if not clickData:
         return dash.no_update
