@@ -56,99 +56,130 @@ axis_latex_script = dji.Import(
 mathjax_script = dji.Import(
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_SVG")
 
-app.layout = html.Div([
-    # For latex
-    axis_latex_script,
-    # For latex
-    mathjax_script,
-    html.Br(),
-    dcc.Tabs([
-        dcc.Tab(html.Div([
-            html.Div(dcc.Graph(id='histogram',
-                               figure=px.histogram(df[df['Result'] != -1], x='Result', color='Dataset-Pipeline',
-                                                   barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
-                                   xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count',
-                                   template='plotly_dark', xaxis={'rangeslider': {'visible': True}}),
-                               config={'displaylogo': False}, style={'height': 760}), id='histogram-div',
-                     style={'display': 'inline-block', 'width': '75%'}),
-            html.Div(
-                [
-                    html.Div(util.generate_summary(df), id='summary-div'),
-                    html.Br(),
-                    html.Div(id='info-div')
-                ],
-                style={'width': '25%', 'margin-left': '30px'}
-            )
-        ],
-            style={
-            'display': 'flex'
-        })),
-        dcc.Tab
-        (
+app.layout = html.Div(
+    [
+        # For latex
+        axis_latex_script,
+        # For latex
+        mathjax_script,
+        html.Br(),
+        dcc.Tabs(
             [
-                html.Br(),
-                html.Div
+                dcc.Tab(
+                    html.Div(
+                        [
+                            html.Div(
+                                dcc.Graph(
+                                    id='histogram',
+                                    figure=px.histogram(
+                                        df[df['Result'] != -1],
+                                        x='Result', color='Dataset-Pipeline',
+                                        barmode='overlay',
+                                        marginal='rug',
+                                        hover_data=df.columns
+                                    ).update_layout(
+                                        xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
+                                        yaxis_title='Count',
+                                        template='plotly_dark',
+                                        xaxis={
+                                            'rangeslider': {'visible': True}
+                                        }
+                                    ),
+                                    config={'displaylogo': False},
+                                    style={'height': 760}
+                                ),
+                                id='histogram-div',
+                                style={
+                                    'display': 'inline-block',
+                                    'width': '75%'
+                                }
+                            ),
+                            html.Div(
+                                [
+                                    html.Div(
+                                        util.generate_summary(df),
+                                        id='summary-div'),
+                                    html.Br(),
+                                    html.Div(id='info-div')
+                                ],
+                                style={'width': '25%', 'margin-left': '30px'}
+                            )
+                        ],
+                        style={
+                            'display': 'flex'
+                        }
+                    )
+                ),
+                dcc.Tab
                 (
                     [
+                        html.Br(),
                         html.Div
                         (
                             [
-                                html.Label('X: '),
-                                dcc.Dropdown(
-                                    id='x',
-                                    options=[{'label': k, 'value': v} for k, v in zip(
-                                        df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                    style={'width': '300px'},
-                                    value=df['Dataset-Pipeline'].unique().tolist()[0]
-                                )
-                            ],
-                            style={'display': 'flex', 'width': '50%'}
-                        ),
-                        html.Div
-                        (
-                            [
-                                html.Label('Y: '),
-                                dcc.Dropdown
+                                html.Div
                                 (
-                                    id='y',
-                                    options=[{'label': k, 'value': v} for k, v in zip(
-                                        df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                    style={'width': '300px'},
-                                    value=df['Dataset-Pipeline'].unique().tolist()[-1]
+                                    [
+                                        html.Label('X: '),
+                                        dcc.Dropdown(
+                                            id='x',
+                                            options=[{'label': k, 'value': v} for k, v in zip(
+                                                df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                            style={'width': '300px'},
+                                            value=df['Dataset-Pipeline'].unique().tolist()[0]
+                                        )
+                                    ],
+                                    style={'display': 'flex', 'width': '50%'}
+                                ),
+                                html.Div
+                                (
+                                    [
+                                        html.Label('Y: '),
+                                        dcc.Dropdown
+                                        (
+                                            id='y',
+                                            options=[{'label': k, 'value': v} for k, v in zip(
+                                                df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                            style={'width': '300px'},
+                                            value=df['Dataset-Pipeline'].unique().tolist()[-1]
+                                        )
+                                    ],
+                                    style={'display': 'flex', 'width': '50%'}
+                                ),
+                                dcc.Graph
+                                (
+                                    id='scatter',
+                                    figure=px.scatter
+                                    (
+                                        df,
+                                        x=df[df['Dataset-Pipeline'] ==
+                                             df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
+                                        y=df[df['Dataset-Pipeline'] ==
+                                             df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
+                                        marginal_x='histogram',
+                                        marginal_y='histogram',
+                                        template='plotly_dark'
+                                    ).update_layout
+                                    (
+                                        xaxis={'rangeslider': {
+                                            'visible': True}},
+                                        xaxis_title=df['Dataset-Pipeline'].unique().tolist()[
+                                            0],
+                                        yaxis_title=df['Dataset-Pipeline'].unique().tolist()[-1]
+                                    ),
+                                    config={'displaylogo': False},
+                                    style={'height': 760, 'width': '100%'}
                                 )
                             ],
-                            style={'display': 'flex', 'width': '50%'}
-                        ),
-                        dcc.Graph
-                        (
-                            id='scatter',
-                            figure=px.scatter
-                            (
-                                df,
-                                x=df[df['Dataset-Pipeline'] ==
-                                     df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
-                                y=df[df['Dataset-Pipeline'] ==
-                                     df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
-                                marginal_x='histogram',
-                                marginal_y='histogram',
-                                template='plotly_dark'
-                            ).update_layout
-                            (
-                                xaxis={'rangeslider': {'visible': True}},
-                                xaxis_title=df['Dataset-Pipeline'].unique().tolist()[0],
-                                yaxis_title=df['Dataset-Pipeline'].unique().tolist()[-1]
-                            ),
-                            config={'displaylogo': False},
-                            style={'height': 760, 'width': '100%'}
+                            id='scatter-div',
+                            style={'text-align': 'center'},
                         )
-                    ],
-                    id='scatter-div',
-                    style={'text-align': 'center'},
+                    ]
                 )
             ]
         )
-    ])
-])
+    ]
+)
 
 
 @app.callback(
