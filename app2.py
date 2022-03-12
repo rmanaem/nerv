@@ -61,12 +61,6 @@ app.layout = html.Div([
     axis_latex_script,
     # For latex
     mathjax_script,
-    html.H1(children='Dash',
-            style={
-                'textAlign': 'center',
-            }),
-
-    html.Br(),
     html.Br(),
     dcc.Tabs([
         dcc.Tab(html.Div([
