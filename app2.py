@@ -120,55 +120,77 @@ app.layout = html.Div(
                                 html.Div
                                 (
                                     [
-                                        html.Label('X: '),
-                                        dcc.Dropdown(
-                                            id='x',
-                                            options=[{'label': k, 'value': v} for k, v in zip(
-                                                df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                            style={'width': '300px'},
-                                            value=df['Dataset-Pipeline'].unique().tolist()[0]
+                                        html.Div
+                                        (
+                                            [
+                                                html.Label('X: '),
+                                                dcc.Dropdown
+                                                (
+                                                    id='x',
+                                                    options=[{'label': k, 'value': v} for k, v in zip(
+                                                        df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                                    style={'width': '300px'},
+                                                    value=df['Dataset-Pipeline'].unique().tolist()[
+                                                        0]
+                                                )
+                                            ]
+                                        ),
+                                        html.Div
+                                        (
+                                            [
+                                                html.Label('Y: '),
+                                                dcc.Dropdown
+                                                (
+                                                    id='y',
+                                                    options=[{'label': k, 'value': v} for k, v in zip(
+                                                        df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                                    style={'width': '300px'},
+                                                    value=df['Dataset-Pipeline'].unique().tolist()[-1]
+                                                )
+                                            ]
                                         )
                                     ],
-                                    style={'display': 'flex', 'width': '50%'}
+                                    style={
+                                        'display': 'flex',
+                                    }
                                 ),
                                 html.Div
                                 (
                                     [
-                                        html.Label('Y: '),
-                                        dcc.Dropdown
+                                        html.Div
                                         (
-                                            id='y',
-                                            options=[{'label': k, 'value': v} for k, v in zip(
-                                                df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                            style={'width': '300px'},
-                                            value=df['Dataset-Pipeline'].unique().tolist()[-1]
-                                        )
-                                    ],
-                                    style={'display': 'flex', 'width': '50%'}
-                                ),
-                                dcc.Graph
-                                (
-                                    id='scatter',
-                                    figure=px.scatter
-                                    (
-                                        df,
-                                        x=df[df['Dataset-Pipeline'] ==
-                                             df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
-                                        y=df[df['Dataset-Pipeline'] ==
-                                             df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
-                                        marginal_x='histogram',
-                                        marginal_y='histogram',
-                                        template='plotly_dark'
-                                    ).update_layout
-                                    (
-                                        xaxis={'rangeslider': {
-                                            'visible': True}},
-                                        xaxis_title=df['Dataset-Pipeline'].unique().tolist()[
-                                            0],
-                                        yaxis_title=df['Dataset-Pipeline'].unique().tolist()[-1]
-                                    ),
-                                    config={'displaylogo': False},
-                                    style={'height': 760, 'width': '100%'}
+                                            dcc.Graph
+                                            (
+                                                id='scatter',
+                                                figure=px.scatter
+                                                (
+                                                    df,
+                                                    x=df[df['Dataset-Pipeline'] ==
+                                                         df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
+                                                    y=df[df['Dataset-Pipeline'] ==
+                                                         df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
+                                                    marginal_x='histogram',
+                                                    marginal_y='histogram',
+                                                    template='plotly_dark'
+                                                ).update_layout
+                                                (
+                                                    xaxis={
+                                                        'rangeslider': {'visible': True}
+                                                    },
+                                                    xaxis_title=df['Dataset-Pipeline'].unique().tolist()[
+                                                        0],
+                                                    yaxis_title=df['Dataset-Pipeline'].unique(
+                                                    ).tolist()[-1]
+                                                ),
+                                                config={'displaylogo': False},
+                                                style={
+                                                    'height': 760,
+                                                    'width': '100%'
+                                                }
+                                            )
+                                        ),
+                                        html.Div(id='info-div-scatter')
+                                    ]
                                 )
                             ],
                             id='scatter-div',
