@@ -103,7 +103,8 @@ app.layout = html.Div([
                                     id='x',
                                     options=[{'label': k, 'value': v} for k, v in zip(
                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                    style={'width': '300px'}
+                                    style={'width': '300px'},
+                                    value=df['Dataset-Pipeline'].unique().tolist()[0]
                                 )
                             ],
                             style={'display': 'flex', 'width': '50%'}
@@ -117,7 +118,8 @@ app.layout = html.Div([
                                     id='y',
                                     options=[{'label': k, 'value': v} for k, v in zip(
                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
-                                    style={'width': '300px'}
+                                    style={'width': '300px'},
+                                    value=df['Dataset-Pipeline'].unique().tolist()[-1]
                                 )
                             ],
                             style={'display': 'flex', 'width': '50%'}
