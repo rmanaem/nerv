@@ -136,7 +136,9 @@ app.layout = html.Div([
                                 marginal_y='histogram',
                             ).update_layout
                             (
-                                xaxis={'rangeslider': {'visible': True}}
+                                xaxis={'rangeslider': {'visible': True}},
+                                xaxis_title=df['Dataset-Pipeline'].unique().tolist()[0],
+                                yaxis_title=df['Dataset-Pipeline'].unique().tolist()[-1]
                             ),
                             config={'displaylogo': False},
                             style={'height': 760, 'width': '100%'}
