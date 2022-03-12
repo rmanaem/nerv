@@ -199,6 +199,8 @@ def process_click(clickData):
     Input('y', 'value')
 )
 def plot_scatter(x, y):
+    if not x or not y:
+        return dash.no_update
     fig = px.scatter(
         df,
         x=df[df['Dataset-Pipeline'] == x]['Result'],
