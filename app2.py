@@ -88,13 +88,15 @@ app.layout = html.Div([
             style={
             'display': 'flex'
         })),
-        dcc.Tab(
+        dcc.Tab
+        (
             [
                 html.Br(),
                 html.Div
                 (
                     [
-                        html.Div(
+                        html.Div
+                        (
                             [
                                 html.Label('X: '),
                                 dcc.Dropdown(
@@ -104,11 +106,29 @@ app.layout = html.Div([
                                     style={'width': '300px'}
                                 )
                             ],
-                            style={'display': 'flex', 'width': '50%'})
+                            style={'display': 'flex', 'width': '50%'}
+                        ),
+                        html.Div
+                        (
+                            [
+                                html.Label('Y: '),
+                                dcc.Dropdown
+                                (
+                                    id='y-dropdown',
+                                    options=[{'label': k, 'value': v} for k, v in zip(
+                                        df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                    style={'width': '300px'}
+                                )
+                            ],
+                            style={'display': 'flex', 'width': '50%'}
+                        ),
                     ],
-                    style={'text-align': 'center'}
+                    id='scatter-div',
+                    style={'text-align': 'center'},
                 )
-            ])])
+            ]
+        )
+    ])
 ])
 
 
