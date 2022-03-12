@@ -9,22 +9,22 @@ import plotly.express as px
 def pull_files(path):
     files = []
     for i in os.listdir(path):
-        files.append(path + '/' + i)
+        files.append((path + '/' + i, i[:len(i)-5]))
     return files
 
 
 def process_file(file):
     data = None
-    with open(file, 'r') as file:
-        data = json.load(file)
+    with open(file[0], 'r') as dataset:
+        data = json.load(dataset)
     x = []
     for k in data.keys():
         for v in data[k].keys():
             x.append((k, v, data[k][v]['Result']['result'], data[k][v]))
     x = [(i[0], i[1], -1, i[3]) if i[2] ==
          None else (i[0], i[1], float(i[2]), i[3]) for i in x]
-    df = pd.DataFrame({'Subject': [i[0] for i in x], 'Pipeline': [
-                      i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x]})
+    df = pd.DataFrame({'Subject': [i[0] for i in x], 'Dataset-Pipeline': [
+                      file[1]+'-'+i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x]})
     return df
 
 
@@ -34,9 +34,9 @@ def generate_summary(df):
     header = html.H4('Summary', style={'textAlign': 'center'})
     summary = [header, "Total number of datapoints: " + total, html.Br(), "Total number of missing datapoints: "
                + miss, html.Br()]
-    pipelines = df['Pipeline'].unique().tolist()
+    pipelines = df['Dataset-Pipeline'].unique().tolist()
     for p in pipelines:
-        s = p + ': ' + str(df[(df['Pipeline'] == p) &
+        s = p + ': ' + str(df[(df['Dataset-Pipeline'] == p) &
                               (df['Result'] == -1)].shape[0])
         summary.append(s)
         summary.append(html.Br())
