@@ -70,7 +70,7 @@ app.layout = html.Div([
     dcc.Tabs([
         dcc.Tab(html.Div([
             html.Div(dcc.Graph(id='histogram',
-                               figure=px.histogram(df[df['Result'] != -1], x='Result', color='Pipeline',
+                               figure=px.histogram(df[df['Result'] != -1], x='Result', color='Dataset-Pipeline',
                                                    barmode='overlay', marginal='rug', hover_data=df.columns).update_layout(
                                    xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$', yaxis_title='Count',
                                    template='plotly_dark', xaxis={'rangeslider': {'visible': True}}),
@@ -100,7 +100,7 @@ app.layout = html.Div([
                                 dcc.Dropdown(
                                     id='x-dropdown',
                                     options=[{'label': k, 'value': v} for k, v in zip(
-                                        df['Pipeline'].unique().tolist(), df['Pipeline'].unique().tolist())],
+                                        df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                     style={'width': '300px'}
                                 )
                             ],
