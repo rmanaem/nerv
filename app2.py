@@ -273,5 +273,15 @@ def plot_scatter(x, y):
     return fig
 
 
+@app.callback(
+    Output('info-div-scatter', 'children'),
+    Input('scatter', 'clickData')
+)
+def process_click_scatter(clickData):
+    if not clickData:
+        return dash.no_update
+    pass
+
+
 if __name__ == '__main__':
     app.run_server(port=port, debug=True)
