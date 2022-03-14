@@ -145,6 +145,8 @@ app.layout = html.Div(
                                                     options=[{'label': k, 'value': v} for k, v in zip(
                                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                                     style={'width': '250px'},
+                                                    value=df['Dataset-Pipeline'].unique().tolist()[
+                                                        0],
                                                     placeholder='x'
                                                 ),
                                                 dcc.Dropdown
@@ -153,6 +155,7 @@ app.layout = html.Div(
                                                     options=[{'label': k, 'value': v} for k, v in zip(
                                                         df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                                     style={'width': '250px'},
+                                                    value=df['Dataset-Pipeline'].unique().tolist()[-1],
                                                     placeholder='y'
                                                 )
                                             ],
@@ -275,12 +278,22 @@ def plot_scatter(x, y):
 
 @app.callback(
     Output('info-div-scatter', 'children'),
-    Input('scatter', 'clickData')
+    Input('scatter', 'clickData'),
+    Input('x', 'value'),
+    Input('y', 'value'),
 )
-def process_click_scatter(clickData):
+def process_click_scatter(clickData, x, y):
     if not clickData:
         return dash.no_update
-    pass
+
+    x_subject = "Subject: " + df[(df['Dataset-Pipeline'] == x) & (
+        df['Result'] == clickData['points'][0]['x'])]['Subject'].to_string(index=False)
+    x_pipeline = "Pipeline: " + x
+    x_result = "Result: N/A" if clickData['points'][0]['x'] == - \
+        1 else "Result: " + str(clickData['points'][0]['x'])
+    header = html.H4('Information', style={'textAlign': 'center'})
+    x_info = [header, x_subject, html.Br(), x_pipeline, html.Br(),
+              x_result, html.Br()]
 
 
 if __name__ == '__main__':
