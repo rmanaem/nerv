@@ -286,14 +286,30 @@ def process_click_scatter(clickData, x, y):
     if not clickData:
         return dash.no_update
 
+    header = html.H4('Information', style={'textAlign': 'center'})
     x_subject = "Subject: " + df[(df['Dataset-Pipeline'] == x) & (
-        df['Result'] == clickData['points'][0]['x'])]['Subject'].to_string(index=False)
+        df['Result'] == clickData['points'][0]['x'])]['Subject'].iloc[0]
     x_pipeline = "Pipeline: " + x
     x_result = "Result: N/A" if clickData['points'][0]['x'] == - \
         1 else "Result: " + str(clickData['points'][0]['x'])
-    header = html.H4('Information', style={'textAlign': 'center'})
-    x_info = [header, x_subject, html.Br(), x_pipeline, html.Br(),
-              x_result, html.Br()]
+    info = [header, x_subject, html.Br(), x_pipeline, html.Br(),
+            x_result, html.Br()]
+    x_info = df[(df['Dataset-Pipeline'] == x) & (df['Result'] ==
+                                                 clickData['points'][0]['x'])]['Info'].iloc[0]
+    for k, v in list(x_info.items())[:-1]:
+        status = "Incomplete" if v['status'] == None else v['status']
+        inp = "N/A" if v['inputID'] == None else html.A(str(
+            v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']))
+        out = "N/A" if v['outputID'] == None else html.A(str(
+            v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']))
+        task = "N/A" if v['taskID'] == None else html.A(str(
+            v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
+        config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
+        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: ", inp,
+                                      html.Br(), "Output ID: ", out, html.Br(), "Task ID: ", task, html.Br(), "Tool Configuration ID: " + config])
+        info.append(step)
+
+    return info
 
 
 if __name__ == '__main__':
