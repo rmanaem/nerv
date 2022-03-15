@@ -219,7 +219,12 @@ app.layout = html.Div(
                         )
                     ]
                 )
-            ]
+            ],
+            colors={
+                'border': '#343a40',
+                'primary': '#343a40',
+                'background': '#f8f9fa'
+            }
         )
     ]
 )
