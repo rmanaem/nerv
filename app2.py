@@ -99,7 +99,7 @@ app.layout = html.Div(
                                             }
                                         ),
                                         config={'displaylogo': False},
-                                        style={'height': 760}
+                                        style={'height': 855}
                                     ),
                                     id='histogram-div',
                                     style={
