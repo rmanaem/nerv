@@ -241,16 +241,33 @@ def process_click(clickData):
         task = "N/A" if v['taskID'] == None else html.A(str(
             v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
         config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
-        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: ", inp,
-                                      html.Br(), "Output ID: ", out, html.Br(), "Task ID: ", task, html.Br(), "Tool Configuration ID: " + config])
+        step = html.Details(
+            [
+                html.Summary(k),
+                "Status: " + status,
+                html.Br(),
+                "Input ID: ", inp,
+                html.Br(),
+                "Output ID: ", out,
+                html.Br(),
+                "Task ID: ", task,
+                html.Br(),
+                "Tool Configuration ID: " + config
+            ]
+        )
         info.append(step)
 
-    return html.Div(html.P(info, style={'margin-left': '10px'}),
-                    style={
-        'width': '90%',
-        'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
-        'border-radius': '7px',
-        'border': '0.25px solid'})
+    return html.Div(
+        html.P(
+            info,
+            style={'margin-left': '10px'}),
+        style={
+            'width': '90%',
+            'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
+            'border-radius': '7px',
+            'border': '0.25px solid'
+        }
+    )
 
 
 @app.callback(
