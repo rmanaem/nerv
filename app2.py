@@ -309,6 +309,15 @@ def process_click_scatter(clickData, x, y):
                                       html.Br(), "Output ID: ", out, html.Br(), "Task ID: ", task, html.Br(), "Tool Configuration ID: " + config])
         info.append(step)
 
+    y_subject = "Subject: " + df[(df['Dataset-Pipeline'] == y) & (
+        df['Result'] == clickData['points'][0]['y'])]['Subject'].iloc[0]
+    y_pipeline = "Pipeline: " + y
+    y_result = "Result: N/A" if clickData['points'][0]['y'] == - \
+        1 else "Result: " + str(clickData['points'][0]['y'])
+
+    info += [html.Br(), y_subject, html.Br(), y_pipeline, html.Br(),
+             y_result, html.Br()]
+
     return info
 
 
