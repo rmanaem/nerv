@@ -314,9 +314,22 @@ def process_click_scatter(clickData, x, y):
     y_pipeline = "Pipeline: " + y
     y_result = "Result: N/A" if clickData['points'][0]['y'] == - \
         1 else "Result: " + str(clickData['points'][0]['y'])
-
     info += [html.Br(), y_subject, html.Br(), y_pipeline, html.Br(),
              y_result, html.Br()]
+    y_info = df[(df['Dataset-Pipeline'] == y) & (df['Result'] ==
+                                                 clickData['points'][0]['y'])]['Info'].iloc[0]
+    for k, v in list(y_info.items())[:-1]:
+        status = "Incomplete" if v['status'] == None else v['status']
+        inp = "N/A" if v['inputID'] == None else html.A(str(
+            v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']))
+        out = "N/A" if v['outputID'] == None else html.A(str(
+            v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']))
+        task = "N/A" if v['taskID'] == None else html.A(str(
+            v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
+        config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
+        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: ", inp,
+                                      html.Br(), "Output ID: ", out, html.Br(), "Task ID: ", task, html.Br(), "Tool Configuration ID: " + config])
+        info.append(step)
 
     return info
 
