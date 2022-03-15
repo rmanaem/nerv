@@ -16,8 +16,8 @@ port = 7777
 
 files = util.pull_files('./data')
 dfs = []
-for i in files:
-    dfs.append(util.process_file(i))
+for i, j in enumerate(files):
+    dfs.append(util.process_file(j, i))
 df = pd.concat(dfs)
 
 
@@ -82,7 +82,10 @@ app.layout = html.Div(
                                         figure=px.histogram
                                         (
                                             df[df['Result'] != -1],
-                                            x='Result', color='Dataset-Pipeline',
+                                            x='Result',
+                                            color='Dataset-Pipeline',
+                                            color_discrete_map={k: v for k, v in zip(
+                                                df['Dataset-Pipeline'].unique().tolist(), df['Color'].unique().tolist())},
                                             barmode='overlay',
                                             marginal='rug',
                                             hover_data=df.columns

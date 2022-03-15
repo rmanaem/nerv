@@ -5,6 +5,9 @@ from dash import dcc
 from dash import html
 import plotly.express as px
 
+colors = [px.colors.sequential.Teal, px.colors.sequential.Brwnyl,
+          px.colors.sequential.Burg, px.colors.sequential.Purp]
+
 
 def pull_files(path):
     files = []
@@ -13,18 +16,21 @@ def pull_files(path):
     return files
 
 
-def process_file(file):
+def process_file(file, color):
     data = None
     with open(file[0], 'r') as dataset:
         data = json.load(dataset)
     x = []
     for k in data.keys():
+        z = len(colors[color]) - 1
         for v in data[k].keys():
-            x.append((k, v, data[k][v]['Result']['result'], data[k][v]))
-    x = [(i[0], i[1], -1, i[3]) if i[2] ==
-         None else (i[0], i[1], float(i[2]), i[3]) for i in x]
+            x.append((k, v, data[k][v]['Result']['result'],
+                     data[k][v], colors[color][z]))
+            z -= 1
+    x = [(i[0], i[1], -1, i[3], i[4]) if i[2] ==
+         None else (i[0], i[1], float(i[2]), i[3], i[4]) for i in x]
     df = pd.DataFrame({'Subject': [i[0] for i in x], 'Dataset-Pipeline': [
-                      file[1]+'-'+i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x]})
+                      file[1]+'-'+i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x], 'Color': [i[4] for i in x]})
     return df
 
 
