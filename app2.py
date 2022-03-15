@@ -372,7 +372,17 @@ def process_click_scatter(clickData, x, y):
         )
         info.append(step)
 
-    return info
+    return html.Div(
+        html.P(
+            info,
+            style={'margin-left': '10px'}),
+        style={
+            'width': '90%',
+            'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
+            'border-radius': '7px',
+            'border': '0.25px solid'
+        }
+    )
 
 
 if __name__ == '__main__':
