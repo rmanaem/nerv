@@ -52,20 +52,3 @@ def generate_summary(df):
         'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
         'border-radius': '7px',
         'border': '0.25px solid'})
-
-
-def plot_scatters(df1):
-    df = pd.DataFrame()
-    pipelines = df1['Pipeline'].unique().tolist()
-    df['Subject'] = df1['Subject'].unique()
-    for i in pipelines:
-        df[i] = df1[df1['Pipeline'] == i]['Result'].reset_index(drop=True)
-    plots = []
-    for i in pipelines:
-        for j in pipelines:
-            if i != j:
-                scatter = px.scatter(
-                    df, x=i, y=j, marginal_x='histogram', marginal_y='histogram', template='plotly_dark').update_layout(xaxis={'rangeslider': {'visible': True}})
-                plots.append(dcc.Tab(dcc.Graph(figure=scatter, config={
-                             'displaylogo': False}, style={'height': 760, 'width': '100%'}), label=i+'-'+j))
-    return dcc.Tabs(plots)
