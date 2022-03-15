@@ -322,8 +322,20 @@ def process_click_scatter(clickData, x, y):
         task = "N/A" if v['taskID'] == None else html.A(str(
             v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
         config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
-        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: ", inp,
-                                      html.Br(), "Output ID: ", out, html.Br(), "Task ID: ", task, html.Br(), "Tool Configuration ID: " + config])
+        step = html.Details(
+            [
+                html.Summary(k),
+                "Status: " + status,
+                html.Br(),
+                "Input ID: ", inp,
+                html.Br(),
+                "Output ID: ", out,
+                html.Br(),
+                "Task ID: ", task,
+                html.Br(),
+                "Tool Configuration ID: " + config
+            ]
+        )
         info.append(step)
 
     y_subject = "Subject: " + df[(df['Dataset-Pipeline'] == y) & (
@@ -344,8 +356,20 @@ def process_click_scatter(clickData, x, y):
         task = "N/A" if v['taskID'] == None else html.A(str(
             v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
         config = "N/A" if v['toolConfigID'] == None else str(v['toolConfigID'])
-        step = html.Details(children=[html.Summary(k), "Status: " + status, html.Br(), "Input ID: ", inp,
-                                      html.Br(), "Output ID: ", out, html.Br(), "Task ID: ", task, html.Br(), "Tool Configuration ID: " + config])
+        step = html.Details(
+            [
+                html.Summary(k),
+                "Status: " + status,
+                html.Br(),
+                "Input ID: ", inp,
+                html.Br(),
+                "Output ID: ", out,
+                html.Br(),
+                "Task ID: ", task,
+                html.Br(),
+                "Tool Configuration ID: " + config
+            ]
+        )
         info.append(step)
 
     return info
