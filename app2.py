@@ -163,15 +163,9 @@ app.layout = html.Div(
                                                 'display': 'flex',
                                                 'margin-left': 'auto',
                                                 'margin-right': 'auto',
-                                                'width': '75%'
+                                                'width': '50%'
                                             }
                                         ),
-                                    ],
-                                    style={'display': 'flex'}
-                                ),
-                                html.Div
-                                (
-                                    [
                                         html.Div
                                         (
                                             dcc.Graph
@@ -197,17 +191,27 @@ app.layout = html.Div(
                                                     yaxis_title=df['Dataset-Pipeline'].unique(
                                                     ).tolist()[-1]
                                                 ),
-                                                config={'displaylogo': False},
-                                                style={
-                                                    'height': 760,
-                                                    'width': '100%'
-                                                }
-                                            )
-                                        ),
-                                        html.Div(id='info-div-scatter')
-                                    ]
+                                                config={
+                                                    'displaylogo': False},
+                                                style={'height': 819}
+                                            ),
+                                        )
+                                    ],
+                                    style={
+                                        'display': 'inline-block',
+                                        'width': '75%'
+                                    }
+                                ),
+                                html.Div
+                                (
+                                    id='info-div-scatter',
+                                    style={
+                                        'width': '25%',
+                                        'margin-left': '30px'
+                                    }
                                 )
                             ],
+                            style={'display': 'flex'}
                         )
                     ]
                 )
