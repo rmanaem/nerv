@@ -183,7 +183,8 @@ app.layout = html.Div(
                                                          df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
                                                     marginal_x='histogram',
                                                     marginal_y='histogram',
-                                                    template='plotly_dark'
+                                                    template='plotly_dark',
+                                                    color_discrete_sequence=px.colors.qualitative.G10[::-1]
                                                 ).update_layout
                                                 (
                                                     xaxis={
@@ -292,7 +293,8 @@ def plot_scatter(x, y):
         y=df[df['Dataset-Pipeline'] == y]['Result'],
         marginal_x='histogram',
         marginal_y='histogram',
-        template='plotly_dark'
+        template='plotly_dark',
+        color_discrete_sequence=px.colors.qualitative.G10[::-1]
     ).update_layout(
         xaxis={'rangeslider': {'visible': True}},
         xaxis_title=x,
