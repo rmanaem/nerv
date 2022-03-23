@@ -13,7 +13,6 @@ from __init__ import ROOT_DIR
 import dash_defer_js_import as dji
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
-port = 7777
 
 files = util.pull_files(os.path.join(ROOT_DIR, 'data'))
 dfs = []
@@ -404,4 +403,4 @@ def process_click_scatter(clickData, x, y):
 
 
 if __name__ == '__main__':
-    app.run_server(port=port)
+    app.run_server()
