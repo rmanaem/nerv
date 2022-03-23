@@ -1,5 +1,5 @@
 # Implementation of latex for axis label was derived from: https://github.com/yueyericardo/dash_latex
-from turtle import filling
+import os
 import dash
 from dash import dcc
 from dash import html
@@ -8,13 +8,14 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import dash_bootstrap_components as dbc
 import utility as util
+from __init__ import ROOT_DIR
 # For latex
 import dash_defer_js_import as dji
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
 port = 7777
 
-files = util.pull_files('./data')
+files = util.pull_files(os.path.join(ROOT_DIR, 'data'))
 dfs = []
 for i, j in enumerate(files):
     dfs.append(util.process_file(j, i))
@@ -403,4 +404,4 @@ def process_click_scatter(clickData, x, y):
 
 
 if __name__ == '__main__':
-    app.run_server(port=port, debug=True)
+    app.run_server(port=port)
