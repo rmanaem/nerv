@@ -6,8 +6,6 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import dash_bootstrap_components as dbc
 from nerv import utility as util
-# For latex
-import dash_defer_js_import as dji
 
 
 def main(path):
@@ -18,47 +16,8 @@ def main(path):
     df = pd.concat(dfs)
 
     app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
-    # For latex
-    app.index_string = '''
-    <!DOCTYPE html>
-    <html>
-        <head>
-            {%metas%}
-            <title>{%title%}</title>
-            {%favicon%}
-            {%css%}
-        </head>
-        <body>
-            {%app_entry%}
-            <footer>
-                {%config%}
-                {%scripts%}
-                <script type="text/x-mathjax-config">
-                MathJax.Hub.Config({
-                    tex2jax: {
-                    inlineMath: [ ['$','$'],],
-                    processEscapes: true
-                    }
-                });
-                </script>
-                {%renderer%}
-            </footer>
-        </body>
-    </html>
-    '''
-
-    # For latex
-    axis_latex_script = dji.Import(
-        src="https://cdn.jsdelivr.net/gh/yueyericardo/simuc@master/apps/dash/resources/redraw.js")
-    mathjax_script = dji.Import(
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_SVG")
-
     app.layout = html.Div(
         [
-            # For latex
-            axis_latex_script,
-            # For latex
-            mathjax_script,
             html.Br(),
             dcc.Tabs
             (
@@ -96,7 +55,8 @@ def main(path):
                                                 }
                                             ),
                                             config={'displaylogo': False},
-                                            style={'height': 855}
+                                            style={'height': 855},
+                                            mathjax=True
                                         ),
                                         id='histogram-div',
                                         style={
