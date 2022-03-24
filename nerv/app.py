@@ -8,7 +8,7 @@ import dash_bootstrap_components as dbc
 from nerv import utility as util
 
 
-def main(path):
+def start(path):
     files = util.pull_files(path)
     dfs = []
     for i, j in enumerate(files):
