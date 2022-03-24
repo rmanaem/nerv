@@ -16,6 +16,7 @@ def main(path):
     df = pd.concat(dfs)
 
     app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
+    app.title = 'NeRV'
     app.layout = html.Div(
         [
             html.Br(),
