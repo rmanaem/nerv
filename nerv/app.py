@@ -5,7 +5,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import pandas as pd
 import dash_bootstrap_components as dbc
-from nerdvisa import utility as util
+from nerv import utility as util
 # For latex
 import dash_defer_js_import as dji
 
