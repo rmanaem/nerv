@@ -8,7 +8,7 @@ import dash_bootstrap_components as dbc
 from nerv import utility as util
 
 
-def start(path):
+def start(path, local=True):
     files = util.pull_files(path)
     dfs = []
     for i, j in enumerate(files):
@@ -364,5 +364,7 @@ def start(path):
                 'border': '0.25px solid'
             }
         )
-
-    app.run_server()
+    if local:
+        app.run_server()
+    else:
+        return app.server
