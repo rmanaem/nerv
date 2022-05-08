@@ -84,7 +84,8 @@ def start(path):
                                     'display': 'flex'
                                 }
                             )
-                        ]
+                        ],
+                        label='Distribution Plot'
                     ),
                     dcc.Tab
                     (
@@ -178,7 +179,8 @@ def start(path):
                                 ],
                                 style={'display': 'flex'}
                             )
-                        ]
+                        ],
+                        label='Joint Plot'
                     )
                 ],
                 colors={
