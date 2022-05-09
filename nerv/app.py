@@ -52,7 +52,8 @@ def start(path, local=True):
                                                 yaxis_title='Count',
                                                 template='plotly_dark',
                                                 xaxis={
-                                                    'rangeslider': {'visible': True}
+                                                    'rangeslider': {'visible': True},
+                                                    'range': [0, df['Result'].max() + 1000]
                                                 }
                                             ),
                                             config={'displaylogo': False},
@@ -76,8 +77,10 @@ def start(path, local=True):
                                             html.Br(),
                                             html.Div(id='info-div')
                                         ],
-                                        style={'width': '25%',
-                                               'margin-left': '30px'}
+                                        style={
+                                            'width': '25%',
+                                            'margin-left': '30px'
+                                        }
                                     )
                                 ],
                                 style={
