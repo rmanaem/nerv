@@ -55,6 +55,12 @@ def start(path, local=True):
                                                     'rangeslider': {'visible': True},
                                                     'range': [0, df['Result'].max() + 1000]
                                                 }
+                                            ).update_xaxes
+                                            (
+                                                ticks='outside',
+                                                tickwidth=2,
+                                                tickcolor='white',
+                                                ticklen=10
                                             ),
                                             config={'displaylogo': False},
                                             style={'height': 855},
