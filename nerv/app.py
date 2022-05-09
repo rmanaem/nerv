@@ -5,6 +5,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import pandas as pd
 import dash_bootstrap_components as dbc
+from dash_bootstrap_templates import ThemeSwitchAIO
 from nerv import utility as util
 
 
@@ -15,11 +16,23 @@ def start(path, local=True):
         dfs.append(util.process_file(j, i))
     df = pd.concat(dfs)
 
-    app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
+    dbc_css = (
+        "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css"
+    )
+    template1 = "plotly_dark"
+    template2 = "simple_white"
+    theme1 = dbc.themes.DARKLY
+    theme2 = dbc.themes.FLATLY
+    app = dash.Dash(__name__, external_stylesheets=[theme1, dbc_css])
     app.title = 'NeRV'
     app.layout = html.Div(
         [
-            html.Br(),
+            ThemeSwitchAIO
+            (
+                aio_id="theme",
+                themes=[theme1, theme2],
+                icons={"left": "fa fa-sun", "right": "fa fa-moon"},
+            ),
             dcc.Tabs
             (
                 [
@@ -50,7 +63,7 @@ def start(path, local=True):
                                             (
                                                 xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
                                                 yaxis_title='Count',
-                                                template='plotly_dark',
+                                                template=template1,
                                                 xaxis={
                                                     'rangeslider': {'visible': True},
                                                     'range': [0, df['Result'].max() + 1000]
@@ -116,7 +129,9 @@ def start(path, local=True):
                                                         options=[{'label': k, 'value': v} for k, v in zip(
                                                             df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                                         style={
-                                                            'width': '250px'},
+                                                            'width': '250px',
+                                                            'color': '#222'
+                                                        },
                                                         value=df['Dataset-Pipeline'].unique().tolist()[
                                                             0],
                                                         placeholder='x'
@@ -127,7 +142,9 @@ def start(path, local=True):
                                                         options=[{'label': k, 'value': v} for k, v in zip(
                                                             df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
                                                         style={
-                                                            'width': '250px'},
+                                                            'width': '250px',
+                                                            'color': '#222'
+                                                        },
                                                         value=df['Dataset-Pipeline'].unique(
                                                         ).tolist()[-1],
                                                         placeholder='y'
@@ -154,7 +171,7 @@ def start(path, local=True):
                                                              df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
                                                         marginal_x='histogram',
                                                         marginal_y='histogram',
-                                                        template='plotly_dark',
+                                                        template=template1,
                                                         color_discrete_sequence=px.colors.qualitative.G10[::-1]
                                                     ).update_layout
                                                     (
@@ -193,13 +210,72 @@ def start(path, local=True):
                     )
                 ],
                 colors={
-                    'border': '#343a40',
-                    'primary': '#343a40',
+                    'border': '#222',
+                    'primary': '#222',
                     'background': '#f8f9fa'
+                },
+                style={
+                    'color': '#222'
                 }
             )
         ]
     )
+
+    @app.callback(
+        Output('histogram', 'figure'),
+        Input(ThemeSwitchAIO.ids.switch('theme'), 'value')
+    )
+    def dark_mode_histogram(value):
+        template = template1 if value else template2
+        if value:
+            return px.histogram(
+                df[df['Result'] != -1],
+                x='Result',
+                color='Dataset-Pipeline',
+                color_discrete_map={k: v for k, v in zip(
+                    df['Dataset-Pipeline'].unique().tolist(), df['Color'].unique().tolist())},
+                barmode='overlay',
+                marginal='rug',
+                hover_data=df.columns
+            ).update_layout(
+                xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
+                yaxis_title='Count',
+                template=template,
+                xaxis={
+                    'rangeslider': {'visible': True},
+                    'range': [-1000, df['Result'].max() + 1000]
+                }
+            ).update_xaxes(
+                ticks='outside',
+                tickwidth=2,
+                tickcolor='#f8f9fa',
+                ticklen=10
+            )
+
+        else:
+            return px.histogram(
+                df[df['Result'] != -1],
+                x='Result',
+                color='Dataset-Pipeline',
+                color_discrete_map={k: v for k, v in zip(
+                    df['Dataset-Pipeline'].unique().tolist(), df['Color'].unique().tolist())},
+                barmode='overlay',
+                marginal='rug',
+                hover_data=df.columns
+            ).update_layout(
+                xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
+                yaxis_title='Count',
+                template=template,
+                xaxis={
+                    'rangeslider': {'visible': True},
+                    'range': [0, df['Result'].max() + 1000]
+                }
+            ).update_xaxes(
+                ticks='outside',
+                tickwidth=2,
+                tickcolor='#343a40',
+                ticklen=10
+            )
 
     @app.callback(
         Output('info-div', 'children'),
@@ -220,11 +296,11 @@ def start(path, local=True):
         for k, v in list(clickData['points'][0]['customdata'][2].items())[:-1]:
             status = "Incomplete" if v['status'] == None else v['status']
             inp = "N/A" if v['inputID'] == None else html.A(str(
-                v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']))
+                v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']), style={'color': '#4673a3'})
             out = "N/A" if v['outputID'] == None else html.A(str(
-                v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']))
+                v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']), style={'color': '#4673a3'})
             task = "N/A" if v['taskID'] == None else html.A(str(
-                v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
+                v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']), style={'color': '#4673a3'})
             config = "N/A" if v['toolConfigID'] == None else str(
                 v['toolConfigID'])
             step = html.Details(
@@ -259,25 +335,81 @@ def start(path, local=True):
     @app.callback(
         Output('scatter', 'figure'),
         Input('x', 'value'),
-        Input('y', 'value')
+        Input('y', 'value'),
+        Input(ThemeSwitchAIO.ids.switch('theme'), 'value')
     )
-    def plot_scatter(x, y):
+    def plot_scatter(x, y, value):
+        template = template1 if value else template2
         if not x or not y:
-            return dash.no_update
-        fig = px.scatter(
-            df,
-            x=df[df['Dataset-Pipeline'] == x]['Result'],
-            y=df[df['Dataset-Pipeline'] == y]['Result'],
-            marginal_x='histogram',
-            marginal_y='histogram',
-            template='plotly_dark',
-            color_discrete_sequence=px.colors.qualitative.G10[::-1]
-        ).update_layout(
-            xaxis={'rangeslider': {'visible': True}},
-            xaxis_title=x,
-            yaxis_title=y
-        )
-        return fig
+            if value:
+                return px.scatter(
+                    df,
+                    x=df[df['Dataset-Pipeline'] ==
+                         df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
+                    y=df[df['Dataset-Pipeline'] ==
+                         df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
+                    marginal_x='histogram',
+                    marginal_y='histogram',
+                    template=template,
+                    color_discrete_sequence=px.colors.qualitative.G10[::-1]
+                ).update_layout(
+                    xaxis={
+                        'rangeslider': {'visible': True}
+                    },
+                    xaxis_title=df['Dataset-Pipeline'].unique().tolist()[
+                        0],
+                    yaxis_title=df['Dataset-Pipeline'].unique(
+                    ).tolist()[-1]
+                )
+            else:
+                return px.scatter(
+                    df,
+                    x=df[df['Dataset-Pipeline'] ==
+                         df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
+                    y=df[df['Dataset-Pipeline'] ==
+                         df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
+                    marginal_x='histogram',
+                    marginal_y='histogram',
+                    template=template,
+                    color_discrete_sequence=px.colors.qualitative.G10[::-1]
+                ).update_layout(
+                    xaxis={
+                        'rangeslider': {'visible': True}
+                    },
+                    xaxis_title=df['Dataset-Pipeline'].unique().tolist()[
+                        0],
+                    yaxis_title=df['Dataset-Pipeline'].unique(
+                    ).tolist()[-1]
+                )
+        else:
+            if value:
+                return px.scatter(
+                    df,
+                    x=df[df['Dataset-Pipeline'] == x]['Result'],
+                    y=df[df['Dataset-Pipeline'] == y]['Result'],
+                    marginal_x='histogram',
+                    marginal_y='histogram',
+                    template=template,
+                    color_discrete_sequence=px.colors.qualitative.G10[::-1]
+                ).update_layout(
+                    xaxis={'rangeslider': {'visible': True}},
+                    xaxis_title=x,
+                    yaxis_title=y
+                )
+            else:
+                return px.scatter(
+                    df,
+                    x=df[df['Dataset-Pipeline'] == x]['Result'],
+                    y=df[df['Dataset-Pipeline'] == y]['Result'],
+                    marginal_x='histogram',
+                    marginal_y='histogram',
+                    template=template,
+                    color_discrete_sequence=px.colors.qualitative.G10[::-1]
+                ).update_layout(
+                    xaxis={'rangeslider': {'visible': True}},
+                    xaxis_title=x,
+                    yaxis_title=y
+                )
 
     @app.callback(
         Output('info-div-scatter', 'children'),
@@ -302,11 +434,11 @@ def start(path, local=True):
         for k, v in list(x_info.items())[:-1]:
             status = "Incomplete" if v['status'] == None else v['status']
             inp = "N/A" if v['inputID'] == None else html.A(str(
-                v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']))
+                v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']), style={'color': '#4673a3'})
             out = "N/A" if v['outputID'] == None else html.A(str(
-                v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']))
+                v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']), style={'color': '#4673a3'})
             task = "N/A" if v['taskID'] == None else html.A(str(
-                v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
+                v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']), style={'color': '#4673a3'})
             config = "N/A" if v['toolConfigID'] == None else str(
                 v['toolConfigID'])
             step = html.Details(
@@ -337,11 +469,11 @@ def start(path, local=True):
         for k, v in list(y_info.items())[:-1]:
             status = "Incomplete" if v['status'] == None else v['status']
             inp = "N/A" if v['inputID'] == None else html.A(str(
-                v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']))
+                v['inputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['inputID']), style={'color': '#4673a3'})
             out = "N/A" if v['outputID'] == None else html.A(str(
-                v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']))
+                v['outputID']), href='https://portal.cbrain.mcgill.ca/userfiles/' + str(v['outputID']), style={'color': '#4673a3'})
             task = "N/A" if v['taskID'] == None else html.A(str(
-                v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']))
+                v['taskID']), href='https://portal.cbrain.mcgill.ca/tasks/inser_ID_here' + str(v['taskID']), style={'color': '#4673a3'})
             config = "N/A" if v['toolConfigID'] == None else str(
                 v['toolConfigID'])
             step = html.Details(
@@ -370,7 +502,7 @@ def start(path, local=True):
                 'width': '90%',
                 'box-shadow': 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
                 'border-radius': '7px',
-                'border': '0.25px solid'
+                'border': '0.25px solid',
             }
         )
     if local:
