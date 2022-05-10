@@ -14,7 +14,7 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as file:
 with open('requirements.txt', 'r') as file:
     install_requires = file.read().split('\n')
 
-VERSION = '0.0.1'
+VERSION = '1.0.0'
 DESCRIPTION = 'Neuroimaging Results Visualization'
 LONG_DESCRIPTION = long_description
 
@@ -32,7 +32,7 @@ setup(
     license="MIT",
     keywords=['python', 'dash', 'pandas', 'data visualization'],
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         "Operating System :: Unix",
