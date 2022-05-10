@@ -76,7 +76,7 @@ def start(path, local=True):
                                                 ticklen=10
                                             ),
                                             config={'displaylogo': False},
-                                            style={'height': 855},
+                                            style={'height': 800},
                                             mathjax=True
                                         ),
                                         id='histogram-div',
