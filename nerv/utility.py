@@ -4,7 +4,7 @@ import pandas as pd
 from dash import html
 import plotly.express as px
 
-colors = [px.colors.sequential.Teal, px.colors.sequential.Brwnyl,
+colors = [px.colors.qualitative.G10, px.colors.sequential.Teal, px.colors.sequential.Brwnyl,
           px.colors.sequential.Burg, px.colors.sequential.Purp]
 
 
