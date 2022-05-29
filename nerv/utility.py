@@ -1,3 +1,4 @@
+from importlib.resources import path
 import os
 import json
 import pandas as pd
@@ -31,6 +32,17 @@ def process_file(file, color):
     df = pd.DataFrame({'Subject': [i[0] for i in x], 'Dataset-Pipeline': [
                       file[1]+'-'+i[1] for i in x], 'Result': [i[2] for i in x], 'Info': [i[3] for i in x], 'Color': [i[4] for i in x]})
     return df
+
+
+def pull_directories(path):
+    files = []
+    for directory in os.listdir(path):
+        files.append((directory, pull_files(
+            os.path.join(path, directory)), []))
+    for i in files:
+        for z, w in enumerate(i[1]):
+            i[2].append(process_file(w, z))
+    return [(i[0], pd.concat(i[2])) for i in files]
 
 
 def generate_summary(df):
