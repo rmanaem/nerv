@@ -1,5 +1,4 @@
-from dash import dcc
-from dash import html
+from dash import dcc, html
 import plotly.express as px
 from dash_bootstrap_templates import ThemeSwitchAIO
 from nerv import utility as util
@@ -48,7 +47,7 @@ def single(df, theme1, theme2, template1):
                                                 template=template1,
                                                 xaxis={
                                                             'rangeslider': {'visible': True},
-                                                            'range': [0, df['Result'].max() + 1000]
+                                                            'range': [-1000, df['Result'].max() + 1000]
                                                 }
                                             ).update_xaxes
                                             (
@@ -206,3 +205,14 @@ def single(df, theme1, theme2, template1):
             )
         ]
     )
+
+
+
+def generate_index_layout(path):
+    experiments = util.pull_directories(path)
+    index_layout = []
+    for e in experiments:
+        index_layout.append(dcc.Link(e[0], href='/'+e[0]))
+        index_layout.append(html.Br())
+
+    return index_layout
