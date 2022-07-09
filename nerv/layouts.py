@@ -207,18 +207,8 @@ def single(df, theme1, theme2, template1):
     )
 
 
-def generate_index_layout(path):
-    experiments = util.pull_directories(path)
-    index_layout = []
-    for e in experiments:
-        index_layout.append(dcc.Link(e[0], href='/'+e[0]))
-        index_layout.append(html.Br())
-
-    return index_layout
-
-
 def multiple(path, theme1, theme2, template1):
-    experiments = util.pull_directories(path)
+    experiments = sorted(util.pull_directories(path))
 
     def generate_layout(df):
         return html.Div(
@@ -422,20 +412,24 @@ def multiple(path, theme1, theme2, template1):
             ]
         )
 
-    nav_bar_content_div = html.Div(
-        [
-            dcc.Store(id='storage'),
-            dcc.Location(id='url'),
-            html.Div(id='page-content')
-        ],
-    )
-
+    index_layout = []
+    for e in experiments:
+        index_layout.append(dcc.Link(e[0], href='/'+e[0]))
+        index_layout.append(html.Br())
+    
     layouts = [
-        nav_bar_content_div,
-        html.Div(generate_index_layout(path))
+        # Nav bar and content div
+        html.Div(
+            [
+                dcc.Store(id='storage'),
+                dcc.Location(id='url'),
+                html.Div(id='page-content')
+            ]
+        ),
+        html.Div(index_layout)
     ]
-
-    for i in experiments:
-        layouts.append(generate_layout(i[1]))
+        
+    for e in experiments:
+        layouts.append(generate_layout(e[1]))
 
     return layouts
