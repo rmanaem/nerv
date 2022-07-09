@@ -1,5 +1,5 @@
 import dash
-from dash import html
+from dash import html, dcc
 import pandas as pd
 import dash_bootstrap_components as dbc
 from nerv import utility as util
@@ -30,10 +30,8 @@ def start(path, local=True, single=True):
 
         callbacks.single(df, template1, template2)
     else:
-        experiments = util.pull_directories(path)
-        layout = layouts.multiple(path, theme1, theme2, template1)
-        app.layout = layout[0]
-        app.validation_layout = html.Div(layout)
+        app.layout = html.Div(layouts.multiple(path, theme1, theme2, template1)[0])
+        app.validation_layout = html.Div(layouts.multiple(path, theme1, theme2, template1))
         callbacks.multiple(path, theme1, theme2, template1, template2)
 
     if local:

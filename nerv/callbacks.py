@@ -1,3 +1,4 @@
+import os
 import dash
 from dash import html
 import plotly.express as px
@@ -297,15 +298,19 @@ def single(df, template1, template2):
 
 
 def multiple(path, theme1, theme2, template1, template2):
-
+    directories = sorted(os.listdir(path))
     layout = layouts.multiple(path, theme1, theme2, template1)[1:]
+
     @callback(
         Output('page-content', 'children'),
         Input('url', 'pathname')
     )
     def display_page(pathname):
+        nonlocal directories, layout
+        if directories != sorted(os.listdir(path)):
+            directories = sorted(os.listdir(path))
+            layout = layouts.multiple(path, theme1, theme2, template1)[1:]
         experiments = util.pull_directories(path)
-        
         for i, j in enumerate(experiments):
             if pathname == '/'+j[0]:
                 df = j[1]
