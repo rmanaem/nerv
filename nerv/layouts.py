@@ -1,3 +1,4 @@
+import os, datetime
 from dash import dcc, html
 import plotly.express as px
 from dash_bootstrap_templates import ThemeSwitchAIO
@@ -414,7 +415,15 @@ def multiple(path, theme1, theme2, template1):
 
     index_layout = []
     for e in experiments:
-        index_layout.append(dcc.Link(e[0], href='/'+e[0]))
+        index_layout.append(html.Div(
+            [
+
+                dcc.Link(e[0], href='/'+e[0]),
+                html.Br(),
+                html.P('Last modified: ' + datetime.datetime.fromtimestamp(os.path.getmtime(os.path.join(path, e[0]))).strftime("%c"))
+            ]
+        )
+    )
         index_layout.append(html.Br())
     
     layouts = [
