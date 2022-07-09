@@ -298,13 +298,14 @@ def single(df, template1, template2):
 
 def multiple(path, theme1, theme2, template1, template2):
 
+    layout = layouts.multiple(path, theme1, theme2, template1)[1:]
     @callback(
         Output('page-content', 'children'),
         Input('url', 'pathname')
     )
     def display_page(pathname):
         experiments = util.pull_directories(path)
-        layout = layouts.multiple(path, theme1, theme2, template1)[1:]
+        
         for i, j in enumerate(experiments):
             if pathname == '/'+j[0]:
                 df = j[1]
