@@ -26,17 +26,13 @@ Once the file containing the above snipet is executed, a local server (at port 8
 
 ## Deployment
 
-*Work in progress*
+_Work in progress_
 
 ## Developed with
 
-* [Python](https://www.python.org/)
-* [Plotly](https://plotly.com/python/)
-* [pandas](https://pandas.pydata.org/)
-
-## Author
-
-* **Arman Jahanpour** - [rmanaem](https://www.python.org/rmanaem)
+- [Python](https://www.python.org/)
+- [Plotly](https://plotly.com/python/)
+- [pandas](https://pandas.pydata.org/)
 
 ## License
 
