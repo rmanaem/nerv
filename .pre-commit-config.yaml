@@ -24,3 +24,8 @@ repos:
       - id: markdownlint
         args:
           - --fix
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-yaml
