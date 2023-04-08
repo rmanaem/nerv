@@ -1,209 +1,236 @@
-import os, datetime
-from dash import dcc, html
+import datetime
+import os
+
 import plotly.express as px
+from dash import dcc, html
 from dash_bootstrap_templates import ThemeSwitchAIO
+
 from nerv import utility as util
 
 
 def single(df, theme1, theme2, template1):
-
     return html.Div(
         [
-            ThemeSwitchAIO
-            (
+            ThemeSwitchAIO(
                 aio_id="theme",
                 themes=[theme1, theme2],
                 icons={"left": "fa fa-sun", "right": "fa fa-moon"},
             ),
-            dcc.Tabs
-            (
+            dcc.Tabs(
                 [
-                    dcc.Tab
-                    (
+                    dcc.Tab(
                         [
                             html.Br(),
                             html.Br(),
-                            html.Div
-                            (
+                            html.Div(
                                 [
-                                    html.Div
-                                    (
-                                        dcc.Graph
-                                        (
-                                            id='histogram',
-                                            figure=px.histogram
-                                            (
-                                                df[df['Result'] != -1],
-                                                x='Result',
-                                                color='Dataset-Pipeline',
-                                                color_discrete_map={k: v for k, v in zip(
-                                                    df['Dataset-Pipeline'].unique().tolist(), df['Color'].unique().tolist())},
-                                                barmode='overlay',
-                                                marginal='rug',
-                                                hover_data=df.columns
-                                            ).update_layout
-                                            (
-                                                xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
-                                                yaxis_title='Count',
+                                    html.Div(
+                                        dcc.Graph(
+                                            id="histogram",
+                                            figure=px.histogram(
+                                                df[df["Result"] != -1],
+                                                x="Result",
+                                                color="Dataset-Pipeline",
+                                                color_discrete_map={
+                                                    k: v
+                                                    for k, v in zip(
+                                                        df["Dataset-Pipeline"]
+                                                        .unique()
+                                                        .tolist(),
+                                                        df["Color"].unique().tolist(),
+                                                    )
+                                                },
+                                                barmode="overlay",
+                                                marginal="rug",
+                                                hover_data=df.columns,
+                                            )
+                                            .update_layout(
+                                                xaxis_title=r"$\text {Hippocampus Volume } (mm^3)$",
+                                                yaxis_title="Count",
                                                 template=template1,
                                                 xaxis={
-                                                            'rangeslider': {'visible': True},
-                                                            'range': [-1000, df['Result'].max() + 1000]
-                                                }
-                                            ).update_xaxes
-                                            (
-                                                ticks='outside',
+                                                    "rangeslider": {"visible": True},
+                                                    "range": [
+                                                        -1000,
+                                                        df["Result"].max() + 1000,
+                                                    ],
+                                                },
+                                            )
+                                            .update_xaxes(
+                                                ticks="outside",
                                                 tickwidth=2,
-                                                tickcolor='white',
-                                                ticklen=10
+                                                tickcolor="white",
+                                                ticklen=10,
                                             ),
-                                            config={
-                                                'displaylogo': False},
-                                            style={'height': 820},
-                                            mathjax=True
+                                            config={"displaylogo": False},
+                                            style={"height": 820},
+                                            mathjax=True,
                                         ),
-                                        id='histogram-div',
+                                        id="histogram-div",
                                         style={
-                                            'display': 'inline-block',
-                                            'width': '75%'
-                                        }
+                                            "display": "inline-block",
+                                            "width": "75%",
+                                        },
                                     ),
-                                    html.Div
-                                    (
+                                    html.Div(
                                         [
-                                            html.Div
-                                            (
-                                                util.generate_summary(
-                                                    df),
-                                                id='summary-div'
+                                            html.Div(
+                                                util.generate_summary(df),
+                                                id="summary-div",
                                             ),
                                             html.Br(),
-                                            html.Div(id='info-div')
+                                            html.Div(id="info-div"),
                                         ],
                                         style={
-                                            'width': '25%',
-                                            'margin-left': '30px'
-                                        }
-                                    )
+                                            "width": "25%",
+                                            "margin-left": "30px",
+                                        },
+                                    ),
                                 ],
-                                style={
-                                    'display': 'flex'
-                                }
-                            )
+                                style={"display": "flex"},
+                            ),
                         ],
-                        label='Distribution Plot'
+                        label="Distribution Plot",
                     ),
-                    dcc.Tab
-                    (
+                    dcc.Tab(
                         [
                             html.Br(),
                             html.Br(),
-                            html.Div
-                            (
+                            html.Div(
                                 [
-                                    html.Div
-                                    (
+                                    html.Div(
                                         [
-                                            html.Div
-                                            (
+                                            html.Div(
                                                 [
-                                                    dcc.Dropdown
-                                                    (
-                                                        id='x',
-                                                        options=[{'label': k, 'value': v} for k, v in zip(
-                                                            df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                                    dcc.Dropdown(
+                                                        id="x",
+                                                        options=[
+                                                            {
+                                                                "label": k,
+                                                                "value": v,
+                                                            }
+                                                            for k, v in zip(
+                                                                df["Dataset-Pipeline"]
+                                                                .unique()
+                                                                .tolist(),
+                                                                df["Dataset-Pipeline"]
+                                                                .unique()
+                                                                .tolist(),
+                                                            )
+                                                        ],
                                                         style={
-                                                            'width': '250px',
-                                                            'color': '#222'
+                                                            "width": "250px",
+                                                            "color": "#222",
                                                         },
-                                                        value=df['Dataset-Pipeline'].unique().tolist()[
-                                                            0],
-                                                        placeholder='x'
+                                                        value=df["Dataset-Pipeline"]
+                                                        .unique()
+                                                        .tolist()[0],
+                                                        placeholder="x",
                                                     ),
-                                                    dcc.Dropdown
-                                                    (
-                                                        id='y',
-                                                        options=[{'label': k, 'value': v} for k, v in zip(
-                                                            df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                                    dcc.Dropdown(
+                                                        id="y",
+                                                        options=[
+                                                            {
+                                                                "label": k,
+                                                                "value": v,
+                                                            }
+                                                            for k, v in zip(
+                                                                df["Dataset-Pipeline"]
+                                                                .unique()
+                                                                .tolist(),
+                                                                df["Dataset-Pipeline"]
+                                                                .unique()
+                                                                .tolist(),
+                                                            )
+                                                        ],
                                                         style={
-                                                            'width': '250px',
-                                                            'color': '#222'
+                                                            "width": "250px",
+                                                            "color": "#222",
                                                         },
-                                                        value=df['Dataset-Pipeline'].unique(
-                                                        ).tolist()[-1],
-                                                        placeholder='y'
-                                                    )
+                                                        value=df["Dataset-Pipeline"]
+                                                        .unique()
+                                                        .tolist()[-1],
+                                                        placeholder="y",
+                                                    ),
                                                 ],
                                                 style={
-                                                    'display': 'flex',
-                                                    'margin-left': 'auto',
-                                                    'margin-right': 'auto',
-                                                    'width': '50%'
-                                                }
+                                                    "display": "flex",
+                                                    "margin-left": "auto",
+                                                    "margin-right": "auto",
+                                                    "width": "50%",
+                                                },
                                             ),
-                                            html.Div
-                                            (
-                                                dcc.Graph
-                                                (
-                                                    id='scatter',
-                                                    figure=px.scatter
-                                                    (
+                                            html.Div(
+                                                dcc.Graph(
+                                                    id="scatter",
+                                                    figure=px.scatter(
                                                         df,
-                                                        x=df[df['Dataset-Pipeline'] ==
-                                                             df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
-                                                        y=df[df['Dataset-Pipeline'] ==
-                                                             df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
-                                                        marginal_x='histogram',
-                                                        marginal_y='histogram',
+                                                        x=df[
+                                                            df["Dataset-Pipeline"]
+                                                            == df["Dataset-Pipeline"]
+                                                            .unique()
+                                                            .tolist()[0]
+                                                        ]["Result"],
+                                                        y=df[
+                                                            df["Dataset-Pipeline"]
+                                                            == df["Dataset-Pipeline"]
+                                                            .unique()
+                                                            .tolist()[-1]
+                                                        ]["Result"],
+                                                        marginal_x="histogram",
+                                                        marginal_y="histogram",
                                                         template=template1,
                                                         color_discrete_sequence=px.colors.qualitative.G10[
-                                                            ::-1]
-                                                    ).update_layout
-                                                    (
+                                                            ::-1
+                                                        ],
+                                                    ).update_layout(
                                                         xaxis={
-                                                            'rangeslider': {'visible': True}
+                                                            "rangeslider": {
+                                                                "visible": True
+                                                            }
                                                         },
-                                                        xaxis_title=df['Dataset-Pipeline'].unique().tolist()[
-                                                            0],
-                                                        yaxis_title=df['Dataset-Pipeline'].unique(
-                                                        ).tolist()[-1]
+                                                        xaxis_title=df[
+                                                            "Dataset-Pipeline"
+                                                        ]
+                                                        .unique()
+                                                        .tolist()[0],
+                                                        yaxis_title=df[
+                                                            "Dataset-Pipeline"
+                                                        ]
+                                                        .unique()
+                                                        .tolist()[-1],
                                                     ),
-                                                    config={
-                                                        'displaylogo': False},
-                                                    style={
-                                                        'height': 790}
+                                                    config={"displaylogo": False},
+                                                    style={"height": 790},
                                                 ),
-                                            )
+                                            ),
                                         ],
                                         style={
-                                            'display': 'inline-block',
-                                            'width': '75%'
-                                        }
+                                            "display": "inline-block",
+                                            "width": "75%",
+                                        },
                                     ),
-                                    html.Div
-                                    (
-                                        id='info-div-scatter',
+                                    html.Div(
+                                        id="info-div-scatter",
                                         style={
-                                            'width': '25%',
-                                            'margin-left': '30px'
-                                        }
-                                    )
+                                            "width": "25%",
+                                            "margin-left": "30px",
+                                        },
+                                    ),
                                 ],
-                                style={'display': 'flex'}
-                            )
+                                style={"display": "flex"},
+                            ),
                         ],
-                        label='Joint Plot'
-                    )
+                        label="Joint Plot",
+                    ),
                 ],
                 colors={
-                    'border': '#222',
-                    'primary': '#222',
-                    'background': '#f8f9fa'
+                    "border": "#222",
+                    "primary": "#222",
+                    "background": "#f8f9fa",
                 },
-                style={
-                    'color': '#222'
-                }
-            )
+                style={"color": "#222"},
+            ),
         ]
     )
 
@@ -214,230 +241,306 @@ def multiple(path, theme1, theme2, template1):
     def generate_layout(df):
         return html.Div(
             [
-                dcc.Link('Back', href='/'),
-                ThemeSwitchAIO
-                (
+                dcc.Link("Back", href="/"),
+                ThemeSwitchAIO(
                     aio_id="theme",
                     themes=[theme1, theme2],
                     icons={"left": "fa fa-sun", "right": "fa fa-moon"},
                 ),
-                dcc.Tabs
-                (
+                dcc.Tabs(
                     [
-                        dcc.Tab
-                        (
+                        dcc.Tab(
                             [
                                 html.Br(),
                                 html.Br(),
-                                html.Div
-                                (
+                                html.Div(
                                     [
-                                        html.Div
-                                        (
-                                            dcc.Graph
-                                            (
-                                                id='histogram',
-                                                figure=px.histogram
-                                                (
-                                                    df[df['Result'] != -1],
-                                                    x='Result',
-                                                    color='Dataset-Pipeline',
-                                                    color_discrete_map={k: v for k, v in zip(
-                                                        df['Dataset-Pipeline'].unique().tolist(), df['Color'].unique().tolist())},
-                                                    barmode='overlay',
-                                                    marginal='rug',
-                                                    hover_data=df.columns
-                                                ).update_layout
-                                                (
-                                                    xaxis_title=r'$\text {Hippocampus Volume } (mm^3)$',
-                                                    yaxis_title='Count',
+                                        html.Div(
+                                            dcc.Graph(
+                                                id="histogram",
+                                                figure=px.histogram(
+                                                    df[df["Result"] != -1],
+                                                    x="Result",
+                                                    color="Dataset-Pipeline",
+                                                    color_discrete_map={
+                                                        k: v
+                                                        for k, v in zip(
+                                                            df["Dataset-Pipeline"]
+                                                            .unique()
+                                                            .tolist(),
+                                                            df["Color"]
+                                                            .unique()
+                                                            .tolist(),
+                                                        )
+                                                    },
+                                                    barmode="overlay",
+                                                    marginal="rug",
+                                                    hover_data=df.columns,
+                                                )
+                                                .update_layout(
+                                                    xaxis_title=r"$\text {Hippocampus Volume } (mm^3)$",
+                                                    yaxis_title="Count",
                                                     template=template1,
                                                     xaxis={
-                                                        'rangeslider': {'visible': True},
-                                                        'range': [-1000, df['Result'].max() + 1000]
-                                                    }
-                                                ).update_xaxes
-                                                (
-                                                    ticks='outside',
+                                                        "rangeslider": {
+                                                            "visible": True
+                                                        },
+                                                        "range": [
+                                                            -1000,
+                                                            df["Result"].max() + 1000,
+                                                        ],
+                                                    },
+                                                )
+                                                .update_xaxes(
+                                                    ticks="outside",
                                                     tickwidth=2,
-                                                    tickcolor='white',
-                                                    ticklen=10
+                                                    tickcolor="white",
+                                                    ticklen=10,
                                                 ),
-                                                config={
-                                                    'displaylogo': False},
-                                                style={'height': 820},
-                                                mathjax=True
+                                                config={"displaylogo": False},
+                                                style={"height": 820},
+                                                mathjax=True,
                                             ),
-                                            id='histogram-div',
+                                            id="histogram-div",
                                             style={
-                                                'display': 'inline-block',
-                                                'width': '75%'
-                                            }
+                                                "display": "inline-block",
+                                                "width": "75%",
+                                            },
                                         ),
-                                        html.Div
-                                        (
+                                        html.Div(
                                             [
-                                                html.Div
-                                                (
-                                                    util.generate_summary(
-                                                        df),
-                                                    id='summary-div'
+                                                html.Div(
+                                                    util.generate_summary(df),
+                                                    id="summary-div",
                                                 ),
                                                 html.Br(),
-                                                html.Div(id='info-div')
+                                                html.Div(id="info-div"),
                                             ],
                                             style={
-                                                'width': '25%',
-                                                'margin-left': '30px'
-                                            }
-                                        )
+                                                "width": "25%",
+                                                "margin-left": "30px",
+                                            },
+                                        ),
                                     ],
-                                    style={
-                                        'display': 'flex'
-                                    }
-                                )
+                                    style={"display": "flex"},
+                                ),
                             ],
-                            label='Distribution Plot'
+                            label="Distribution Plot",
                         ),
-                        dcc.Tab
-                        (
+                        dcc.Tab(
                             [
                                 html.Br(),
                                 html.Br(),
-                                html.Div
-                                (
+                                html.Div(
                                     [
-                                        html.Div
-                                        (
+                                        html.Div(
                                             [
-                                                html.Div
-                                                (
+                                                html.Div(
                                                     [
-                                                        dcc.Dropdown
-                                                        (
-                                                            id='x',
-                                                            options=[{'label': k, 'value': v} for k, v in zip(
-                                                                df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                                        dcc.Dropdown(
+                                                            id="x",
+                                                            options=[
+                                                                {
+                                                                    "label": k,
+                                                                    "value": v,
+                                                                }
+                                                                for k, v in zip(
+                                                                    df[
+                                                                        "Dataset-Pipeline"
+                                                                    ]
+                                                                    .unique()
+                                                                    .tolist(),
+                                                                    df[
+                                                                        "Dataset-Pipeline"
+                                                                    ]
+                                                                    .unique()
+                                                                    .tolist(),
+                                                                )
+                                                            ],
                                                             style={
-                                                                'width': '250px',
-                                                                'color': '#222'
+                                                                "width": "250px",
+                                                                "color": "#222",
                                                             },
-                                                            value=df['Dataset-Pipeline'].unique().tolist()[
-                                                                0],
-                                                            placeholder='x'
+                                                            value=df["Dataset-Pipeline"]
+                                                            .unique()
+                                                            .tolist()[0],
+                                                            placeholder="x",
                                                         ),
-                                                        dcc.Dropdown
-                                                        (
-                                                            id='y',
-                                                            options=[{'label': k, 'value': v} for k, v in zip(
-                                                                df['Dataset-Pipeline'].unique().tolist(), df['Dataset-Pipeline'].unique().tolist())],
+                                                        dcc.Dropdown(
+                                                            id="y",
+                                                            options=[
+                                                                {
+                                                                    "label": k,
+                                                                    "value": v,
+                                                                }
+                                                                for k, v in zip(
+                                                                    df[
+                                                                        "Dataset-Pipeline"
+                                                                    ]
+                                                                    .unique()
+                                                                    .tolist(),
+                                                                    df[
+                                                                        "Dataset-Pipeline"
+                                                                    ]
+                                                                    .unique()
+                                                                    .tolist(),
+                                                                )
+                                                            ],
                                                             style={
-                                                                'width': '250px',
-                                                                'color': '#222'
+                                                                "width": "250px",
+                                                                "color": "#222",
                                                             },
-                                                            value=df['Dataset-Pipeline'].unique(
-                                                            ).tolist()[-1],
-                                                            placeholder='y'
-                                                        )
+                                                            value=df["Dataset-Pipeline"]
+                                                            .unique()
+                                                            .tolist()[-1],
+                                                            placeholder="y",
+                                                        ),
                                                     ],
                                                     style={
-                                                        'display': 'flex',
-                                                        'margin-left': 'auto',
-                                                        'margin-right': 'auto',
-                                                        'width': '50%'
-                                                    }
+                                                        "display": "flex",
+                                                        "margin-left": "auto",
+                                                        "margin-right": "auto",
+                                                        "width": "50%",
+                                                    },
                                                 ),
-                                                html.Div
-                                                (
-                                                    dcc.Graph
-                                                    (
-                                                        id='scatter',
-                                                        figure=px.scatter
-                                                        (
+                                                html.Div(
+                                                    dcc.Graph(
+                                                        id="scatter",
+                                                        figure=px.scatter(
                                                             df,
-                                                            x=df[df['Dataset-Pipeline'] ==
-                                                                 df['Dataset-Pipeline'].unique().tolist()[0]]['Result'],
-                                                            y=df[df['Dataset-Pipeline'] ==
-                                                                 df['Dataset-Pipeline'].unique().tolist()[-1]]['Result'],
-                                                            marginal_x='histogram',
-                                                            marginal_y='histogram',
+                                                            x=df[
+                                                                df["Dataset-Pipeline"]
+                                                                == df[
+                                                                    "Dataset-Pipeline"
+                                                                ]
+                                                                .unique()
+                                                                .tolist()[0]
+                                                            ]["Result"],
+                                                            y=df[
+                                                                df["Dataset-Pipeline"]
+                                                                == df[
+                                                                    "Dataset-Pipeline"
+                                                                ]
+                                                                .unique()
+                                                                .tolist()[-1]
+                                                            ]["Result"],
+                                                            marginal_x="histogram",
+                                                            marginal_y="histogram",
                                                             template=template1,
                                                             color_discrete_sequence=px.colors.qualitative.G10[
-                                                                ::-1]
-                                                        ).update_layout
-                                                        (
+                                                                ::-1
+                                                            ],
+                                                        ).update_layout(
                                                             xaxis={
-                                                                'rangeslider': {'visible': True}
+                                                                "rangeslider": {
+                                                                    "visible": True
+                                                                }
                                                             },
-                                                            xaxis_title=df['Dataset-Pipeline'].unique().tolist()[
-                                                                0],
-                                                            yaxis_title=df['Dataset-Pipeline'].unique(
-                                                            ).tolist()[-1]
+                                                            xaxis_title=df[
+                                                                "Dataset-Pipeline"
+                                                            ]
+                                                            .unique()
+                                                            .tolist()[0],
+                                                            yaxis_title=df[
+                                                                "Dataset-Pipeline"
+                                                            ]
+                                                            .unique()
+                                                            .tolist()[-1],
                                                         ),
-                                                        config={
-                                                            'displaylogo': False},
-                                                        style={
-                                                            'height': 790}
+                                                        config={"displaylogo": False},
+                                                        style={"height": 790},
                                                     ),
-                                                )
+                                                ),
                                             ],
                                             style={
-                                                'display': 'inline-block',
-                                                'width': '75%'
-                                            }
+                                                "display": "inline-block",
+                                                "width": "75%",
+                                            },
                                         ),
-                                        html.Div
-                                        (
-                                            id='info-div-scatter',
+                                        html.Div(
+                                            id="info-div-scatter",
                                             style={
-                                                'width': '25%',
-                                                'margin-left': '30px'
-                                            }
-                                        )
+                                                "width": "25%",
+                                                "margin-left": "30px",
+                                            },
+                                        ),
                                     ],
-                                    style={'display': 'flex'}
-                                )
+                                    style={"display": "flex"},
+                                ),
                             ],
-                            label='Joint Plot'
-                        )
+                            label="Joint Plot",
+                        ),
                     ],
                     colors={
-                        'border': '#222',
-                        'primary': '#222',
-                        'background': '#f8f9fa'
+                        "border": "#222",
+                        "primary": "#222",
+                        "background": "#f8f9fa",
                     },
-                    style={
-                        'color': '#222'
-                    }
-                )
+                    style={"color": "#222"},
+                ),
             ]
         )
 
     index_layout = []
     for e in experiments:
-        index_layout.append(html.Div(
-            [
-
-                dcc.Link(e[0], href='/'+e[0]),
-                html.Br(),
-                html.P('Last modified: ' + datetime.datetime.fromtimestamp(os.path.getmtime(os.path.join(path, e[0]))).strftime("%c"))
-            ]
+        index_layout.append(
+            dcc.Link(
+                [
+                    html.P(
+                        e[0],
+                        style={
+                            "font-size": "22px",
+                        },
+                    ),
+                    html.P(
+                        "Last modified: "
+                        + datetime.datetime.fromtimestamp(
+                            os.path.getmtime(os.path.join(path, e[0]))
+                        ).strftime("%c"),
+                        style={
+                            "font-size": "12px",
+                        },
+                    ),
+                ],
+                href="/" + e[0],
+                style={
+                    "text-align": "center",
+                    "text-decoration": "none",
+                    "color": "white",
+                    "border": "1px solid",
+                    "width": "25%",
+                    "margin": "auto",
+                    "padding": "5px",
+                },
+            ),
         )
-    )
         index_layout.append(html.Br())
-    
+
     layouts = [
         # Nav bar and content div
         html.Div(
             [
-                dcc.Store(id='storage'),
-                dcc.Location(id='url'),
-                html.Div(id='page-content')
-            ]
+                dcc.Store(id="storage"),
+                dcc.Location(id="url"),
+                html.Div(id="page-content"),
+            ],
         ),
-        html.Div(index_layout)
+        html.Div(
+            index_layout,
+            id="todo",
+            style={
+                "display": "flex",
+                "flex-wrap": "wrap",
+                "justify-content": "flex-start",
+                "align-items": "center",
+                "gap": "20px 20px",
+                "width": "80%",
+                "margin": "auto",
+                "transform": "translateY(50%)",
+            },
+        ),
     ]
-        
+
     for e in experiments:
         layouts.append(generate_layout(e[1]))
 
