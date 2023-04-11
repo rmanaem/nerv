@@ -2,7 +2,7 @@ import dash
 import dash_bootstrap_components as dbc
 import pandas as pd
 
-from nerv.callbacks import callbacks
+from nerv import callbacks
 from nerv.layouts import layout
 from nerv.utility import process_file, pull_files
 
@@ -31,8 +31,6 @@ def start(path, local=True):
         return layout(df, theme1, theme2, template1)
 
     app.layout = serve_layout
-
-    callbacks(df, template1, template2)
 
     if local:
         app.run_server()

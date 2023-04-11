@@ -12,6 +12,7 @@ repos:
         args:
           - --extend-ignore=E501
           - --ignore= F821, W503 ./nerv/callbacks.py
+          - --ignore= F401, F841 ./nerv/app.py
 
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
