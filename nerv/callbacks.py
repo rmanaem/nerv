@@ -85,7 +85,7 @@ def histogram_click_func(clickData):
     )
 
 
-def scatter_click_func(clickData, x, y):
+def scatter_click_func(clickData, x, y, df):
     if not clickData:
         return dash.no_update
 
