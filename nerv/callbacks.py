@@ -64,7 +64,7 @@ def switch_template_func(value):
         )
 
 
-def process_click(clickData):
+def histogram_click_func(clickData):
     if not clickData:
         return dash.no_update
     subject = "Subject: " + clickData["points"][0]["customdata"][0]
