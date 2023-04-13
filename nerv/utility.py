@@ -17,7 +17,8 @@ colors = [
 def pull_files(path):
     files = []
     for i in os.listdir(path):
-        files.append((path + "/" + i, i[: len(i) - 5]))
+        if i[-5:] == ".json":
+            files.append((path + "/" + i, i[: len(i) - 5]))
     return files
 
 
