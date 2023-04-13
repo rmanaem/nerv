@@ -3,7 +3,7 @@ import plotly.express as px
 from dash import html
 
 
-def dark_mode_histogram(value):
+def switch_template_func(value):
     template = template1 if value else template2
     if value:
         return (
