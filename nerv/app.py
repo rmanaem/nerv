@@ -1,6 +1,5 @@
 import dash
 import dash_bootstrap_components as dbc
-import pandas as pd
 from dash import Input, Output, callback
 from dash_bootstrap_templates import ThemeSwitchAIO
 
@@ -10,7 +9,7 @@ from nerv.callbacks import (
     switch_template_func,
 )
 from nerv.layouts import layout
-from nerv.utility import process_file, pull_files
+from nerv.utility import process_files
 
 
 def start(path, local=True):
@@ -27,12 +26,8 @@ def start(path, local=True):
     app.title = "NeRV"
 
     def serve_layout():
-        files = pull_files(path)
-        dfs = []
-        for i, j in enumerate(files):
-            dfs.append(process_file(j, i))
         global df
-        df = pd.concat(dfs)
+        df = process_files(path)
 
         return layout(df, theme1, theme2, template1)
 
