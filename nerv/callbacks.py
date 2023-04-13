@@ -1,67 +1,15 @@
 import dash
 import plotly.express as px
+import plotly.io as pio
 from dash import html
 
 
-def switch_template_func(value):
+def switch_template_func(value, histogram_fig, scatter_fig, template1, template2):
     template = template1 if value else template2
-    if value:
-        return (
-            px.histogram(
-                df[df["Result"] != -1],
-                x="Result",
-                color="Dataset-Pipeline",
-                color_discrete_map={
-                    k: v
-                    for k, v in zip(
-                        df["Dataset-Pipeline"].unique().tolist(),
-                        df["Color"].unique().tolist(),
-                    )
-                },
-                barmode="overlay",
-                marginal="rug",
-                hover_data=df.columns,
-            )
-            .update_layout(
-                xaxis_title=r"$\text {Hippocampus Volume } (mm^3)$",
-                yaxis_title="Count",
-                template=template,
-                xaxis={
-                    "rangeslider": {"visible": True},
-                    "range": [-1000, df["Result"].max() + 1000],
-                },
-            )
-            .update_xaxes(ticks="outside", tickwidth=2, tickcolor="#f8f9fa", ticklen=10)
-        )
+    histogram_fig["layout"]["template"] = pio.templates[template]
+    scatter_fig["layout"]["template"] = pio.templates[template]
 
-    else:
-        return (
-            px.histogram(
-                df[df["Result"] != -1],
-                x="Result",
-                color="Dataset-Pipeline",
-                color_discrete_map={
-                    k: v
-                    for k, v in zip(
-                        df["Dataset-Pipeline"].unique().tolist(),
-                        df["Color"].unique().tolist(),
-                    )
-                },
-                barmode="overlay",
-                marginal="rug",
-                hover_data=df.columns,
-            )
-            .update_layout(
-                xaxis_title=r"$\text {Hippocampus Volume } (mm^3)$",
-                yaxis_title="Count",
-                template=template,
-                xaxis={
-                    "rangeslider": {"visible": True},
-                    "range": [-1000, df["Result"].max() + 1000],
-                },
-            )
-            .update_xaxes(ticks="outside", tickwidth=2, tickcolor="#343a40", ticklen=10)
-        )
+    return histogram_fig, scatter_fig
 
 
 def histogram_click_func(clickData):
