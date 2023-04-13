@@ -212,7 +212,7 @@ def plot_scatter_func(x, y, value):
             )
 
 
-def process_click_scatter(clickData, x, y):
+def scatter_click_func(clickData, x, y):
     if not clickData:
         return dash.no_update
 
