@@ -138,7 +138,7 @@ def histogram_click_func(clickData):
     )
 
 
-def plot_scatter(x, y, value):
+def plot_scatter_func(x, y, value):
     template = template1 if value else template2
     if not x or not y:
         if value:
