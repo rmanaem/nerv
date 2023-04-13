@@ -1,13 +1,8 @@
 import dash
 import plotly.express as px
-from dash import Input, Output, callback, html
-from dash_bootstrap_templates import ThemeSwitchAIO
+from dash import html
 
 
-@callback(
-    Output("histogram", "figure"),
-    Input(ThemeSwitchAIO.ids.switch("theme"), "value"),
-)
 def dark_mode_histogram(value):
     template = template1 if value else template2
     if value:
@@ -69,7 +64,6 @@ def dark_mode_histogram(value):
         )
 
 
-@callback(Output("info-div", "children"), Input("histogram", "clickData"))
 def process_click(clickData):
     if not clickData:
         return dash.no_update
@@ -144,12 +138,6 @@ def process_click(clickData):
     )
 
 
-@callback(
-    Output("scatter", "figure"),
-    Input("x", "value"),
-    Input("y", "value"),
-    Input(ThemeSwitchAIO.ids.switch("theme"), "value"),
-)
 def plot_scatter(x, y, value):
     template = template1 if value else template2
     if not x or not y:
@@ -224,12 +212,6 @@ def plot_scatter(x, y, value):
             )
 
 
-@callback(
-    Output("info-div-scatter", "children"),
-    Input("scatter", "clickData"),
-    Input("x", "value"),
-    Input("y", "value"),
-)
 def process_click_scatter(clickData, x, y):
     if not clickData:
         return dash.no_update
