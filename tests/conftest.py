@@ -11,3 +11,8 @@ def path():
     test_dir = os.path.dirname(os.path.abspath(__file__))
     print("Using", os.path.join(test_dir, "data"), "as the path for app")
     yield os.path.join(test_dir, "data")
+
+
+@pytest.fixture(scope="session")
+def data(path):
+    yield process_files(path)
