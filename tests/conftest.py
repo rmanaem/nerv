@@ -21,3 +21,17 @@ def data(path):
 @pytest.fixture(scope="session")
 def histogram(data):
     return px.histogram(data[data["Result"] != -1], x="Result", template="plotly_dark")
+
+
+@pytest.fixture(scope="session")
+def scatter(data):
+    return px.scatter(
+        data,
+        x=data[
+            data["Dataset-Pipeline"] == data["Dataset-Pipeline"].unique().tolist()[0]
+        ]["Result"],
+        y=data[
+            data["Dataset-Pipeline"] == data["Dataset-Pipeline"].unique().tolist()[-1]
+        ]["Result"],
+        template="plotly_dark",
+    )
