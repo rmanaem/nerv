@@ -1,4 +1,5 @@
 /* layout styles */
+
 #histogram {
     height: 820px;
 }
@@ -54,4 +55,27 @@
 
 #tabs {
     color: #222;
+}
+
+
+/* callback styles */
+
+#info-h4 {
+    text-align: center;
+}
+
+#cbrain-id {
+    color: #4673a3;
+}
+
+#info-p {
+    margin-left: 10px;
+    word-wrap: break-word;
+}
+
+#info-div {
+    width: 90%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 7px;
+    border: 0.25px solid
 }
