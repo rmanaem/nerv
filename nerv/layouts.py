@@ -60,14 +60,9 @@ def layout(df, theme1, theme2, template1):
                                                 ticklen=10,
                                             ),
                                             config={"displaylogo": False},
-                                            style={"height": 820},
                                             mathjax=True,
                                         ),
                                         id="histogram-div",
-                                        style={
-                                            "display": "inline-block",
-                                            "width": "75%",
-                                        },
                                     ),
                                     html.Div(
                                         [
@@ -78,13 +73,10 @@ def layout(df, theme1, theme2, template1):
                                             html.Br(),
                                             html.Div(id="info-div"),
                                         ],
-                                        style={
-                                            "width": "25%",
-                                            "margin-left": "30px",
-                                        },
+                                        id="summary-info-div",
                                     ),
                                 ],
-                                style={"display": "flex"},
+                                id="summary-info-histogram-div",
                             ),
                         ],
                         label="Distribution Plot",
@@ -115,10 +107,6 @@ def layout(df, theme1, theme2, template1):
                                                                 .tolist(),
                                                             )
                                                         ],
-                                                        style={
-                                                            "width": "250px",
-                                                            "color": "#222",
-                                                        },
                                                         value=df["Dataset-Pipeline"]
                                                         .unique()
                                                         .tolist()[0],
@@ -140,22 +128,13 @@ def layout(df, theme1, theme2, template1):
                                                                 .tolist(),
                                                             )
                                                         ],
-                                                        style={
-                                                            "width": "250px",
-                                                            "color": "#222",
-                                                        },
                                                         value=df["Dataset-Pipeline"]
                                                         .unique()
                                                         .tolist()[-1],
                                                         placeholder="y",
                                                     ),
                                                 ],
-                                                style={
-                                                    "display": "flex",
-                                                    "margin-left": "auto",
-                                                    "margin-right": "auto",
-                                                    "width": "50%",
-                                                },
+                                                id="dropdown-div",
                                             ),
                                             html.Div(
                                                 dcc.Graph(
@@ -198,24 +177,16 @@ def layout(df, theme1, theme2, template1):
                                                         .tolist()[-1],
                                                     ),
                                                     config={"displaylogo": False},
-                                                    style={"height": 790},
                                                 ),
                                             ),
                                         ],
-                                        style={
-                                            "display": "inline-block",
-                                            "width": "75%",
-                                        },
+                                        id="dropdown-scatter-div",
                                     ),
                                     html.Div(
                                         id="info-div-scatter",
-                                        style={
-                                            "width": "25%",
-                                            "margin-left": "30px",
-                                        },
                                     ),
                                 ],
-                                style={"display": "flex"},
+                                id="info-dropdown-scatter-div",
                             ),
                         ],
                         label="Joint Plot",
@@ -226,7 +197,7 @@ def layout(df, theme1, theme2, template1):
                     "primary": "#222",
                     "background": "#f8f9fa",
                 },
-                style={"color": "#222"},
+                id="tabs",
             ),
         ]
     )
