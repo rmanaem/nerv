@@ -21,7 +21,7 @@ def histogram_click_func(clickData):
         if clickData["points"][0]["x"] == -1
         else "Result: " + str(clickData["points"][0]["x"])
     )
-    header = html.H4("Information", style={"textAlign": "center"})
+    header = html.H4("Information", id="info-h4")
     info = [header, subject, html.Br(), pipeline, html.Br(), result, html.Br()]
 
     for k, v in list(clickData["points"][0]["customdata"][2].items())[:-1]:
@@ -32,7 +32,7 @@ def histogram_click_func(clickData):
             else html.A(
                 str(v["inputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         out = (
@@ -41,7 +41,7 @@ def histogram_click_func(clickData):
             else html.A(
                 str(v["outputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         task = (
@@ -51,7 +51,7 @@ def histogram_click_func(clickData):
                 str(v["taskID"]),
                 href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
                 + str(v["taskID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
@@ -74,22 +74,14 @@ def histogram_click_func(clickData):
         )
         info.append(step)
 
-    return html.Div(
-        html.P(info, style={"margin-left": "10px", "word-wrap": "break-word"}),
-        style={
-            "width": "90%",
-            "box-shadow": "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
-            "border-radius": "7px",
-            "border": "0.25px solid",
-        },
-    )
+    return html.Div(html.P(info, id="info-p"), id="info-div")
 
 
 def scatter_click_func(clickData, x, y, df):
     if not clickData:
         return dash.no_update
 
-    header = html.H4("Information", style={"textAlign": "center"})
+    header = html.H4("Information", id="info-h4")
     x_subject = (
         "Subject: "
         + df[
@@ -123,7 +115,7 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["inputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         out = (
@@ -132,7 +124,7 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["outputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         task = (
@@ -142,7 +134,7 @@ def scatter_click_func(clickData, x, y, df):
                 str(v["taskID"]),
                 href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
                 + str(v["taskID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
@@ -198,7 +190,7 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["inputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         out = (
@@ -207,7 +199,7 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["outputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         task = (
@@ -217,7 +209,7 @@ def scatter_click_func(clickData, x, y, df):
                 str(v["taskID"]),
                 href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
                 + str(v["taskID"]),
-                style={"color": "#4673a3"},
+                id="cbrain-id",
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
@@ -240,12 +232,4 @@ def scatter_click_func(clickData, x, y, df):
         )
         info.append(step)
 
-    return html.Div(
-        html.P(info, style={"margin-left": "10px", "word-wrap": "break-word"}),
-        style={
-            "width": "90%",
-            "box-shadow": "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
-            "border-radius": "7px",
-            "border": "0.25px solid",
-        },
-    )
+    return html.Div(html.P(info, id="info-p"), id="info-div")
