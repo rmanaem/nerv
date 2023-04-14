@@ -1,4 +1,5 @@
 import dash
+import dash_bootstrap_components as dbc
 import plotly.io as pio
 from dash import html
 
@@ -15,14 +16,25 @@ def histogram_click_func(clickData):
     if not clickData:
         return dash.no_update
     subject = "Subject: " + clickData["points"][0]["customdata"][0]
-    pipeline = "Pipeline: " + clickData["points"][0]["y"]
+    pipeline = "Dataset-Pipeline: " + clickData["points"][0]["y"]
     result = (
         "Result: N/A"
         if clickData["points"][0]["x"] == -1
         else "Result: " + str(clickData["points"][0]["x"])
     )
-    header = html.H4("Information", id="info-h4")
-    info = [header, subject, html.Br(), pipeline, html.Br(), result, html.Br()]
+    header = html.H4("Metadata", className="card-title")
+    info = [
+        header,
+        subject,
+        html.Br(),
+        pipeline,
+        html.Br(),
+        result,
+        html.Br(),
+        "Pipeline steps:",
+        html.Br(),
+        html.Br(),
+    ]
 
     for k, v in list(clickData["points"][0]["customdata"][2].items())[:-1]:
         status = "Incomplete" if v["status"] is None else v["status"]
@@ -32,7 +44,6 @@ def histogram_click_func(clickData):
             else html.A(
                 str(v["inputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
-                id="cbrain-id",
             )
         )
         out = (
@@ -41,7 +52,6 @@ def histogram_click_func(clickData):
             else html.A(
                 str(v["outputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-                id="cbrain-id",
             )
         )
         task = (
@@ -51,37 +61,43 @@ def histogram_click_func(clickData):
                 str(v["taskID"]),
                 href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
                 + str(v["taskID"]),
-                id="cbrain-id",
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
-        step = html.Details(
+        step = dbc.Accordion(
             [
-                html.Summary(k),
-                "Status: " + status,
-                html.Br(),
-                "Input ID: ",
-                inp,
-                html.Br(),
-                "Output ID: ",
-                out,
-                html.Br(),
-                "Task ID: ",
-                task,
-                html.Br(),
-                "Tool Configuration ID: " + config,
-            ]
+                dbc.AccordionItem(
+                    [
+                        "Status: ",
+                        status,
+                        html.Br(),
+                        "Input ID: ",
+                        inp,
+                        html.Br(),
+                        "Output ID: ",
+                        out,
+                        html.Br(),
+                        "Task ID: ",
+                        task,
+                        html.Br(),
+                        "Tool Configuration ID: ",
+                        config,
+                    ],
+                    title=k,
+                ),
+            ],
+            start_collapsed=True,
         )
         info.append(step)
 
-    return html.Div(html.P(info, id="info-p"), id="info-div")
+    return dbc.Card(dbc.CardBody(info, className="card-text"))
 
 
 def scatter_click_func(clickData, x, y, df):
     if not clickData:
         return dash.no_update
 
-    header = html.H4("Information", id="info-h4")
+    header = html.H4("Metadata", className="card-title")
     x_subject = (
         "Subject: "
         + df[
@@ -89,7 +105,7 @@ def scatter_click_func(clickData, x, y, df):
             & (df["Result"] == clickData["points"][0]["x"])
         ]["Subject"].iloc[0]
     )
-    x_pipeline = "Pipeline: " + x
+    x_pipeline = "Dataset-Pipeline: " + x
     x_result = (
         "Result: N/A"
         if clickData["points"][0]["x"] == -1
@@ -103,6 +119,9 @@ def scatter_click_func(clickData, x, y, df):
         html.Br(),
         x_result,
         html.Br(),
+        "Pipeline steps:",
+        html.Br(),
+        html.Br(),
     ]
     x_info = df[
         (df["Dataset-Pipeline"] == x) & (df["Result"] == clickData["points"][0]["x"])
@@ -115,7 +134,6 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["inputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
-                id="cbrain-id",
             )
         )
         out = (
@@ -124,7 +142,6 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["outputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-                id="cbrain-id",
             )
         )
         task = (
@@ -134,26 +151,32 @@ def scatter_click_func(clickData, x, y, df):
                 str(v["taskID"]),
                 href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
                 + str(v["taskID"]),
-                id="cbrain-id",
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
-        step = html.Details(
+        step = dbc.Accordion(
             [
-                html.Summary(k),
-                "Status: " + status,
-                html.Br(),
-                "Input ID: ",
-                inp,
-                html.Br(),
-                "Output ID: ",
-                out,
-                html.Br(),
-                "Task ID: ",
-                task,
-                html.Br(),
-                "Tool Configuration ID: " + config,
-            ]
+                dbc.AccordionItem(
+                    [
+                        "Status: ",
+                        status,
+                        html.Br(),
+                        "Input ID: ",
+                        inp,
+                        html.Br(),
+                        "Output ID: ",
+                        out,
+                        html.Br(),
+                        "Task ID: ",
+                        task,
+                        html.Br(),
+                        "Tool Configuration ID: ",
+                        config,
+                    ],
+                    title=k,
+                ),
+            ],
+            start_collapsed=True,
         )
         info.append(step)
 
@@ -164,7 +187,7 @@ def scatter_click_func(clickData, x, y, df):
             & (df["Result"] == clickData["points"][0]["y"])
         ]["Subject"].iloc[0]
     )
-    y_pipeline = "Pipeline: " + y
+    y_pipeline = "Dataset-Pipeline: " + y
     y_result = (
         "Result: N/A"
         if clickData["points"][0]["y"] == -1
@@ -178,6 +201,9 @@ def scatter_click_func(clickData, x, y, df):
         html.Br(),
         y_result,
         html.Br(),
+        "Pipeline steps:",
+        html.Br(),
+        html.Br(),
     ]
     y_info = df[
         (df["Dataset-Pipeline"] == y) & (df["Result"] == clickData["points"][0]["y"])
@@ -190,7 +216,6 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["inputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
-                id="cbrain-id",
             )
         )
         out = (
@@ -199,7 +224,6 @@ def scatter_click_func(clickData, x, y, df):
             else html.A(
                 str(v["outputID"]),
                 href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-                id="cbrain-id",
             )
         )
         task = (
@@ -209,27 +233,33 @@ def scatter_click_func(clickData, x, y, df):
                 str(v["taskID"]),
                 href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
                 + str(v["taskID"]),
-                id="cbrain-id",
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
-        step = html.Details(
+        step = dbc.Accordion(
             [
-                html.Summary(k),
-                "Status: " + status,
-                html.Br(),
-                "Input ID: ",
-                inp,
-                html.Br(),
-                "Output ID: ",
-                out,
-                html.Br(),
-                "Task ID: ",
-                task,
-                html.Br(),
-                "Tool Configuration ID: " + config,
-            ]
+                dbc.AccordionItem(
+                    [
+                        "Status: ",
+                        status,
+                        html.Br(),
+                        "Input ID: ",
+                        inp,
+                        html.Br(),
+                        "Output ID: ",
+                        out,
+                        html.Br(),
+                        "Task ID: ",
+                        task,
+                        html.Br(),
+                        "Tool Configuration ID: ",
+                        config,
+                    ],
+                    title=k,
+                ),
+            ],
+            start_collapsed=True,
         )
         info.append(step)
 
-    return html.Div(html.P(info, id="info-p"), id="info-div")
+    return dbc.Card(dbc.CardBody(info, className="card-text"))

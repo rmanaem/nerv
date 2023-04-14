@@ -1,6 +1,7 @@
 import json
 import os
 
+import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 from dash import html
@@ -72,13 +73,13 @@ def pull_directories(path):
 
 def generate_summary(df):
     total = str(df.shape[0])
-    miss = str(df[df["Result"] == -1].shape[0])
-    header = html.H4("Summary", style={"textAlign": "center"})
+    missing = str(df[df["Result"] == -1].shape[0])
+    header = html.H4("Summary", className="card-title")
     summary = [
         header,
         "Total number of datapoints: " + total,
         html.Br(),
-        "Total number of missing datapoints: " + miss,
+        "Total number of missing datapoints: " + missing,
         html.Br(),
     ]
     pipelines = df["Dataset-Pipeline"].unique().tolist()
@@ -90,12 +91,5 @@ def generate_summary(df):
         )
         summary.append(s)
         summary.append(html.Br())
-    return html.Div(
-        html.P(summary, style={"margin-left": "10px"}),
-        style={
-            "width": "90%",
-            "box-shadow": "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
-            "border-radius": "7px",
-            "border": "0.25px solid",
-        },
-    )
+
+    return dbc.Card(dbc.CardBody(summary, className="card-text"))
