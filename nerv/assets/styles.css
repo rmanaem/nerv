@@ -1,0 +1,57 @@
+/* layout styles */
+#histogram {
+    height: 820px;
+}
+
+#histogram-div {
+    display: inline-block;
+    width: 75%;
+}
+
+#summary-info-div {
+    width: 25%;
+    margin-left: 30px;
+}
+
+#summary-info-histogram-div {
+    display: flex;
+}
+
+#x {
+    width: 250px;
+    color: #222;
+}
+
+#y {
+    width: 250px;
+    color: #222;
+}
+
+#dropdown-div {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#scatter {
+    height: 790px;
+}
+
+#dropdown-scatter-div {
+    display: inline-block;
+    width: 75%;
+}
+
+#info-div-scatter {
+    width: 25%;
+    margin-left: 30px;
+}
+
+#info-dropdown-scatter-div {
+    display: flex;
+}
+
+#tabs {
+    color: #222;
+}
