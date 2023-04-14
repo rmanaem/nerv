@@ -16,3 +16,8 @@ def path():
 @pytest.fixture(scope="session")
 def data(path):
     yield process_files(path)
+
+
+@pytest.fixture(scope="session")
+def histogram(data):
+    return px.histogram(data[data["Result"] != -1], x="Result", template="plotly_dark")
