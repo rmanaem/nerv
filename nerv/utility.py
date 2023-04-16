@@ -38,6 +38,26 @@ def pull_files(path):
 
 
 def process_file(file, color):
+    """
+    Creates a dataframe from input file's data.
+    Loads the data from the file into a dataframe and adds
+    Result, Info, and Color (using a single color sequence
+    from colors per file) columns to the dataframe using
+    the data.
+
+    Parameters
+    ----------
+    file : tuple
+        (dataset-pipeline file path, dataset-pipeline name).
+    color : int
+        Index number for selecting a color sequence from colors.
+
+    Returns
+    -------
+    pandas.core.frame.DataFrame
+        A dataframe containing Subject, Dataset-Pipeline, Result
+        Info, and Color columns.
+    """
     data = None
     with open(file[0], "r") as dataset:
         data = json.load(dataset)
