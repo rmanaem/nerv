@@ -2,7 +2,7 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, callback
 
-from nerv.callbacks import histogram_click_func, scatter_click_func
+from nerv.callbacks import histogram_click_func, plot_scatter_func, scatter_click_func
 from nerv.layouts import layout
 from nerv.utility import process_files
 
@@ -38,6 +38,14 @@ def start(path, local=True):
     @callback(Output("hist-info-div", "children"), Input("histogram", "clickData"))
     def process_click(clickData):
         return histogram_click_func(clickData)
+
+    @callback(
+        Output("scatter", "figure"),
+        Input("x", "value"),
+        Input("y", "value"),
+    )
+    def plot_scatter(x, y):
+        return plot_scatter_func(x, y, df)
 
     @callback(
         Output("scatter-info-div", "children"),

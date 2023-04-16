@@ -1,5 +1,6 @@
 import dash
 import dash_bootstrap_components as dbc
+import plotly.express as px
 import plotly.io as pio
 from dash import html
 
@@ -91,6 +92,37 @@ def histogram_click_func(clickData):
         info.append(step)
 
     return dbc.Card(dbc.CardBody(info, className="card-text"))
+
+
+def plot_scatter_func(x, y, df):
+    if not x or not y:
+        return px.scatter(
+            df,
+            x=df[df["Dataset-Pipeline"] == df["Dataset-Pipeline"].unique().tolist()[0]][
+                "Result"
+            ],
+            y=df[
+                df["Dataset-Pipeline"] == df["Dataset-Pipeline"].unique().tolist()[-1]
+            ]["Result"],
+            marginal_x="histogram",
+            marginal_y="histogram",
+            color_discrete_sequence=px.colors.qualitative.G10[::-1],
+        ).update_layout(
+            xaxis={"rangeslider": {"visible": True}},
+            xaxis_title=df["Dataset-Pipeline"].unique().tolist()[0],
+            yaxis_title=df["Dataset-Pipeline"].unique().tolist()[-1],
+        )
+    else:
+        return px.scatter(
+            df,
+            x=df[df["Dataset-Pipeline"] == x]["Result"],
+            y=df[df["Dataset-Pipeline"] == y]["Result"],
+            marginal_x="histogram",
+            marginal_y="histogram",
+            color_discrete_sequence=px.colors.qualitative.G10[::-1],
+        ).update_layout(
+            xaxis={"rangeslider": {"visible": True}}, xaxis_title=x, yaxis_title=y
+        )
 
 
 def scatter_click_func(clickData, x, y, df):
