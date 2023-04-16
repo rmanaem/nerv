@@ -97,9 +97,9 @@ def start(path, local=True):
         Parameters
         ----------
             x : str
-                Name of the dataset-pipeline for x-axis.
+                Name of the x-axis dataset-pipeline.
             y : str
-                Name of the dataset-pipeline for y-axis.
+                Name of the y-axis dataset-pipeline.
 
         Returns:
         plotly.graph_objs._figure.Figure
