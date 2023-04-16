@@ -33,7 +33,7 @@ def pull_files(path):
     files = []
     for i in os.listdir(path):
         if i[-5:] == ".json":
-            files.append((path + "/" + i, i[: len(i) - 5]))
+            files.append((os.path.join(path, i), i[:-5]))
     return files
 
 
