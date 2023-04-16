@@ -17,6 +17,19 @@ colors = [
 
 
 def pull_files(path):
+    """
+    Creates a list of paths for .json files in the input path.
+
+    Parameters
+    ----------
+    path : str
+        Path of the directory containing .json files to be visualized.
+
+    Returns
+    -------
+    list
+        List of paths.
+    """
     files = []
     for i in os.listdir(path):
         if i[-5:] == ".json":
