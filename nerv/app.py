@@ -1,3 +1,6 @@
+"""
+Sets up and configures the entry point of the app.
+"""
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, callback
