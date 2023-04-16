@@ -112,7 +112,7 @@ def histogram_click_func(clickData):
 def plot_scatter_func(x, y, df):
     """
     Creates a scatter plot figure.
-    If x or y are None, it uses the first and last dataset-pipeline
+    If x or y is None, it uses the first and last dataset-pipeline
     in the dataframe as x and y.
 
     Parameters
@@ -159,6 +159,26 @@ def plot_scatter_func(x, y, df):
 
 
 def scatter_click_func(clickData, x, y, df):
+    """
+    Processes data from the scatter plot graph click event.
+    If x or y is None, it uses the first and last dataset-pipeline
+    in the dataframe as x and y.
+
+    Parameters
+    ----------
+    clickData : dict
+        Data from latest histogram graph click event.
+    x : str
+        Name of the x-axis dataset-pipeline.
+    y : str
+        Name of the y-axis dataset-pipeline.
+
+    Returns
+    ----------
+    dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
+        No dash update if clickData is None otherwise, styled and structured
+        metadata to be displayed in scatter-info-div.
+    """
     if not clickData:
         return dash.no_update
 
