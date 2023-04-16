@@ -116,11 +116,8 @@ def process_files(path):
 def pull_directories(path):
     files = []
     for directory in os.listdir(path):
-        files.append((directory, pull_files(os.path.join(path, directory)), []))
-    for i in files:
-        for z, w in enumerate(i[1]):
-            i[2].append(process_file(w, z))
-    return [(i[0], pd.concat(i[2])) for i in files]
+        files.append((directory, process_files(os.path.join(path, directory))))
+    return files
 
 
 def generate_summary(df):
