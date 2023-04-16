@@ -129,6 +129,10 @@ def scatter_click_func(clickData, x, y, df):
     if not clickData:
         return dash.no_update
 
+    if not x or not y:
+        xys = df["Dataset-Pipeline"].unique().tolist()
+        x, y = xys[0], xys[-1]
+
     header = html.H4("Metadata", className="card-title")
     x_subject = (
         "Subject: "
