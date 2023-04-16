@@ -1,3 +1,4 @@
+"""Utility functions and constants of the app."""
 import json
 import os
 
