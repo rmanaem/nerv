@@ -11,6 +11,24 @@ from nerv.utility import process_files
 
 
 def start(path, local=True):
+    """
+    Creates and configures a Dash app instance that can either be
+    run locally or used for deployment.
+
+    Parameters
+    ----------
+    path : str
+        Path of the directory containing files to be visualized.
+    local : bool, optional
+        Whether or not to start the app locally in the terminal or return
+        a flask app containing the dash app for deployment, by default True.
+
+    Returns
+    -------
+    None or flask.app.Flask
+        Returns None if local parameter is set to True, otherwise
+        returns a flask app instance.
+    """
     app = dash.Dash(
         __name__,
         routes_pathname_prefix="/",
