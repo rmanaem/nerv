@@ -91,6 +91,21 @@ def start(path, local=True):
         Input("y", "value"),
     )
     def plot_scatter(x, y):
+        """
+        Creates a scatter plot figure.
+
+        Parameters
+        ----------
+            x : str
+                Name of the dataset-pipeline for x-axis.
+            y : str
+                Name of the dataset-pipeline for y-axis.
+
+        Returns:
+        plotly.graph_objs._figure.Figure
+            A plotly graph figure object for the scatter plot
+            where x and y inputs are the axes.
+        """
         return plot_scatter_func(x, y, df)
 
     @callback(
