@@ -21,12 +21,12 @@ def start(path, local=True):
         Path of the directory containing files to be visualized.
     local : bool, optional
         Whether or not to start the app locally in the terminal or return
-        a flask app containing the dash app for deployment, by default True.
+        a Flask app containing the Dash app for deployment, by default True.
 
     Returns
     -------
     None or flask.app.Flask
-        Returns None if local parameter is set to True, otherwise
+        None if local parameter is set to True, otherwise
         returns a flask app instance.
     """
     app = dash.Dash(
@@ -37,6 +37,19 @@ def start(path, local=True):
     app.title = "NeRV"
 
     def serve_layout():
+        """
+        Generates and updates the app layout.
+        Used by the app.layout to dynamically generate/update
+        app layout on page referesh or whenever change is detected.
+
+        Returns
+        -------
+        dash_bootstrap_components._components.Container.Container
+            App layout which is made up of various dash bootstrap components
+            and dash core components wrapped with a dash bootstrap componenets
+            container component.
+
+        """
         global df
         df = process_files(path)
 
