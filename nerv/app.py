@@ -57,7 +57,7 @@ def start(path, local=True):
     #     )
 
     @callback(Output("hist-info-div", "children"), Input("histogram", "clickData"))
-    def process_click(clickData):
+    def histogram_click(clickData):
         return histogram_click_func(clickData)
 
     @callback(
@@ -74,7 +74,7 @@ def start(path, local=True):
         Input("x", "value"),
         Input("y", "value"),
     )
-    def process_click_scatter(clickData, x, y):
+    def scatter_click(clickData, x, y):
         return scatter_click_func(clickData, x, y, df)
 
     if local:
