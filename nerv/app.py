@@ -81,7 +81,7 @@ def start(path, local=True):
 
         Returns
         dash_bootstrap_components._components.Card.Card
-            Styled and structured metadata for the hist-info-div to display.
+            Styled and structured metadata to be displayed in hist-info-div.
         """
         return histogram_click_func(clickData)
 
@@ -115,6 +115,22 @@ def start(path, local=True):
         Input("y", "value"),
     )
     def scatter_click(clickData, x, y):
+        """
+        Processes data from the scatter plot graph click event.
+
+        Parameters
+        ----------
+        clickData : dict
+            Data from latest histogram graph click event.
+        x : str
+            Name of the x-axis dataset-pipeline.
+        y : str
+            Name of the y-axis dataset-pipeline.
+
+        Returns
+        dash_bootstrap_components._components.Card.Card
+            Styled and structured metadata to be displayed in scatter-info-div.
+        """
         return scatter_click_func(clickData, x, y, df)
 
     if local:
