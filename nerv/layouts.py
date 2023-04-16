@@ -7,6 +7,21 @@ from nerv import utility as util
 
 
 def layout(df):
+    """
+    Generates the app layout.
+
+    Parameters
+    ----------
+    df : pandas.core.frame.DataFrame
+        Dataframe containing the data for graph.
+
+    Returns
+    -------
+    dash_bootstrap_components._components.Container.Container
+        The app layout made up of various dash bootstrap components and
+        dash core components wrapped with a dash bootstrap componenets
+        container component.
+    """
     hist_plot = dcc.Graph(
         id="histogram",
         figure=px.histogram(
