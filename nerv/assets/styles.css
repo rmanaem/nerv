@@ -1,81 +1,17 @@
 /* layout styles */
 
 #histogram {
-    height: 820px;
-}
-
-#histogram-div {
-    display: inline-block;
-    width: 75%;
-}
-
-#summary-info-div {
-    width: 25%;
-    margin-left: 30px;
-}
-
-#summary-info-histogram-div {
-    display: flex;
-}
-
-#x {
-    width: 250px;
-    color: #222;
-}
-
-#y {
-    width: 250px;
-    color: #222;
-}
-
-#dropdown-div {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    height: 800px;
 }
 
 #scatter {
-    height: 790px;
-}
-
-#dropdown-scatter-div {
-    display: inline-block;
-    width: 75%;
-}
-
-#info-div-scatter {
-    width: 25%;
-    margin-left: 30px;
-}
-
-#info-dropdown-scatter-div {
-    display: flex;
-}
-
-#tabs {
-    color: #222;
+    height: 800px;
 }
 
 
 /* callback styles */
 
-#info-h4 {
-    text-align: center;
-}
-
-#cbrain-id {
-    color: #4673a3;
-}
-
-#info-p {
-    margin-left: 10px;
-    word-wrap: break-word;
-}
-
-#info-div {
-    width: 90%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-    border-radius: 7px;
-    border: 0.25px solid
+a {
+    /* color: #4673a3; */
+    text-decoration: none;
 }
