@@ -80,8 +80,10 @@ def start(path, local=True):
             Data from latest histogram graph click event.
 
         Returns
-        dash_bootstrap_components._components.Card.Card
-            Styled and structured metadata to be displayed in hist-info-div.
+        ----------
+        dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
+            No dash update if clickData is None otherwise, styled and structured
+            metadata to be displayed in hist-info-div.
         """
         return histogram_click_func(clickData)
 
@@ -101,7 +103,8 @@ def start(path, local=True):
             y : str
                 Name of the y-axis dataset-pipeline.
 
-        Returns:
+        Returns
+        ----------
         plotly.graph_objs._figure.Figure
             A plotly graph figure object for the scatter plot
             where x and y inputs are the axes.
@@ -128,8 +131,10 @@ def start(path, local=True):
             Name of the y-axis dataset-pipeline.
 
         Returns
-        dash_bootstrap_components._components.Card.Card
-            Styled and structured metadata to be displayed in scatter-info-div.
+        ----------
+        dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
+            No dash update if clickData is None otherwise, styled and structured
+            metadata to be displayed in scatter-info-div.
         """
         return scatter_click_func(clickData, x, y, df)
 
