@@ -1,5 +1,5 @@
 """
-Contains the logic for app callback functions.
+Logic of app callback functions.
 """
 import dash
 import dash_bootstrap_components as dbc
