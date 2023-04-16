@@ -110,6 +110,24 @@ def histogram_click_func(clickData):
 
 
 def plot_scatter_func(x, y, df):
+    """
+    Creates a scatter plot figure.
+    If x or y are None, it uses the first and last dataset-pipeline
+    in the dataframe as x and y.
+
+    Parameters
+    ----------
+        x : str
+            Name of the x-axis dataset-pipeline.
+        y : str
+            Name of the y-axis dataset-pipeline.
+
+    Returns
+    ----------
+    plotly.graph_objs._figure.Figure
+        A plotly graph figure object for the scatter plot
+        where x and y inputs are the axes.
+    """
     if not x or not y:
         return px.scatter(
             df,
