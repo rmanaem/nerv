@@ -1,3 +1,6 @@
+"""
+Contains the logic for app callback functions.
+"""
 import dash
 import dash_bootstrap_components as dbc
 import plotly.express as px
