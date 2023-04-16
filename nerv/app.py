@@ -71,6 +71,18 @@ def start(path, local=True):
 
     @callback(Output("hist-info-div", "children"), Input("histogram", "clickData"))
     def histogram_click(clickData):
+        """
+        Processes data from a click event.
+
+        Parameters
+        ----------
+        clickData : dict
+            Data from latest click event.
+
+        Returns
+        dash_bootstrap_components._components.Card.Card
+            Styled and structured metadata for the hist-info-div to display.
+        """
         return histogram_click_func(clickData)
 
     @callback(
