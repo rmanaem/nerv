@@ -26,7 +26,7 @@ def histogram_click_func(clickData):
     Returns
     ----------
     dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
-        No dash update if clickData is None otherwise, styled and structured
+        No dash update if clickData is None otherwise, structured and styled
         metadata to be displayed in hist-metadata-div.
     """
     if not clickData:
@@ -176,7 +176,7 @@ def scatter_click_func(clickData, x, y, df):
     Returns
     ----------
     dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
-        No dash update if clickData is None otherwise, styled and structured
+        No dash update if clickData is None otherwise, structured and styled
         metadata to be displayed in scatter-metadata-div.
     """
     if not clickData:

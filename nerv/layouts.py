@@ -13,7 +13,7 @@ def layout(df):
     Parameters
     ----------
     df : pandas.core.frame.DataFrame
-        Dataframe containing the data for graph.
+        Dataframe containing the data for graphs.
 
     Returns
     -------
