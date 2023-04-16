@@ -124,6 +124,22 @@ def pull_directories(path):
 
 
 def generate_summary(df):
+    """
+    Generates a summary for the input dataframe's data.
+    The summary includes total number of datapoints, total number
+    of missing datapoints, and number of missing datapoints in
+    each dataset-pipeline.
+
+    Parameters
+    ----------
+    df : pandas.core.frame.DataFrame
+        Dataframe containing the data.
+
+    Returns
+    -------
+    dash_bootstrap_components._components.Card.Card
+        A structured and styled summary of the dataframe's data.
+    """
     total = str(df.shape[0])
     missing = str(df[df["Result"] == -1].shape[0])
     header = html.H4("Summary", className="card-title")
