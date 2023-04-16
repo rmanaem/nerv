@@ -45,10 +45,9 @@ def start(path, local=True):
         Returns
         -------
         dash_bootstrap_components._components.Container.Container
-            App layout which is made up of various dash bootstrap components
-            and dash core components wrapped with a dash bootstrap componenets
+            The app layout made up of various dash bootstrap components and
+            dash core components wrapped with a dash bootstrap componenets
             container component.
-
         """
         global df
         df = process_files(path)
