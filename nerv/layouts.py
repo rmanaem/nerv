@@ -62,14 +62,16 @@ def layout(df):
 
     summary = util.generate_summary(df)
 
-    hist_info = html.Div(id="hist-info-div")
+    hist_metadata = html.Div(id="hist-metadata-div")
 
     hist_tab = dbc.Tab(
         [
             dbc.Row(
                 [
                     dbc.Col(hist_plot, width="9"),
-                    dbc.Col([dbc.Row(dbc.Col(summary)), dbc.Row(dbc.Col(hist_info))]),
+                    dbc.Col(
+                        [dbc.Row(dbc.Col(summary)), dbc.Row(dbc.Col(hist_metadata))]
+                    ),
                 ],
             ),
         ],
@@ -129,7 +131,7 @@ def layout(df):
         config={"displaylogo": False},
     )
 
-    scatter_info = html.Div(id="scatter-info-div")
+    scatter_metadata = html.Div(id="scatter-metadata-div")
 
     scatter_tab = dbc.Tab(
         [
@@ -142,7 +144,7 @@ def layout(df):
                         ],
                         width="9",
                     ),
-                    dbc.Col(scatter_info),
+                    dbc.Col(scatter_metadata),
                 ]
             )
         ],

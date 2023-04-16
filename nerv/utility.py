@@ -7,7 +7,7 @@ import pandas as pd
 import plotly.express as px
 from dash import html
 
-colors = [
+COLORS = [
     px.colors.qualitative.G10,
     px.colors.sequential.Teal,
     px.colors.sequential.Brwnyl,
@@ -41,8 +41,8 @@ def process_file(file, color):
     """
     Creates a dataframe from input file's data.
     Loads the data from the file into a dataframe and adds
-    Result, Info, and Color (using a single color sequence
-    from colors per file) columns to the dataframe using
+    Result, Metadata, and Color (using a single color sequence
+    from COLORS per file) columns to the dataframe using
     the data.
 
     Parameters
@@ -50,23 +50,23 @@ def process_file(file, color):
     file : tuple
         (dataset-pipeline file path, dataset-pipeline name).
     color : int
-        Index number for selecting a color sequence from colors.
+        Index number for selecting a color sequence from COLORS.
 
     Returns
     -------
     pandas.core.frame.DataFrame
         A dataframe containing Subject, Dataset-Pipeline, Result
-        Info, and Color columns.
+        Metadata, and Color columns.
     """
     data = None
     with open(file[0], "r") as dataset:
         data = json.load(dataset)
     x = []
     for k in data.keys():
-        z = len(colors[color]) - 1
+        z = len(COLORS[color]) - 1
         for v in data[k].keys():
             x.append(
-                (k, v, data[k][v]["Result"]["result"], data[k][v], colors[color][z])
+                (k, v, data[k][v]["Result"]["result"], data[k][v], COLORS[color][z])
             )
             z -= 1
     x = [
@@ -80,7 +80,7 @@ def process_file(file, color):
             "Subject": [i[0] for i in x],
             "Dataset-Pipeline": [file[1] + "-" + i[1] for i in x],
             "Result": [i[2] for i in x],
-            "Info": [i[3] for i in x],
+            "Metadata": [i[3] for i in x],
             "Color": [i[4] for i in x],
         }
     )

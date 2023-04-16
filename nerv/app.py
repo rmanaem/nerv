@@ -68,7 +68,7 @@ def start(path, local=True):
     #         value, histogram_fig, scatter_fig, template1, template2
     #     )
 
-    @callback(Output("hist-info-div", "children"), Input("histogram", "clickData"))
+    @callback(Output("hist-metadata-div", "children"), Input("histogram", "clickData"))
     def histogram_click(clickData):
         """
         Processes data from the histogram graph click event.
@@ -82,7 +82,7 @@ def start(path, local=True):
         ----------
         dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
             No dash update if clickData is None otherwise, styled and structured
-            metadata to be displayed in hist-info-div.
+            metadata to be displayed in hist-metadata-div.
         """
         return histogram_click_func(clickData)
 
@@ -111,7 +111,7 @@ def start(path, local=True):
         return plot_scatter_func(x, y, df)
 
     @callback(
-        Output("scatter-info-div", "children"),
+        Output("scatter-metadata-div", "children"),
         Input("scatter", "clickData"),
         Input("x", "value"),
         Input("y", "value"),
@@ -133,7 +133,7 @@ def start(path, local=True):
         ----------
         dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
             No dash update if clickData is None otherwise, styled and structured
-            metadata to be displayed in scatter-info-div.
+            metadata to be displayed in scatter-metadata-div.
         """
         return scatter_click_func(clickData, x, y, df)
 

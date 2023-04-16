@@ -27,7 +27,7 @@ def histogram_click_func(clickData):
     ----------
     dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
         No dash update if clickData is None otherwise, styled and structured
-        metadata to be displayed in hist-info-div.
+        metadata to be displayed in hist-metadata-div.
     """
     if not clickData:
         return dash.no_update
@@ -39,7 +39,7 @@ def histogram_click_func(clickData):
         else "Result: " + str(clickData["points"][0]["x"])
     )
     header = html.H4("Metadata", className="card-title")
-    info = [
+    metadata = [
         header,
         subject,
         html.Br(),
@@ -104,9 +104,9 @@ def histogram_click_func(clickData):
             ],
             start_collapsed=True,
         )
-        info.append(step)
+        metadata.append(step)
 
-    return dbc.Card(dbc.CardBody(info, className="card-text"))
+    return dbc.Card(dbc.CardBody(metadata, className="card-text"))
 
 
 def plot_scatter_func(x, y, df):
@@ -177,7 +177,7 @@ def scatter_click_func(clickData, x, y, df):
     ----------
     dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
         No dash update if clickData is None otherwise, styled and structured
-        metadata to be displayed in scatter-info-div.
+        metadata to be displayed in scatter-metadata-div.
     """
     if not clickData:
         return dash.no_update
@@ -200,7 +200,7 @@ def scatter_click_func(clickData, x, y, df):
         if clickData["points"][0]["x"] == -1
         else "Result: " + str(clickData["points"][0]["x"])
     )
-    info = [
+    metadata = [
         header,
         x_subject,
         html.Br(),
@@ -212,10 +212,10 @@ def scatter_click_func(clickData, x, y, df):
         html.Br(),
         html.Br(),
     ]
-    x_info = df[
+    x_metadata = df[
         (df["Dataset-Pipeline"] == x) & (df["Result"] == clickData["points"][0]["x"])
-    ]["Info"].iloc[0]
-    for k, v in list(x_info.items())[:-1]:
+    ]["Metadata"].iloc[0]
+    for k, v in list(x_metadata.items())[:-1]:
         status = "Incomplete" if v["status"] is None else v["status"]
         inp = (
             "N/A"
@@ -267,7 +267,7 @@ def scatter_click_func(clickData, x, y, df):
             ],
             start_collapsed=True,
         )
-        info.append(step)
+        metadata.append(step)
 
     y_subject = (
         "Subject: "
@@ -282,7 +282,7 @@ def scatter_click_func(clickData, x, y, df):
         if clickData["points"][0]["y"] == -1
         else "Result: " + str(clickData["points"][0]["y"])
     )
-    info += [
+    metadata += [
         html.Br(),
         y_subject,
         html.Br(),
@@ -294,10 +294,10 @@ def scatter_click_func(clickData, x, y, df):
         html.Br(),
         html.Br(),
     ]
-    y_info = df[
+    y_metadata = df[
         (df["Dataset-Pipeline"] == y) & (df["Result"] == clickData["points"][0]["y"])
-    ]["Info"].iloc[0]
-    for k, v in list(y_info.items())[:-1]:
+    ]["Metadata"].iloc[0]
+    for k, v in list(y_metadata.items())[:-1]:
         status = "Incomplete" if v["status"] is None else v["status"]
         inp = (
             "N/A"
@@ -349,6 +349,6 @@ def scatter_click_func(clickData, x, y, df):
             ],
             start_collapsed=True,
         )
-        info.append(step)
+        metadata.append(step)
 
-    return dbc.Card(dbc.CardBody(info, className="card-text"))
+    return dbc.Card(dbc.CardBody(metadata, className="card-text"))
