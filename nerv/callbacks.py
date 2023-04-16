@@ -4,19 +4,31 @@ Contains the logic for app callback functions.
 import dash
 import dash_bootstrap_components as dbc
 import plotly.express as px
-import plotly.io as pio
 from dash import html
 
+# def switch_template_func(value, histogram_fig, scatter_fig, template1, template2):
+#     template = template1 if value else template2
+#     histogram_fig["layout"]["template"] = pio.templates[template]
+#     scatter_fig["layout"]["template"] = pio.templates[template]
 
-def switch_template_func(value, histogram_fig, scatter_fig, template1, template2):
-    template = template1 if value else template2
-    histogram_fig["layout"]["template"] = pio.templates[template]
-    scatter_fig["layout"]["template"] = pio.templates[template]
-
-    return histogram_fig, scatter_fig
+#     return histogram_fig, scatter_fig
 
 
 def histogram_click_func(clickData):
+    """
+    Processes data from the histogram graph click event.
+
+    Parameters
+    ----------
+    clickData : dict
+        Data from latest histogram graph click event.
+
+    Returns
+    ----------
+    dash._callback.Noupdate or dash_bootstrap_components._components.Card.Card
+        No dash update if clickData is None otherwise, styled and structured
+        metadata to be displayed in hist-info-div.
+    """
     if not clickData:
         return dash.no_update
     subject = "Subject: " + clickData["points"][0]["customdata"][0]
