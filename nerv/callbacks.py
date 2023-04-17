@@ -68,8 +68,7 @@ def histogram_click_func(clickData):
             if v["taskID"] is None
             else html.A(
                 str(v["taskID"]),
-                href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
-                + str(v["taskID"]),
+                href="https://portal.cbrain.mcgill.ca/tasks/" + str(v["taskID"]),
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
@@ -231,8 +230,7 @@ def scatter_click_func(clickData, x, y, df):
             if v["taskID"] is None
             else html.A(
                 str(v["taskID"]),
-                href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
-                + str(v["taskID"]),
+                href="https://portal.cbrain.mcgill.ca/tasks/" + str(v["taskID"]),
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
@@ -313,8 +311,7 @@ def scatter_click_func(clickData, x, y, df):
             if v["taskID"] is None
             else html.A(
                 str(v["taskID"]),
-                href="https://portal.cbrain.mcgill.ca/tasks/inser_ID_here"
-                + str(v["taskID"]),
+                href="https://portal.cbrain.mcgill.ca/tasks/" + str(v["taskID"]),
             )
         )
         config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
