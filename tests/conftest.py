@@ -11,6 +11,14 @@ from nerv.utility import process_files
 
 @pytest.fixture(scope="session")
 def path():
+    """
+    Provides the path of directory containing test data.
+
+    Returns
+    -------
+    str
+        Path of directory containing test data.
+    """
     test_dir = os.path.dirname(os.path.abspath(__file__))
     print("Using", os.path.join(test_dir, "data"), "as the path for app")
     yield os.path.join(test_dir, "data")
