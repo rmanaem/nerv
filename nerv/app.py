@@ -56,18 +56,6 @@ def start(path, local=True):
 
     app.layout = serve_layout
 
-    # @callback(
-    #     Output("histogram", "figure"),
-    #     Output("scatter", "figure"),
-    #     Input(ThemeSwitchAIO.ids.switch("theme"), "value"),
-    #     Input("histogram", "figure"),
-    #     Input("scatter", "figure"),
-    # )
-    # def switch_template(value, histogram_fig, scatter_fig):
-    #     return switch_template_func(
-    #         value, histogram_fig, scatter_fig, template1, template2
-    #     )
-
     @callback(Output("hist-metadata-div", "children"), Input("histogram", "clickData"))
     def histogram_click(clickData):
         """
