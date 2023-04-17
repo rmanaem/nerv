@@ -26,6 +26,17 @@ def path():
 
 @pytest.fixture(scope="session")
 def df(path):
+    """
+    Provides a dataframe containing test data.
+    It utilizes process_files function to generate
+    the dataframe.
+
+    Returns
+    -------
+    pandas.core.frame.DataFrame
+        A dataframe containing test data.
+    """
+
     yield process_files(path)
 
 
