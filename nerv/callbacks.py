@@ -6,13 +6,6 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import html
 
-# def switch_template_func(value, histogram_fig, scatter_fig, template1, template2):
-#     template = template1 if value else template2
-#     histogram_fig["layout"]["template"] = pio.templates[template]
-#     scatter_fig["layout"]["template"] = pio.templates[template]
-
-#     return histogram_fig, scatter_fig
-
 
 def histogram_click_func(clickData):
     """
