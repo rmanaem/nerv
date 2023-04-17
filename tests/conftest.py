@@ -25,7 +25,7 @@ def path():
 
 
 @pytest.fixture(scope="session")
-def data(path):
+def df(path):
     yield process_files(path)
 
 
