@@ -1,3 +1,6 @@
+"""
+Test fixtures.
+"""
 import os
 
 import plotly.express as px
