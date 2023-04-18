@@ -104,3 +104,89 @@ def clickData(request):
                 }
             ]
         }
+
+
+@pytest.fixture()
+def metadata(request):
+    if request.param == "histogram":
+        return {
+            "subject": "some_subject",
+            "dataset-pipeline": "some_dataset-pipeline",
+            "result": "3489",
+            "first_step": {
+                "status": "Completed",
+                "inputID": "6435319",
+                "outputID": "4283122",
+                "taskID": "5616972",
+                "toolConfigID": "678",
+            },
+            "second_step": {
+                "status": "Completed",
+                "inputID": "4283122",
+                "outputID": "1947652",
+                "taskID": "1896642",
+                "toolConfigID": "1024",
+            },
+            "third_step": {
+                "status": "Completed",
+                "inputID": "1947652",
+                "outputID": "1285429",
+                "taskID": "8735432",
+                "toolConfigID": "1024",
+            },
+        }
+    else:
+        return {
+            "x": {
+                "subject": "sub-2017146_ses-NAPFU48_run-002_T1w.nii.gz",
+                "dataset-pipeline": "prevent-AD-FSL",
+                "result": "16709",
+                "FSL_First": {
+                    "status": "Completed",
+                    "inputID": "3680817",
+                    "outputID": "3681957",
+                    "taskID": "1888425",
+                    "toolConfigID": "721",
+                },
+                "Subfolder_File_Extractor_FSL": {
+                    "status": "Completed",
+                    "inputID": "3681957",
+                    "outputID": "3682428",
+                    "taskID": "1889025",
+                    "toolConfigID": "2094",
+                },
+                "FSL_Stats": {
+                    "status": "Completed",
+                    "inputID": "3682428",
+                    "outputID": "3682749",
+                    "taskID": "1889307",
+                    "toolConfigID": "1698",
+                },
+            },
+            "y": {
+                "subject": "sub-2017146_ses-NAPFU48_run-002_T1w.nii.gz",
+                "dataset-pipeline": "prevent-AD-FreeSurfer",
+                "result": "Result: 3703",
+                "FreeSurfer_Recon_all": {
+                    "status": "Completed",
+                    "inputID": "3680817",
+                    "outputID": "3683955",
+                    "taskID": "1888725",
+                    "toolConfigID": "583",
+                },
+                "Subfolder_File_Extractor_FreeSurfer_1": {
+                    "status": "Completed",
+                    "inputID": "3683955",
+                    "outputID": "3684015",
+                    "taskID": "1890132",
+                    "toolConfigID": "2094",
+                },
+                "Subfolder_File_Extractor_FreeSurfer_2": {
+                    "status": "Completed",
+                    "inputID": "3684015",
+                    "outputID": "3684129",
+                    "taskID": "1890222",
+                    "toolConfigID": "2094",
+                },
+            },
+        }
