@@ -39,54 +39,68 @@ def df(path):
     yield process_files(path)
 
 
-@pytest.fixture(scope="session")
-def clickData():
-    return {
-        "points": [
-            {
-                "curveNumber": 7,
-                "pointNumber": 491,
-                "pointIndex": 491,
-                "x": 3489,
-                "y": "some_dataset-pipeline",
-                "bbox": {
-                    "x0": 484.66,
-                    "x1": 490.66,
-                    "y0": 127.27,
-                    "y1": 133.26999999999998,
-                },
-                "customdata": [
-                    "some_subject",
-                    "some_dataset-pipeline",
-                    {
-                        "first_step": {
-                            "inputID": 6435319,
-                            "toolConfigID": 678,
-                            "taskID": 5616972,
-                            "status": "Completed",
-                            "outputID": 4283122,
-                            "isUsed": True,
-                        },
-                        "second_step": {
-                            "inputID": 4283122,
-                            "toolConfigID": 1024,
-                            "taskID": 1896642,
-                            "status": "Completed",
-                            "outputID": 1947652,
-                            "isUsed": True,
-                        },
-                        "third_step": {
-                            "inputID": 1947652,
-                            "toolConfigID": 1024,
-                            "taskID": 8735432,
-                            "status": "Completed",
-                            "outputID": 1285429,
-                            "isUsed": True,
-                        },
-                        "Result": {"result": "3489", "isUsed": True},
+@pytest.fixture()
+def clickData(request):
+    if request.param == "histogram":
+        return {
+            "points": [
+                {
+                    "curveNumber": 7,
+                    "pointNumber": 491,
+                    "pointIndex": 491,
+                    "x": 3489,
+                    "y": "some_dataset-pipeline",
+                    "bbox": {
+                        "x0": 484.66,
+                        "x1": 490.66,
+                        "y0": 127.27,
+                        "y1": 133.26999999999998,
                     },
-                    "rgb(59, 115, 143)",
-                ],
-            }
-        ]
-    }
+                    "customdata": [
+                        "some_subject",
+                        "some_dataset-pipeline",
+                        {
+                            "first_step": {
+                                "inputID": 6435319,
+                                "toolConfigID": 678,
+                                "taskID": 5616972,
+                                "status": "Completed",
+                                "outputID": 4283122,
+                                "isUsed": True,
+                            },
+                            "second_step": {
+                                "inputID": 4283122,
+                                "toolConfigID": 1024,
+                                "taskID": 1896642,
+                                "status": "Completed",
+                                "outputID": 1947652,
+                                "isUsed": True,
+                            },
+                            "third_step": {
+                                "inputID": 1947652,
+                                "toolConfigID": 1024,
+                                "taskID": 8735432,
+                                "status": "Completed",
+                                "outputID": 1285429,
+                                "isUsed": True,
+                            },
+                            "Result": {"result": "3489", "isUsed": True},
+                        },
+                        "rgb(59, 115, 143)",
+                    ],
+                }
+            ]
+        }
+    else:
+        return {
+            "points": [
+                {
+                    "curveNumber": 0,
+                    "pointNumber": 145,
+                    "pointIndex": 145,
+                    "x": 16709,
+                    "y": 3703,
+                    "bbox": {"x0": 901.12, "x1": 903.12, "y0": 396.842, "y1": 398.842},
+                }
+            ]
+        }
