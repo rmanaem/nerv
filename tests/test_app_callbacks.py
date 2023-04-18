@@ -1,3 +1,4 @@
+"""Unit tests for app callbacks."""
 import pytest
 
 from nerv.utility import get_metadata
