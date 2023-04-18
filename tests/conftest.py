@@ -3,7 +3,6 @@ Test fixtures.
 """
 import os
 
-import plotly.express as px
 import pytest
 from dash.html import H4, A, Br
 from dash_bootstrap_components import Accordion, AccordionItem, Card, CardBody
@@ -212,18 +211,4 @@ def hist_metadata():
             ],
             className="card-text",
         )
-    )
-
-
-@pytest.fixture(scope="session")
-def scatter(data):
-    return px.scatter(
-        data,
-        x=data[
-            data["Dataset-Pipeline"] == data["Dataset-Pipeline"].unique().tolist()[0]
-        ]["Result"],
-        y=data[
-            data["Dataset-Pipeline"] == data["Dataset-Pipeline"].unique().tolist()[-1]
-        ]["Result"],
-        template="plotly_dark",
     )
