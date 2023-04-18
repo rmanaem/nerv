@@ -199,7 +199,7 @@ def get_metadata(clickData, x=None, y=None, df=None):
         Structured metadata.
     """
     metadata = {}
-    if df is None:
+    if x is None or y is None:
         metadata["subject"] = clickData["points"][0]["customdata"][0]
         metadata["dataset-pipeline"] = clickData["points"][0]["y"]
         metadata["result"] = (
