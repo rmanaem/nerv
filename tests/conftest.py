@@ -40,7 +40,7 @@ def df(path):
 
 
 @pytest.fixture(scope="session")
-def hist_clickData():
+def clickData():
     return {
         "points": [
             {
