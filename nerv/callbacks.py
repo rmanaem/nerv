@@ -154,7 +154,8 @@ def plot_scatter_func(x, y, df):
 
 def scatter_click_func(clickData, x, y, df):
     """
-    Processes data from the scatter plot graph click event.
+    Processes data from the scatter plot graph click event and creates
+    UI elements to display the metadata.
     If x or y is None, it uses the first and last dataset-pipeline
     in the dataframe as x and y.
 
