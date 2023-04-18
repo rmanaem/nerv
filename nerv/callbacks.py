@@ -166,6 +166,8 @@ def scatter_click_func(clickData, x, y, df):
         Name of the x-axis dataset-pipeline.
     y : str
         Name of the y-axis dataset-pipeline.
+    df : pandas.core.frame.DataFrame
+            Dataframe containing the data.
 
     Returns
     ----------
