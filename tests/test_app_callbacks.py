@@ -13,5 +13,6 @@ from nerv.utility import get_metadata
     ],
     indirect=["clickData", "metadata"],
 )
-def test_get_metadata(clickData, metadata, x, y, df):
+def test_get_metadata(metadata, clickData, x, y, df):
+    """Tests get_metadata function using clickData, metadata, and df fixtures"""
     assert metadata == get_metadata(clickData, x, y, df)
