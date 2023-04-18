@@ -216,11 +216,6 @@ def hist_metadata():
 
 
 @pytest.fixture(scope="session")
-def histogram(data):
-    return px.histogram(data[data["Result"] != -1], x="Result", template="plotly_dark")
-
-
-@pytest.fixture(scope="session")
 def scatter(data):
     return px.scatter(
         data,
