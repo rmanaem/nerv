@@ -9,7 +9,8 @@ from dash import html
 
 def histogram_click_func(clickData):
     """
-    Processes data from the histogram graph click event.
+    Processes data from the histogram graph click event and creates
+    UI elements to display the metadata.
 
     Parameters
     ----------
