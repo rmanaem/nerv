@@ -177,6 +177,27 @@ def generate_summary(df):
 
 
 def get_metadata(clickData, x=None, y=None, df=None):
+    """
+    Extracts and structures metadata from graphs' click event.
+    The extracted metadata is used to process data and create UI elements to
+    display the metadata.
+
+    Parameters
+    ----------
+    clickData : dict
+        Data from latest histogram graph click event.
+    x : str
+        Name of the x-axis dataset-pipeline.
+    y : str
+        Name of the y-axis dataset-pipeline.
+    df : pandas.core.frame.DataFrame
+        Dataframe containing the data.
+
+    Returns
+    ----------
+    dict
+        Structured metadata.
+    """
     metadata = {}
     if df is None:
         metadata["subject"] = clickData["points"][0]["customdata"][0]
