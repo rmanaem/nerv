@@ -174,3 +174,77 @@ def generate_summary(df):
         summary.append(html.Br())
 
     return dbc.Card(dbc.CardBody(summary, className="card-text"))
+
+
+def get_metadata(clickData, x=None, y=None, df=None):
+    metadata = {}
+    if df is None:
+        metadata["subject"] = clickData["points"][0]["customdata"][0]
+        metadata["dataset-pipeline"] = clickData["points"][0]["y"]
+        metadata["result"] = (
+            "N/A"
+            if clickData["points"][0]["x"] == -1
+            else str(clickData["points"][0]["x"])
+        )
+        for k, v in list(clickData["points"][0]["customdata"][2].items())[:-1]:
+            metadata[k] = {
+                "status": "Incomplete" if v["status"] is None else v["status"],
+                "inputID": "N/A" if v["inputID"] is None else str(v["inputID"]),
+                "outputID": "N/A" if v["outputID"] is None else str(v["outputID"]),
+                "taskID": "N/A" if v["taskID"] is None else str(v["taskID"]),
+                "toolConfigID": "N/A"
+                if v["toolConfigID"] is None
+                else str(v["toolConfigID"]),
+            }
+
+    else:
+        metadata["x"] = {
+            "subject": df[
+                (df["Dataset-Pipeline"] == x)
+                & (df["Result"] == clickData["points"][0]["x"])
+            ]["Subject"].iloc[0],
+            "dataset-pipeline": x,
+            "result": "N/A"
+            if clickData["points"][0]["x"] == -1
+            else str(clickData["points"][0]["x"]),
+        }
+        x_dic = df[
+            (df["Dataset-Pipeline"] == x)
+            & (df["Result"] == clickData["points"][0]["x"])
+        ]["Metadata"].iloc[0]
+        for k, v in list(x_dic.items())[:-1]:
+            metadata["x"][k] = {
+                "status": "Incomplete" if v["status"] is None else v["status"],
+                "inputID": "N/A" if v["inputID"] is None else str(v["inputID"]),
+                "outputID": "N/A" if v["outputID"] is None else str(v["outputID"]),
+                "taskID": "N/A" if v["taskID"] is None else str(v["taskID"]),
+                "toolConfigID": "N/A"
+                if v["toolConfigID"] is None
+                else str(v["toolConfigID"]),
+            }
+        metadata["y"] = {
+            "subject": df[
+                (df["Dataset-Pipeline"] == y)
+                & (df["Result"] == clickData["points"][0]["y"])
+            ]["Subject"].iloc[0],
+            "dataset-pipeline": y,
+            "result": "N/A"
+            if clickData["points"][0]["y"] == -1
+            else "Result: " + str(clickData["points"][0]["y"]),
+        }
+        y_dic = df[
+            (df["Dataset-Pipeline"] == y)
+            & (df["Result"] == clickData["points"][0]["y"])
+        ]["Metadata"].iloc[0]
+        for k, v in list(y_dic.items())[:-1]:
+            metadata["y"][k] = {
+                "status": "Incomplete" if v["status"] is None else v["status"],
+                "inputID": "N/A" if v["inputID"] is None else str(v["inputID"]),
+                "outputID": "N/A" if v["outputID"] is None else str(v["outputID"]),
+                "taskID": "N/A" if v["taskID"] is None else str(v["taskID"]),
+                "toolConfigID": "N/A"
+                if v["toolConfigID"] is None
+                else str(v["toolConfigID"]),
+            }
+
+    return metadata
