@@ -168,171 +168,122 @@ def scatter_click_func(clickData, x, y, df):
     if not clickData:
         return dash.no_update
 
-    if not x or not y:
+    elif not x or not y:
         xys = df["Dataset-Pipeline"].unique().tolist()
         x, y = xys[0], xys[-1]
 
-    header = html.H4("Metadata", className="card-title")
-    x_subject = (
-        "Subject: "
-        + df[
-            (df["Dataset-Pipeline"] == x)
-            & (df["Result"] == clickData["points"][0]["x"])
-        ]["Subject"].iloc[0]
-    )
-    x_pipeline = "Dataset-Pipeline: " + x
-    x_result = (
-        "Result: N/A"
-        if clickData["points"][0]["x"] == -1
-        else "Result: " + str(clickData["points"][0]["x"])
-    )
-    metadata = [
-        header,
-        x_subject,
+    metadata = get_metadata(clickData, x, y, df)
+    card_body_content = [
+        html.H4("Metadata", className="card-title"),
+        "Subject: " + metadata["x"]["subject"],
         html.Br(),
-        x_pipeline,
+        "Dataset-Pipeline: " + metadata["x"]["dataset-pipeline"],
         html.Br(),
-        x_result,
+        "Result: " + metadata["x"]["result"],
         html.Br(),
-        "Pipeline steps:",
+        "Pipeline steps: ",
         html.Br(),
         html.Br(),
     ]
-    x_metadata = df[
-        (df["Dataset-Pipeline"] == x) & (df["Result"] == clickData["points"][0]["x"])
-    ]["Metadata"].iloc[0]
-    for k, v in list(x_metadata.items())[:-1]:
-        status = "Incomplete" if v["status"] is None else v["status"]
-        inp = (
-            "N/A"
-            if v["inputID"] is None
-            else html.A(
-                str(v["inputID"]),
-                href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
-            )
-        )
-        out = (
-            "N/A"
-            if v["outputID"] is None
-            else html.A(
-                str(v["outputID"]),
-                href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-            )
-        )
-        task = (
-            "N/A"
-            if v["taskID"] is None
-            else html.A(
-                str(v["taskID"]),
-                href="https://portal.cbrain.mcgill.ca/tasks/" + str(v["taskID"]),
-            )
-        )
-        config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
-        step = dbc.Accordion(
-            [
-                dbc.AccordionItem(
-                    [
-                        "Status: ",
-                        status,
-                        html.Br(),
-                        "Input ID: ",
-                        inp,
-                        html.Br(),
-                        "Output ID: ",
-                        out,
-                        html.Br(),
-                        "Task ID: ",
-                        task,
-                        html.Br(),
-                        "Tool Configuration ID: ",
-                        config,
-                    ],
-                    title=k,
-                ),
-            ],
-            start_collapsed=True,
-        )
-        metadata.append(step)
 
-    y_subject = (
-        "Subject: "
-        + df[
-            (df["Dataset-Pipeline"] == y)
-            & (df["Result"] == clickData["points"][0]["y"])
-        ]["Subject"].iloc[0]
-    )
-    y_pipeline = "Dataset-Pipeline: " + y
-    y_result = (
-        "Result: N/A"
-        if clickData["points"][0]["y"] == -1
-        else "Result: " + str(clickData["points"][0]["y"])
-    )
-    metadata += [
+    for k, v in list(metadata["x"].items())[3:]:
+        card_body_content.append(
+            dbc.Accordion(
+                [
+                    dbc.AccordionItem(
+                        [
+                            "Status: " + v["status"],
+                            html.Br(),
+                            "Input ID: ",
+                            v["inputID"]
+                            if v["inputID"] == "N/A"
+                            else html.A(
+                                str(v["inputID"]),
+                                href="https://portal.cbrain.mcgill.ca/userfiles/"
+                                + str(v["inputID"]),
+                            ),
+                            html.Br(),
+                            "Output ID: ",
+                            v["outputID"]
+                            if v["outputID"] == "N/A"
+                            else html.A(
+                                str(v["outputID"]),
+                                href="https://portal.cbrain.mcgill.ca/userfiles/"
+                                + str(v["outputID"]),
+                            ),
+                            html.Br(),
+                            "Task ID: ",
+                            v["taskID"]
+                            if v["taskID"] == "N/A"
+                            else html.A(
+                                str(v["taskID"]),
+                                href="https://portal.cbrain.mcgill.ca/tasks/"
+                                + str(v["taskID"]),
+                            ),
+                            html.Br(),
+                            "Tool Configuration ID: " + v["toolConfigID"],
+                        ],
+                        title=k,
+                    )
+                ],
+                start_collapsed=True,
+            )
+        )
+
+    card_body_content += [
         html.Br(),
-        y_subject,
+        "Subject: " + metadata["y"]["subject"],
         html.Br(),
-        y_pipeline,
+        "Dataset-Pipeline: " + metadata["y"]["dataset-pipeline"],
         html.Br(),
-        y_result,
+        "Result: " + metadata["y"]["result"],
         html.Br(),
-        "Pipeline steps:",
+        "Pipeline steps: ",
         html.Br(),
         html.Br(),
     ]
-    y_metadata = df[
-        (df["Dataset-Pipeline"] == y) & (df["Result"] == clickData["points"][0]["y"])
-    ]["Metadata"].iloc[0]
-    for k, v in list(y_metadata.items())[:-1]:
-        status = "Incomplete" if v["status"] is None else v["status"]
-        inp = (
-            "N/A"
-            if v["inputID"] is None
-            else html.A(
-                str(v["inputID"]),
-                href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
+    for k, v in list(metadata["y"].items())[3:]:
+        card_body_content.append(
+            dbc.Accordion(
+                [
+                    dbc.AccordionItem(
+                        [
+                            "Status: " + v["status"],
+                            html.Br(),
+                            "Input ID: ",
+                            v["inputID"]
+                            if v["inputID"] == "N/A"
+                            else html.A(
+                                str(v["inputID"]),
+                                href="https://portal.cbrain.mcgill.ca/userfiles/"
+                                + str(v["inputID"]),
+                            ),
+                            html.Br(),
+                            "Output ID: ",
+                            v["outputID"]
+                            if v["outputID"] == "N/A"
+                            else html.A(
+                                str(v["outputID"]),
+                                href="https://portal.cbrain.mcgill.ca/userfiles/"
+                                + str(v["outputID"]),
+                            ),
+                            html.Br(),
+                            "Task ID: ",
+                            v["taskID"]
+                            if v["taskID"] == "N/A"
+                            else html.A(
+                                str(v["taskID"]),
+                                href="https://portal.cbrain.mcgill.ca/tasks/"
+                                + str(v["taskID"]),
+                            ),
+                            html.Br(),
+                            "Tool Configuration ID: " + v["toolConfigID"],
+                        ],
+                        title=k,
+                    )
+                ],
+                start_collapsed=True,
             )
         )
-        out = (
-            "N/A"
-            if v["outputID"] is None
-            else html.A(
-                str(v["outputID"]),
-                href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-            )
-        )
-        task = (
-            "N/A"
-            if v["taskID"] is None
-            else html.A(
-                str(v["taskID"]),
-                href="https://portal.cbrain.mcgill.ca/tasks/" + str(v["taskID"]),
-            )
-        )
-        config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
-        step = dbc.Accordion(
-            [
-                dbc.AccordionItem(
-                    [
-                        "Status: ",
-                        status,
-                        html.Br(),
-                        "Input ID: ",
-                        inp,
-                        html.Br(),
-                        "Output ID: ",
-                        out,
-                        html.Br(),
-                        "Task ID: ",
-                        task,
-                        html.Br(),
-                        "Tool Configuration ID: ",
-                        config,
-                    ],
-                    title=k,
-                ),
-            ],
-            start_collapsed=True,
-        )
-        metadata.append(step)
 
-    return dbc.Card(dbc.CardBody(metadata, className="card-text"))
+    return dbc.Card(dbc.CardBody(card_body_content, className="card-text"))
