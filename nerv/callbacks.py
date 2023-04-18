@@ -6,6 +6,8 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import html
 
+from nerv.utility import get_metadata
+
 
 def histogram_click_func(clickData):
     """
@@ -25,81 +27,67 @@ def histogram_click_func(clickData):
     """
     if not clickData:
         return dash.no_update
-    subject = "Subject: " + clickData["points"][0]["customdata"][0]
-    pipeline = "Dataset-Pipeline: " + clickData["points"][0]["y"]
-    result = (
-        "Result: N/A"
-        if clickData["points"][0]["x"] == -1
-        else "Result: " + str(clickData["points"][0]["x"])
-    )
-    header = html.H4("Metadata", className="card-title")
-    metadata = [
-        header,
-        subject,
+
+    metadata = get_metadata(clickData)
+
+    card_body_content = [
+        html.H4("Metadata", className="card-title"),
+        "Subject: " + metadata["subject"],
         html.Br(),
-        pipeline,
+        "Dataset-Pipeline: " + metadata["dataset-pipeline"],
         html.Br(),
-        result,
+        "Result: " + metadata["result"],
         html.Br(),
-        "Pipeline steps:",
+        "Pipeline steps: ",
         html.Br(),
         html.Br(),
     ]
 
-    for k, v in list(clickData["points"][0]["customdata"][2].items())[:-1]:
-        status = "Incomplete" if v["status"] is None else v["status"]
-        inp = (
-            "N/A"
-            if v["inputID"] is None
-            else html.A(
-                str(v["inputID"]),
-                href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["inputID"]),
+    for k, v in list(metadata.items())[3:]:
+        card_body_content.append(
+            dbc.Accordion(
+                [
+                    dbc.AccordionItem(
+                        [
+                            "Status: " + v["status"],
+                            html.Br(),
+                            "Input ID: ",
+                            v["inputID"]
+                            if v["inputID"] == "N/A"
+                            else html.A(
+                                str(v["inputID"]),
+                                href="https://portal.cbrain.mcgill.ca/userfiles/"
+                                + str(v["inputID"]),
+                            ),
+                            html.Br(),
+                            "Output ID: ",
+                            v["outputID"]
+                            if v["outputID"] == "N/A"
+                            else html.A(
+                                str(v["outputID"]),
+                                href="https://portal.cbrain.mcgill.ca/userfiles/"
+                                + str(v["outputID"]),
+                            ),
+                            html.Br(),
+                            "Task ID: ",
+                            v["taskID"]
+                            if v["taskID"] == "N/A"
+                            else html.A(
+                                str(v["taskID"]),
+                                href="https://portal.cbrain.mcgill.ca/tasks/"
+                                + str(v["taskID"]),
+                            ),
+                            html.Br(),
+                            "Tool Configuration ID: " + v["toolConfigID"],
+                        ],
+                        title=k,
+                    )
+                ],
+                start_collapsed=True,
             )
         )
-        out = (
-            "N/A"
-            if v["outputID"] is None
-            else html.A(
-                str(v["outputID"]),
-                href="https://portal.cbrain.mcgill.ca/userfiles/" + str(v["outputID"]),
-            )
-        )
-        task = (
-            "N/A"
-            if v["taskID"] is None
-            else html.A(
-                str(v["taskID"]),
-                href="https://portal.cbrain.mcgill.ca/tasks/" + str(v["taskID"]),
-            )
-        )
-        config = "N/A" if v["toolConfigID"] is None else str(v["toolConfigID"])
-        step = dbc.Accordion(
-            [
-                dbc.AccordionItem(
-                    [
-                        "Status: ",
-                        status,
-                        html.Br(),
-                        "Input ID: ",
-                        inp,
-                        html.Br(),
-                        "Output ID: ",
-                        out,
-                        html.Br(),
-                        "Task ID: ",
-                        task,
-                        html.Br(),
-                        "Tool Configuration ID: ",
-                        config,
-                    ],
-                    title=k,
-                ),
-            ],
-            start_collapsed=True,
-        )
-        metadata.append(step)
 
-    return dbc.Card(dbc.CardBody(metadata, className="card-text"))
+    return dbc.Card(dbc.CardBody(card_body_content, className="card-text"))
 
 
 def plot_scatter_func(x, y, df):
