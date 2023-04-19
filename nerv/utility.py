@@ -180,17 +180,18 @@ def get_metadata(clickData, x=None, y=None, df=None):
     """
     Extracts and structures metadata from graphs' click event.
     The extracted metadata is used to process data and create UI elements to
-    display the metadata.
+    display the metadata. If x or y is None, it assumes the clickData is coming
+    from histogram graph otherwise it assumes its coming from scatter plot graph.
 
     Parameters
     ----------
     clickData : dict
         Data from latest histogram graph click event.
-    x : str
+    x : str, optional
         Name of the x-axis dataset-pipeline.
-    y : str
+    y : str, optional
         Name of the y-axis dataset-pipeline.
-    df : pandas.core.frame.DataFrame
+    df : pandas.core.frame.DataFrame, optional
         Dataframe containing the data.
 
     Returns
