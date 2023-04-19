@@ -39,6 +39,11 @@ def test_get_metadata(metadata, clickData, x, y, df):
     ],
 )
 def test_plot_scatter_func(x, y, exp_x, exp_y, df):
+    """
+    Tests whether plot_scatter_func returns an instance of Figure class and
+    whether the plot axes are updated properly based on the input.
+    It utilizes df fixtures for testing.
+    """
     output = plot_scatter_func(x, y, df)
     assert isinstance(output, Figure)
     assert output["layout"]["xaxis"]["title"]["text"] == exp_x
