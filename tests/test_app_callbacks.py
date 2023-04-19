@@ -14,5 +14,9 @@ from nerv.utility import get_metadata
     indirect=["clickData", "metadata"],
 )
 def test_get_metadata(metadata, clickData, x, y, df):
-    """Tests get_metadata function using clickData, metadata, and df fixtures"""
+    """
+    Tests whether get_metadata condition that determines from which graph the
+    clickData is coming work as intended.
+    It utilizes clickData, metadata, and df fixtures for testing.
+    """
     assert metadata == get_metadata(clickData, x, y, df)
