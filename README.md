@@ -1,4 +1,20 @@
+<div align="center">
+
 # Neuroimaging Results Visualization
+
+<div>
+    <a href="https://github.com/rmanaem/nerv/actions/workflows/test.yaml">
+        <img src="https://img.shields.io/github/actions/workflow/status/neurobagel/api/test.yaml?color=BDB76B&label=test&style=flat-square">
+    </a>
+    <a href="https://www.python.org/">
+        <img src="https://img.shields.io/badge/python-3.10-4682B4?style=flat-square" alt="Python">
+    </a>
+    <a href="LICENSE">
+        <img src="https://img.shields.io/github/license/neurobagel/api?color=CD5C5C&style=flat-square" alt="GitHub license">
+    </a>
+</div>
+<br>
+</div>
 
 Neuroimaging Results Visualization (NeRV) is an interface developed in Python using Plotly Dash and pandas for visualization of neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines.
 
