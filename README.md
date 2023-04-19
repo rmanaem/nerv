@@ -20,9 +20,9 @@ Neuroimaging Results Visualization (NeRV) is an interface developed in Python us
 
 ## Getting Started
 
-### Install the package using pip
+### Installation
 
-```cmd
+```bash
 pip install nerv
 ```
 
@@ -36,7 +36,7 @@ from nerv import app
 app.start("path-to-data-directory")
 ```
 
-Once the file containing the above snipet is executed, a local server (at port 8050 by default) is launched. The server and the app can be accessed by browser through `localhost:8050` url.
+After executing the file containing the above code snippet, a local server is started at port 8050 (by default). You can access the running NeRV application using a browser through the URL `localhost:8050`.
 
 <p alt="ui" align="center"><a href="https://github.com/rmanaem/nerv/blob/master/img/ui.png"><img src="https://github.com/rmanaem/nerv/blob/master/img/ui.png?raw=true"/></a></p>
 
