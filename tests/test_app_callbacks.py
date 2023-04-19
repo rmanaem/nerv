@@ -1,6 +1,8 @@
 """Unit tests for app callbacks."""
 import pytest
+from plotly.graph_objs import Figure
 
+from nerv.callbacks import plot_scatter_func
 from nerv.utility import get_metadata
 
 
@@ -20,3 +22,24 @@ def test_get_metadata(metadata, clickData, x, y, df):
     It utilizes clickData, metadata, and df fixtures for testing.
     """
     assert metadata == get_metadata(clickData, x, y, df)
+
+
+@pytest.mark.parametrize(
+    "x, y, exp_x, exp_y",
+    [
+        (None, "prevent-AD-FreeSurfer", "prevent-AD-FSL", "compass-nd-IZK"),
+        ("compass-nd-CSM", None, "prevent-AD-FSL", "compass-nd-IZK"),
+        (None, None, "prevent-AD-FSL", "compass-nd-IZK"),
+        (
+            "prevent-AD-FreeSurfer",
+            "compass-nd-CSM",
+            "prevent-AD-FreeSurfer",
+            "compass-nd-CSM",
+        ),
+    ],
+)
+def test_plot_scatter_func(x, y, exp_x, exp_y, df):
+    output = plot_scatter_func(x, y, df)
+    assert isinstance(output, Figure)
+    assert output["layout"]["xaxis"]["title"]["text"] == exp_x
+    assert output["layout"]["yaxis"]["title"]["text"] == exp_y
