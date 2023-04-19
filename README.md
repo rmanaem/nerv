@@ -46,4 +46,4 @@ _Work in progress_
 
 ## License
 
-This package is licensed under the [MIT License](LICENSE).
+This project is licensed under the terms of [MIT License](LICENSE).
