@@ -1,12 +1,30 @@
+<div align="center">
+
 # Neuroimaging Results Visualization
 
-Neuroimaging Results Visualization (NeRV) is an interface developed in Python using Plotly Dash and pandas for visualization of neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines.
+<div>
+    <a href="https://github.com/rmanaem/nerv/actions/workflows/test.yaml">
+        <img src="https://img.shields.io/github/actions/workflow/status/neurobagel/api/test.yaml?color=BDB76B&label=test&style=flat-square">
+    </a>
+    <a href="https://www.python.org/">
+        <img src="https://img.shields.io/badge/python-3.10-4682B4?style=flat-square" alt="Python">
+    </a>
+    <a href="LICENSE">
+        <img src="https://img.shields.io/github/license/neurobagel/api?color=CD5C5C&style=flat-square" alt="GitHub license">
+    </a>
+</div>
+<br>
+</div>
+
+Neuroimaging Results Visualization (NeRV) is a web interface developed in Python using [Plotly Dash](https://dash.plotly.com/),  [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/), and [pandas](https://pandas.pydata.org/) for visualization of neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines.
+
+______________________________________________________________________
 
 ## Getting Started
 
-### Install the package using pip
+### Installation
 
-```cmd
+```bash
 pip install nerv
 ```
 
@@ -20,14 +38,18 @@ from nerv import app
 app.start("path-to-data-directory")
 ```
 
-Once the file containing the above snipet is executed, a local server (at port 8050 by default) is launched. The server and the app can be accessed by browser through `localhost:8050` url.
+After executing the file containing the above code snippet, a local server is started at port 8050 (by default). You can access the running NeRV application using a browser through the URL `localhost:8050`.
 
-<p alt="Interface-image" align="center"><a href="https://github.com/rmanaem/nerv/blob/master/img/interface.PNG"><img src="https://github.com/rmanaem/nerv/blob/master/img/interface.PNG?raw=true"/></a></p>
+<p alt="ui" align="center"><a href="https://github.com/rmanaem/nerv/blob/master/img/ui.png"><img src="https://github.com/rmanaem/nerv/blob/master/img/ui.png?raw=true"/></a></p>
+
+______________________________________________________________________
 
 ## Deployment
 
 _Work in progress_
 
+______________________________________________________________________
+
 ## License
 
-This package is licensed under the [MIT License](LICENSE).
+This project is licensed under the terms of [MIT License](LICENSE).
