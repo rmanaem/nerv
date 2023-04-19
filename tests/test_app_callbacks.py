@@ -3,7 +3,7 @@ import pytest
 from plotly.graph_objs import Figure
 
 from nerv.callbacks import plot_scatter_func
-from nerv.utility import get_metadata
+from nerv.utility import extract_metadata
 
 
 @pytest.mark.parametrize(
@@ -15,13 +15,13 @@ from nerv.utility import get_metadata
     ],
     indirect=["clickData", "metadata"],
 )
-def test_get_metadata(metadata, clickData, x, y, df):
+def test_extract_metadata(metadata, clickData, x, y, df):
     """
-    Tests whether get_metadata condition that determines from which graph the
+    Tests whether extract_metadata condition that determines from which graph the
     clickData is coming work as intended.
     It utilizes clickData, metadata, and df fixtures for testing.
     """
-    assert metadata == get_metadata(clickData, x, y, df)
+    assert metadata == extract_metadata(clickData, x, y, df)
 
 
 @pytest.mark.parametrize(

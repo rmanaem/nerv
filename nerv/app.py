@@ -5,7 +5,7 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, callback
 
-from nerv.callbacks import histogram_click_func, plot_scatter_func, scatter_click_func
+from nerv.callbacks import hist_click_func, plot_scatter_func, scatter_click_func
 from nerv.layouts import layout
 from nerv.utility import process_files
 
@@ -57,7 +57,7 @@ def start(path, local=True):
     app.layout = serve_layout
 
     @callback(Output("hist-metadata-div", "children"), Input("histogram", "clickData"))
-    def histogram_click(clickData):
+    def hist_click(clickData):
         """
         Processes data from the histogram graph click event.
 
@@ -72,7 +72,7 @@ def start(path, local=True):
             No dash update if clickData is None otherwise, styled and structured
             metadata to be displayed in hist-metadata-div.
         """
-        return histogram_click_func(clickData)
+        return hist_click_func(clickData)
 
     @callback(
         Output("scatter", "figure"),
@@ -126,6 +126,6 @@ def start(path, local=True):
         return scatter_click_func(clickData, x, y, df)
 
     if local:
-        app.run_server(debug=True)
+        app.run_server()
     else:
         return app.server

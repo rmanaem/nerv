@@ -6,10 +6,10 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import html
 
-from nerv.utility import get_metadata
+from nerv.utility import extract_metadata
 
 
-def histogram_click_func(clickData):
+def hist_click_func(clickData):
     """
     Processes data from the histogram graph click event and creates
     UI elements to display the metadata.
@@ -28,7 +28,7 @@ def histogram_click_func(clickData):
     if not clickData:
         return dash.no_update
 
-    metadata = get_metadata(clickData)
+    metadata = extract_metadata(clickData)
 
     card_body_content = [
         html.H4("Metadata", className="card-title"),
@@ -172,7 +172,7 @@ def scatter_click_func(clickData, x, y, df):
         xys = df["Dataset-Pipeline"].unique().tolist()
         x, y = xys[0], xys[-1]
 
-    metadata = get_metadata(clickData, x, y, df)
+    metadata = extract_metadata(clickData, x, y, df)
     card_body_content = [
         html.H4("Metadata", className="card-title"),
         "Subject: " + metadata["x"]["subject"],

@@ -176,7 +176,7 @@ def generate_summary(df):
     return dbc.Card(dbc.CardBody(summary, className="card-text"))
 
 
-def get_metadata(clickData, x=None, y=None, df=None):
+def extract_metadata(clickData, x=None, y=None, df=None):
     """
     Extracts and structures metadata from graphs' click event.
     The extracted metadata is used to process data and create UI elements to
