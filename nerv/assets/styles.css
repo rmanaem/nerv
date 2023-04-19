@@ -1,0 +1,17 @@
+/* layout styles */
+
+#histogram {
+    height: 800px;
+}
+
+#scatter {
+    height: 800px;
+}
+
+
+/* callback styles */
+
+a {
+    /* color: #4673a3; */
+    text-decoration: none;
+}
