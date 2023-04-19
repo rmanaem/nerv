@@ -18,6 +18,8 @@
 
 Neuroimaging Results Visualization (NeRV) is a web interface developed in Python using [Plotly Dash](https://dash.plotly.com/),  [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/), and [pandas](https://pandas.pydata.org/) for visualization of neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines.
 
+______________________________________________________________________
+
 ## Getting Started
 
 ### Installation
@@ -40,9 +42,13 @@ After executing the file containing the above code snippet, a local server is st
 
 <p alt="ui" align="center"><a href="https://github.com/rmanaem/nerv/blob/master/img/ui.png"><img src="https://github.com/rmanaem/nerv/blob/master/img/ui.png?raw=true"/></a></p>
 
+______________________________________________________________________
+
 ## Deployment
 
 _Work in progress_
+
+______________________________________________________________________
 
 ## License
 
