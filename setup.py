@@ -25,6 +25,8 @@ setup(
     long_description=long_description,
     url="https://github.com/rmanaem/nerv",
     packages=find_packages(),
+    include_package_data=True,
+    package_data={"nerv": ["assets/*"]},
     install_requires=install_requires,
     license="MIT",
     keywords=[
