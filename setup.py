@@ -11,7 +11,7 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as file:
 with open("requirements.txt", "r") as file:
     install_requires = file.read().split("\n")
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 DESCRIPTION = "Neuroimaging Results Visualization"
 LONG_DESCRIPTION = long_description
 
