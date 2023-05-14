@@ -1,12 +1,19 @@
 """
 The entry point of the app.
 """
+import os
+
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, State, callback
 
-from nerv.callbacks import *
-from nerv.layouts import *
+from nerv.callbacks import (
+    hist_click_func,
+    plot_scatter_func,
+    scatter_click_func,
+    toggle_offcanvas_func,
+)
+from nerv.layouts import index_layout, layout, navbar
 from nerv.utility import process_files
 
 
@@ -56,6 +63,15 @@ def start(path, local=True):
     @callback(Output("store", "data"), Input("url", "pathname"))
     def update_store(pathname):
         return pathname
+
+    @callback(Output("content", "children"), Input("store", "data"))
+    def display_page(url):
+        if url == "/":
+            return index_layout(path)
+        else:
+            global df
+            df = process_files(os.path.join(path, url[1:]))
+            return layout(df)
 
     @app.callback(
         Output("offcanvas", "is_open"),
