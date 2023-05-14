@@ -14,6 +14,7 @@ def navbar():
         [
             dbc.Nav(
                 [
+                    dbc.NavLink("Home", id="home", href="/"),
                     dbc.NavLink(
                         [
                             html.I(className="bi bi-gear-fill"),
