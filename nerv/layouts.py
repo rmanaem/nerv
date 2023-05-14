@@ -23,6 +23,9 @@ def navbar():
                     ),
                 ]
             ),
+            dcc.Store(id="store", storage_type="local"),
+            dcc.Location(id="url"),
+            html.Div(id="content"),
         ],
         fluid=True,
     )
