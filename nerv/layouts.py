@@ -6,6 +6,15 @@ from dash import dcc, html
 from nerv import utility as util
 
 
+def navbar():
+    return dbc.Container(
+        [
+            dbc.Nav(),
+        ],
+        fluid=True,
+    )
+
+
 def layout(df):
     """
     Generates the app layout.
@@ -151,13 +160,19 @@ def layout(df):
         label="Joint Plot",
     )
 
-    layout = dbc.Container(
-        [
-            dbc.Tabs(
-                [hist_tab, scatter_tab],
-            ),
-        ],
-        fluid=True,
+    # layout = dbc.Container(
+    #     [
+    #         dbc.Tabs(
+    #             [hist_tab, scatter_tab],
+    #         ),
+    #     ],
+    #     fluid=True,
+    # )
+
+    layout = (
+        dbc.Tabs(
+            [hist_tab, scatter_tab],
+        ),
     )
 
     return layout
