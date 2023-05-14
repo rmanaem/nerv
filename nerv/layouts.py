@@ -1,4 +1,5 @@
 """Layout of the app."""
+import datetime
 import os
 
 import dash_bootstrap_components as dbc
@@ -32,9 +33,32 @@ def navbar():
 
 
 def index_layout(path):
-    return [
-        dbc.Card(dcc.Link(x, href="/" + x, id=x), body=True) for x in os.listdir(path)
-    ]
+    return dbc.Container(
+        [
+            dcc.Link(
+                [
+                    dbc.Card(
+                        [
+                            html.H5(x),
+                            html.P(
+                                "Last modified: "
+                                + datetime.datetime.fromtimestamp(
+                                    os.path.getmtime(os.path.join(path, x))
+                                ).strftime("%c"),
+                                className="small",
+                            ),
+                        ],
+                        body=True,
+                    )
+                ],
+                href="/" + x,
+                id=x,
+                className="m-2 col-md-3 text-center",
+            )
+            for x in os.listdir(path)
+        ],
+        className="d-flex flex-row flex-wrap justify-content-center align-items-center",
+    )
 
 
 def layout(df):
