@@ -28,7 +28,7 @@ def navbar():
                                 ]
                             ),
                             disabled=True,
-                            className="col-md-11",
+                            className="col-md-10",
                         ),
                         dbc.NavLink("Home", id="home", href="/"),
                         dbc.NavLink(
@@ -37,11 +37,17 @@ def navbar():
                                 dbc.Offcanvas(
                                     id="offcanvas",
                                     title="Settings",
+                                    placement="end",
                                     scrollable=True,
                                 ),
                             ],
                             id="settings",
                             href="#",
+                        ),
+                        dbc.NavLink(
+                            html.I(className="bi bi-github"),
+                            external_link=True,
+                            href="https://github.com/rmanaem/nerv",
                         ),
                     ],
                 ),
