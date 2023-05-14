@@ -10,9 +10,7 @@ from nerv.utility import extract_metadata
 
 
 def toggle_offcanvas_func(n, is_open):
-    if n is None:
-        return dash.no_update
-    elif n % 2 == 1:
+    if n:
         return not is_open
     return is_open
 

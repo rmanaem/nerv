@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import dcc, html
 
-from nerv import utility as util
+from nerv.utility import generate_summary
 
 
 def navbar():
@@ -32,15 +32,7 @@ def navbar():
                         ),
                         dbc.NavLink("Home", id="home", href="/"),
                         dbc.NavLink(
-                            [
-                                html.I(className="bi bi-gear-fill"),
-                                dbc.Offcanvas(
-                                    id="offcanvas",
-                                    title="Settings",
-                                    placement="end",
-                                    scrollable=True,
-                                ),
-                            ],
+                            html.I(className="bi bi-gear-fill"),
                             id="settings",
                             href="#",
                         ),
@@ -50,6 +42,12 @@ def navbar():
                             href="https://github.com/rmanaem/nerv",
                         ),
                     ],
+                ),
+                dbc.Offcanvas(
+                    id="offcanvas",
+                    placement="end",
+                    scrollable=True,
+                    title="Settings",
                 ),
                 dcc.Store(id="store", storage_type="local"),
                 dcc.Location(id="url"),
@@ -147,7 +145,7 @@ def vis_layout(df):
         mathjax=True,
     )
 
-    summary = util.generate_summary(df)
+    summary = generate_summary(df)
 
     hist_metadata = html.Div(id="hist-metadata-div")
 
