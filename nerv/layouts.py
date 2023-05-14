@@ -68,7 +68,7 @@ def index_layout(path):
     )
 
 
-def layout(df):
+def vis_layout(df):
     """
     Generates the app layout.
 

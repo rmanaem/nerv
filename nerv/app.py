@@ -14,7 +14,7 @@ from nerv.callbacks import (
     scatter_click_func,
     toggle_offcanvas_func,
 )
-from nerv.layouts import index_layout, layout, navbar
+from nerv.layouts import index_layout, navbar, vis_layout
 from nerv.utility import process_files
 
 
@@ -72,7 +72,7 @@ def start(path, local=True):
         else:
             global df
             df = process_files(os.path.join(path, url[1:]))
-            return layout(df)
+            return vis_layout(df)
 
     @app.callback(
         Output("offcanvas", "is_open"),
