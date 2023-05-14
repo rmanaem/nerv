@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 from dash import Input, Output, callback
 
 from nerv.callbacks import hist_click_func, plot_scatter_func, scatter_click_func
-from nerv.layouts import layout
+from nerv.layouts import layout, navbar
 from nerv.utility import process_files
 
 
@@ -49,10 +49,7 @@ def start(path, local=True):
             dash core components wrapped with a dash bootstrap componenets
             container component.
         """
-        global df
-        df = process_files(path)
-
-        return layout(df)
+        return navbar()
 
     app.layout = serve_layout
 
