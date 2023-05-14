@@ -40,7 +40,7 @@ def start(path, local=True):
     app = dash.Dash(
         __name__,
         routes_pathname_prefix="/",
-        external_stylesheets=[dbc.themes.BOOTSTRAP],
+        external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP],
     )
     app.title = "NeRV"
 

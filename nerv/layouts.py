@@ -16,13 +16,19 @@ def navbar():
                 [
                     dbc.NavLink(
                         [
-                            "Settings",
-                            dbc.Offcanvas(id="offcanvas", title="Settings"),
+                            html.I(className="bi bi-gear-fill"),
+                            dbc.Offcanvas(
+                                id="offcanvas",
+                                title="Settings",
+                                placement="end",
+                                scrollable=True,
+                            ),
                         ],
                         id="settings",
                         href="#",
                     ),
-                ]
+                ],
+                horizontal="end",
             ),
             dcc.Store(id="store", storage_type="local"),
             dcc.Location(id="url"),
