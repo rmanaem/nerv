@@ -9,7 +9,18 @@ from nerv import utility as util
 def navbar():
     return dbc.Container(
         [
-            dbc.Nav(),
+            dbc.Nav(
+                [
+                    dbc.NavLink(
+                        [
+                            "Settings",
+                            dbc.Offcanvas(id="offcanvas", title="Settings"),
+                        ],
+                        id="settings",
+                        href="#",
+                    ),
+                ]
+            ),
         ],
         fluid=True,
     )
