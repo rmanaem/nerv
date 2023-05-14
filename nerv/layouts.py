@@ -1,4 +1,6 @@
 """Layout of the app."""
+import os
+
 import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import dcc, html
@@ -24,6 +26,12 @@ def navbar():
         ],
         fluid=True,
     )
+
+
+def index_layout(path):
+    return [
+        dbc.Card(dcc.Link(x, href="/" + x, id=x), body=True) for x in os.listdir(path)
+    ]
 
 
 def layout(df):
@@ -171,19 +179,8 @@ def layout(df):
         label="Joint Plot",
     )
 
-    # layout = dbc.Container(
-    #     [
-    #         dbc.Tabs(
-    #             [hist_tab, scatter_tab],
-    #         ),
-    #     ],
-    #     fluid=True,
-    # )
-
-    layout = (
+    return (
         dbc.Tabs(
             [hist_tab, scatter_tab],
         ),
     )
-
-    return layout
