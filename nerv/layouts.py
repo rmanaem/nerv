@@ -10,68 +10,70 @@ from nerv.utility import DBC_THEMES, generate_summary
 
 
 def navbar():
-    return dbc.Container(
-        dbc.Spinner(
+    tool_name = dbc.NavLink(
+        html.H4(
             [
-                dbc.Nav(
-                    [
-                        dbc.NavLink(
-                            html.H4(
-                                [
-                                    html.I(className="bi bi-bar-chart-line-fill"),
-                                    html.B(" Ne"),
-                                    "uroimaging ",
-                                    html.B("R"),
-                                    "esults ",
-                                    html.B("V"),
-                                    "isualization",
-                                ]
-                            ),
-                            disabled=True,
-                            className="col-md-10",
-                        ),
-                        dbc.NavLink("Home", id="home", href="/"),
-                        dbc.NavLink(
-                            html.I(className="bi bi-gear-fill"),
-                            id="settings",
-                            href="#",
-                        ),
-                        dbc.NavLink(
-                            html.I(className="bi bi-github"),
-                            external_link=True,
-                            href="https://github.com/rmanaem/nerv",
-                        ),
-                    ],
-                ),
-                dbc.Offcanvas(
-                    [
-                        html.P("Theme: "),
-                        dcc.Dropdown(
-                            options=[
-                                {"label": str(i), "value": DBC_THEMES[i]}
-                                for i in DBC_THEMES
-                            ],
-                            value=DBC_THEMES["BOOTSTRAP"],
-                            clearable=False,
-                            id="themes",
-                            persistence=True,
-                        ),
-                    ],
-                    id="offcanvas",
-                    placement="end",
-                    scrollable=True,
-                    title="Settings",
-                ),
-                dcc.Store(id="store", storage_type="local"),
-                dcc.Location(id="url"),
-                html.Div(id="content"),
-                html.Div(id="blank_output"),
-            ],
-            delay_hide=250,
-            delay_show=250,
-            fullscreen=True,
-            type="grow",
+                html.I(className="bi bi-bar-chart-line-fill"),
+                html.B(" Ne"),
+                "uroimaging ",
+                html.B("R"),
+                "esults ",
+                html.B("V"),
+                "isualization",
+            ]
         ),
+        disabled=True,
+        className="col-md-10",
+    )
+    home = dbc.NavLink("Home", id="home", href="/")
+    settings = dbc.NavLink(
+        html.I(className="bi bi-gear-fill"),
+        id="settings",
+        href="#",
+    )
+
+    github = dbc.NavLink(
+        html.I(className="bi bi-github"),
+        external_link=True,
+        href="https://github.com/rmanaem/nerv",
+    )
+
+    navbar = dbc.Nav([tool_name, home, settings, github])
+
+    offcanvas = dbc.Offcanvas(
+        [
+            html.P("Theme: "),
+            dcc.Dropdown(
+                options=[{"label": str(i), "value": DBC_THEMES[i]} for i in DBC_THEMES],
+                value=DBC_THEMES["BOOTSTRAP"],
+                clearable=False,
+                id="themes",
+                persistence=True,
+            ),
+        ],
+        id="offcanvas",
+        placement="end",
+        scrollable=True,
+        title="Settings",
+    )
+
+    spinner = dbc.Spinner(
+        [
+            navbar,
+            offcanvas,
+            dcc.Store(id="store", storage_type="local"),
+            dcc.Location(id="url"),
+            html.Div(id="content"),
+            html.Div(id="blank_output"),
+        ],
+        delay_hide=250,
+        delay_show=250,
+        fullscreen=True,
+        type="grow",
+    )
+
+    return dbc.Container(
+        spinner,
         fluid=True,
     )
 
