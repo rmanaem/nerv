@@ -3,9 +3,9 @@ The entry point of the app.
 """
 import dash
 import dash_bootstrap_components as dbc
-from dash import Input, Output, callback
+from dash import Input, Output, State, callback
 
-from nerv.callbacks import hist_click_func, plot_scatter_func, scatter_click_func
+from nerv.callbacks import *
 from nerv.layouts import layout, navbar
 from nerv.utility import process_files
 
@@ -52,6 +52,14 @@ def start(path, local=True):
         return navbar()
 
     app.layout = serve_layout
+
+    @app.callback(
+        Output("offcanvas", "is_open"),
+        Input("settings", "n_clicks"),
+        [State("offcanvas", "is_open")],
+    )
+    def toggle_offcanvas(n, is_open):
+        return toggle_offcanvas_func(n, is_open)
 
     @callback(Output("hist-metadata-div", "children"), Input("histogram", "clickData"))
     def hist_click(clickData):
