@@ -11,30 +11,35 @@ from nerv import utility as util
 
 def navbar():
     return dbc.Container(
-        [
-            dbc.Nav(
-                [
-                    dbc.NavLink("Home", id="home", href="/"),
-                    dbc.NavLink(
-                        [
-                            html.I(className="bi bi-gear-fill"),
-                            dbc.Offcanvas(
-                                id="offcanvas",
-                                title="Settings",
-                                placement="end",
-                                scrollable=True,
-                            ),
-                        ],
-                        id="settings",
-                        href="#",
-                    ),
-                ],
-                horizontal="end",
-            ),
-            dcc.Store(id="store", storage_type="local"),
-            dcc.Location(id="url"),
-            html.Div(id="content"),
-        ],
+        dbc.Spinner(
+            [
+                dbc.Nav(
+                    [
+                        dbc.NavLink(
+                            [
+                                html.I(className="bi bi-gear-fill"),
+                                dbc.Offcanvas(
+                                    id="offcanvas",
+                                    title="Settings",
+                                    scrollable=True,
+                                ),
+                            ],
+                            id="settings",
+                            href="#",
+                            className="col-md-1",
+                        ),
+                        dbc.NavLink("Home", id="home", href="/", className="col-md-1"),
+                    ],
+                ),
+                dcc.Store(id="store", storage_type="local"),
+                dcc.Location(id="url"),
+                html.Div(id="content"),
+            ],
+            delay_hide=250,
+            delay_show=250,
+            fullscreen=True,
+            type="grow",
+        ),
         fluid=True,
     )
 
