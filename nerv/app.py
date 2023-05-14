@@ -2,6 +2,7 @@
 The entry point of the app.
 """
 import os
+import urllib
 
 import dash
 import dash_bootstrap_components as dbc
@@ -62,7 +63,7 @@ def start(path, local=True):
 
     @callback(Output("store", "data"), Input("url", "pathname"))
     def update_store(pathname):
-        return pathname
+        return urllib.parse.unquote_plus(pathname)
 
     @callback(Output("content", "children"), Input("store", "data"))
     def display_page(url):
