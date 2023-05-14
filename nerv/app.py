@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 from dash import Input, Output, State, callback
 
 from nerv.callbacks import *
-from nerv.layouts import layout, navbar
+from nerv.layouts import *
 from nerv.utility import process_files
 
 
@@ -52,6 +52,10 @@ def start(path, local=True):
         return navbar()
 
     app.layout = serve_layout
+
+    @callback(Output("store", "data"), Input("url", "pathname"))
+    def update_store(pathname):
+        return pathname
 
     @app.callback(
         Output("offcanvas", "is_open"),
