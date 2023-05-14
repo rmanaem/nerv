@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import dcc, html
 
-from nerv.utility import generate_summary
+from nerv.utility import DBC_THEMES, generate_summary
 
 
 def navbar():
@@ -44,6 +44,18 @@ def navbar():
                     ],
                 ),
                 dbc.Offcanvas(
+                    [
+                        html.P("Theme: "),
+                        dcc.Dropdown(
+                            id="themes",
+                            options=[
+                                {"label": str(i), "value": DBC_THEMES[i]}
+                                for i in DBC_THEMES
+                            ],
+                            value=DBC_THEMES["BOOTSTRAP"],
+                            clearable=False,
+                        ),
+                    ],
                     id="offcanvas",
                     placement="end",
                     scrollable=True,
