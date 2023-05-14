@@ -47,13 +47,14 @@ def navbar():
                     [
                         html.P("Theme: "),
                         dcc.Dropdown(
-                            id="themes",
                             options=[
                                 {"label": str(i), "value": DBC_THEMES[i]}
                                 for i in DBC_THEMES
                             ],
                             value=DBC_THEMES["BOOTSTRAP"],
                             clearable=False,
+                            id="themes",
+                            persistence=True,
                         ),
                     ],
                     id="offcanvas",
