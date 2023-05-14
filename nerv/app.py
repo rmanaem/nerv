@@ -40,7 +40,11 @@ def start(path, local=True):
     app = dash.Dash(
         __name__,
         routes_pathname_prefix="/",
-        external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP],
+        external_stylesheets=[
+            dbc.themes.BOOTSTRAP,
+            dbc.icons.BOOTSTRAP,
+            dbc.themes.BOOTSTRAP,
+        ],
     )
     app.title = "NeRV"
 
@@ -81,6 +85,20 @@ def start(path, local=True):
     )
     def toggle_offcanvas(n, is_open):
         return toggle_offcanvas_func(n, is_open)
+
+    app.clientside_callback(
+        """
+    function(url) {
+        var stylesheets = document.querySelectorAll('link[rel=stylesheet][href^="https://cdn.jsdelivr.net"]')
+
+        stylesheets[stylesheets.length - 1].href = url
+
+        setTimeout(function() {stylesheets[0].href = url;}, 100);
+    }
+    """,
+        Output("blank_output", "children"),
+        Input("themes", "value"),
+    )
 
     @callback(Output("hist-metadata-div", "children"), Input("histogram", "clickData"))
     def hist_click(clickData):
