@@ -16,6 +16,22 @@ def navbar():
                 dbc.Nav(
                     [
                         dbc.NavLink(
+                            html.H4(
+                                [
+                                    html.I(className="bi bi-bar-chart-line-fill"),
+                                    html.B(" Ne"),
+                                    "uroimaging ",
+                                    html.B("R"),
+                                    "esults ",
+                                    html.B("V"),
+                                    "isualization",
+                                ]
+                            ),
+                            disabled=True,
+                            className="col-md-11",
+                        ),
+                        dbc.NavLink("Home", id="home", href="/"),
+                        dbc.NavLink(
                             [
                                 html.I(className="bi bi-gear-fill"),
                                 dbc.Offcanvas(
@@ -26,9 +42,7 @@ def navbar():
                             ],
                             id="settings",
                             href="#",
-                            className="col-md-1",
                         ),
-                        dbc.NavLink("Home", id="home", href="/", className="col-md-1"),
                     ],
                 ),
                 dcc.Store(id="store", storage_type="local"),
