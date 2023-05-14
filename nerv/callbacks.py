@@ -9,6 +9,12 @@ from dash import html
 from nerv.utility import extract_metadata
 
 
+def toggle_offcanvas_func(n, is_open):
+    if n % 2 == 1:
+        return not is_open
+    return is_open
+
+
 def hist_click_func(clickData):
     """
     Processes data from the histogram graph click event and creates
