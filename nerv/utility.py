@@ -141,29 +141,6 @@ def process_files(path):
     return pd.concat(dfs)
 
 
-def pull_directories(path):
-    """
-    Generates a list of tuples for each directory located in the input path.
-    Tuples are in (directory name, dataframe generated from the files
-    in directory) form. Dataframes are generated using pull_files function.
-
-    Parameters
-    ----------
-    path : str
-        Path of the directory containing direcotries that all contain .json files
-        to be visualized.
-
-    Returns
-    ----------
-    list
-        A list of tuples in (directory name, directory dataframe) form.
-    """
-    files = []
-    for directory in os.listdir(path):
-        files.append((directory, process_files(os.path.join(path, directory))))
-    return files
-
-
 def generate_summary(df):
     """
     Generates a summary for the input dataframe's data.
