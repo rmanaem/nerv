@@ -109,7 +109,7 @@ def index_layout(path):
 
 def vis_layout(df):
     """
-    Generates the app layout.
+    Generates the visualization layout.
 
     Parameters
     ----------
@@ -118,10 +118,9 @@ def vis_layout(df):
 
     Returns
     -------
-    dash_bootstrap_components._components.Container.Container
-        The app layout made up of various dash bootstrap components and
-        dash core components wrapped with a dash bootstrap componenets
-        container component.
+    dash_bootstrap_components._components.Tabs.Tabs
+        The visualization layout made up of various dash bootstrap components and
+        dash core components.
     """
     hist_plot = dcc.Graph(
         id="histogram",
