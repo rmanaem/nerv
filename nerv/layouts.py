@@ -251,8 +251,6 @@ def vis_layout(df):
         label="Joint Plot",
     )
 
-    return (
-        dbc.Tabs(
-            [hist_tab, scatter_tab],
-        ),
+    return dbc.Tabs(
+        [hist_tab, scatter_tab],
     )
