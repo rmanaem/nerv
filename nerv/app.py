@@ -112,6 +112,22 @@ def start(path, local=True):
         [State("offcanvas", "is_open")],
     )
     def toggle_offcanvas(n, is_open):
+        """
+        Toggles whether offcanvas is open.
+
+        Parameters
+        ----------
+        n : int
+            Number of times settings NavLink component has been clicked.
+        is_open : bool
+            Whether offcanvas is currently open.
+
+        Returns
+        ----------
+        bool
+            Whether offcanvas should be opened or closed.
+        """
+        print(type(n))
         if n:
             return not is_open
         return is_open
