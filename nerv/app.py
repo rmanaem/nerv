@@ -81,6 +81,24 @@ def start(path, local=True):
 
     @callback(Output("content", "children"), Input("store", "data"))
     def display_page(url):
+        """
+        Displays page based on url stored in the local memory.
+        If the input url is `/`, it returns index page layout otherwise it
+        returns the visualization layout for a dataframe created using
+        the input url and the input path of start function.
+
+        Parameters
+        ----------
+        url : str
+            url of the page to be displayed.
+
+        Returns
+        ----------
+        dash_bootstrap_components._components.Container.Container or
+        dash_bootstrap_components._components.Tabs.Tabs
+            Index page layout if the url is `/` otherwise visualization
+            layout.
+        """
         if url == "/":
             return index_layout(path)
         else:
