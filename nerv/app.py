@@ -132,6 +132,7 @@ def start(path, local=True):
             return not is_open
         return is_open
 
+    # See https://community.plotly.com/t/updating-external-stylesheets-via-callback/31635
     app.clientside_callback(
         """
     function(url) {
