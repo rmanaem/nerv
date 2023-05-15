@@ -10,6 +10,16 @@ from nerv.utility import DBC_THEMES, generate_summary
 
 
 def navbar():
+    """
+    Generates the app navigation bar.
+
+    Returns
+    -------
+    dash_bootstrap_components._components.Container.Container
+        The navigation bar is made up of various dash bootstrap components
+        and dash core components wrapped with a dash bootstrap componenets
+        container component.
+    """
     tool_name = dbc.NavLink(
         html.H4(
             [
