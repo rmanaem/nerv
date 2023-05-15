@@ -89,6 +89,21 @@ def navbar():
 
 
 def index_layout(path):
+    """
+    Generates the index page layout.
+
+    Parameters
+    ----------
+    path : str
+        Path of the directory of directories containing files to be visualized.
+
+    Returns
+    -------
+    dash_bootstrap_components._components.Container.Container
+        The index page layout made up of various dash bootstrap components
+        and dash core components wrapped with a dash bootstrap componenets
+        container component.
+    """
     return dbc.Container(
         [
             dcc.Link(
