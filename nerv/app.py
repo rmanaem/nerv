@@ -62,6 +62,21 @@ def start(path, local=True):
 
     @callback(Output("store", "data"), Input("url", "pathname"))
     def update_store(pathname):
+        """
+        Parses and stores the pathname from dcc.Location dash component.
+        It utilizes urllib.parse module's unquote_pluse function to
+        parse pathname and stores it in local memory.
+
+        Parameters
+        ----------
+        pathname : str
+            pathname in window.location - e.g., "/experiment1".
+
+        Returns
+        ----------
+        str
+            Parsed pathname.
+        """
         return urllib.parse.unquote_plus(pathname)
 
     @callback(Output("content", "children"), Input("store", "data"))
