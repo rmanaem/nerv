@@ -20,22 +20,20 @@ def navbar():
         and dash core components wrapped with a dash bootstrap componenets
         container component.
     """
-    tool_name = dbc.NavLink(
-        html.H4(
-            [
-                html.I(className="bi bi-bar-chart-line-fill"),
-                html.B(" Ne"),
-                "uroimaging ",
-                html.B("R"),
-                "esults ",
-                html.B("V"),
-                "isualization",
-            ]
-        ),
-        disabled=True,
-        className="col-md-10",
+    brand = html.H4(
+        [
+            html.I(className="bi bi-bar-chart-line-fill"),
+            html.B(" Ne"),
+            "uroimaging ",
+            html.B("R"),
+            "esults ",
+            html.B("V"),
+            "isualization",
+        ],
     )
+
     home = dbc.NavLink("Home", id="home", href="/")
+
     settings = dbc.NavLink(
         html.I(className="bi bi-gear-fill"),
         id="settings",
@@ -48,7 +46,9 @@ def navbar():
         href="https://github.com/rmanaem/nerv",
     )
 
-    navbar = dbc.Nav([tool_name, home, settings, github])
+    navbar = dbc.NavbarSimple(
+        [home, settings, github], brand=brand, className="h5", fluid=True, sticky="top"
+    )
 
     offcanvas = dbc.Offcanvas(
         [
