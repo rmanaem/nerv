@@ -127,7 +127,6 @@ def start(path, local=True):
         bool
             Whether offcanvas should be opened or closed.
         """
-        print(type(n))
         if n:
             return not is_open
         return is_open
