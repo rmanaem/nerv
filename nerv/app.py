@@ -21,7 +21,7 @@ def start(path, local=True):
     Parameters
     ----------
     path : str
-        Path of the directory containing files to be visualized.
+        Path of the directory of directories containing files to be visualized.
     local : bool, optional
         Whether or not to start the app locally in the terminal or return
         a Flask app containing the Dash app for deployment, by default True.
