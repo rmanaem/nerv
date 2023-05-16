@@ -8,11 +8,14 @@ import plotly.express as px
 from dash import html
 
 COLORS = [
-    px.colors.qualitative.G10,
     px.colors.sequential.Teal,
-    px.colors.sequential.Brwnyl,
-    px.colors.sequential.Burg,
+    px.colors.sequential.OrRd,
     px.colors.sequential.Purp,
+    px.colors.sequential.Greens,
+    px.colors.sequential.Pinkyl,
+    px.colors.sequential.Brwnyl,
+    px.colors.sequential.solar,
+    px.colors.sequential.turbid,
 ]
 
 DBC_THEMES = {
