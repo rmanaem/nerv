@@ -10,7 +10,7 @@ dash-html-components==2.0.0
 dash-table==5.0.0
 distlib==0.3.6
 filelock==3.11.0
-Flask==2.0.3
+Flask==2.2.5
 Flask-Compress==1.11
 identify==2.5.22
 itsdangerous==2.1.1
