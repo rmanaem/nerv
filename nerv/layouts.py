@@ -32,7 +32,11 @@ def navbar():
         ],
     )
 
-    home = dbc.NavLink("Home", id="home", href="/")
+    home = dbc.NavLink("Home", href="/")
+
+    docs = dbc.NavLink(
+        "Docs", external_link=True, href="https://rmanaem.github.io/nerv/"
+    )
 
     settings = dbc.NavLink(
         html.I(className="bi bi-gear-fill"),
@@ -47,7 +51,11 @@ def navbar():
     )
 
     navbar = dbc.NavbarSimple(
-        [home, settings, github], brand=brand, className="h5", fluid=True, sticky="top"
+        [home, docs, settings, github],
+        brand=brand,
+        className="h5",
+        fluid=True,
+        sticky="top",
     )
 
     offcanvas = dbc.Offcanvas(
