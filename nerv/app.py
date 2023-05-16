@@ -41,7 +41,7 @@ def start(path, local=True):
             dbc.themes.BOOTSTRAP,
         ],
     )
-    app.title = "NeRV"
+    app.title = "Neuroimaging Results Visualization"
 
     def serve_layout():
         """
