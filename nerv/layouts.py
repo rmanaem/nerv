@@ -114,17 +114,18 @@ def index_layout(path):
         and dash core components wrapped with a dash bootstrap componenets
         container component.
     """
+    dirs = sorted([d for d in os.listdir(path)])
     return dbc.Container(
         [
             dcc.Link(
                 [
                     dbc.Card(
                         [
-                            html.H5(x),
+                            html.H5(d),
                             html.P(
                                 "Last modified: "
                                 + datetime.datetime.fromtimestamp(
-                                    os.path.getmtime(os.path.join(path, x))
+                                    os.path.getmtime(os.path.join(path, d))
                                 ).strftime("%c"),
                                 className="small",
                             ),
@@ -132,11 +133,11 @@ def index_layout(path):
                         body=True,
                     )
                 ],
-                href="/" + x,
-                id=x,
+                href="/" + d,
+                id=d,
                 className="m-2 col-md-3 text-center",
             )
-            for x in os.listdir(path)
+            for d in dirs
         ],
         className="d-flex flex-row flex-wrap justify-content-center align-items-center",
     )
