@@ -1,9 +1,14 @@
+import os
+
 from setuptools import find_packages, setup
 
-with open("CHANGELOG.md", "r") as file:
+dir = os.path.abspath(os.path.dirname(__file__))
+
+with open(os.path.join(dir, "CHANGELOG.md"), "r") as file:
     changelog = file.readlines()[9:20]
 
-with open("README.md", "r") as file:
+
+with open(os.path.join(dir, "README.md"), "r") as file:
     readme = file.read()
 
 
