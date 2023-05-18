@@ -1,19 +1,14 @@
-import codecs
-import os
-
 from setuptools import find_packages, setup
 
-here = os.path.abspath(os.path.dirname(__file__))
-
-with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as file:
-    long_description = "\n" + file.read()
+with open("README.md", "r") as file:
+    readme = file.read()
 
 with open("requirements.txt", "r") as file:
     install_requires = file.read().split("\n")
 
 VERSION = "0.1.1"
 DESCRIPTION = "Neuroimaging Results Visualization"
-LONG_DESCRIPTION = long_description
+LONG_DESCRIPTION = readme
 
 setup(
     name="nerv",
@@ -22,7 +17,7 @@ setup(
     author_email="<rmanaem@protonmail.ch>",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     url="https://github.com/rmanaem/nerv",
     packages=find_packages(),
     include_package_data=True,
