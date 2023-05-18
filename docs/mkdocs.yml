@@ -19,5 +19,11 @@ theme:
     code: IBM Plex Mono
 repo_url: https://github.com/rmanaem/nerv
 
+nav:
+- Welcome: index.md
+- Directory and file structure: structure.md
+- Deployment: deployment.md
+- Limitations: limitations.md
+
 markdown_extensions:
 - admonition
