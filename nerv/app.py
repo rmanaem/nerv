@@ -1,12 +1,15 @@
 """
 The entry point of the app.
 """
+import os
+import urllib
+
 import dash
 import dash_bootstrap_components as dbc
-from dash import Input, Output, callback
+from dash import Input, Output, State, callback
 
 from nerv.callbacks import hist_click_func, plot_scatter_func, scatter_click_func
-from nerv.layouts import layout
+from nerv.layouts import index_layout, navbar, vis_layout
 from nerv.utility import process_files
 
 
@@ -18,7 +21,7 @@ def start(path, local=True):
     Parameters
     ----------
     path : str
-        Path of the directory containing files to be visualized.
+        Path of the directory of directories containing files to be visualized.
     local : bool, optional
         Whether or not to start the app locally in the terminal or return
         a Flask app containing the Dash app for deployment, by default True.
@@ -32,9 +35,13 @@ def start(path, local=True):
     app = dash.Dash(
         __name__,
         routes_pathname_prefix="/",
-        external_stylesheets=[dbc.themes.BOOTSTRAP],
+        external_stylesheets=[
+            dbc.themes.BOOTSTRAP,
+            dbc.icons.BOOTSTRAP,
+            dbc.themes.BOOTSTRAP,
+        ],
     )
-    app.title = "NeRV"
+    app.title = "Neuroimaging Results Visualization"
 
     def serve_layout():
         """
@@ -49,12 +56,95 @@ def start(path, local=True):
             dash core components wrapped with a dash bootstrap componenets
             container component.
         """
-        global df
-        df = process_files(path)
-
-        return layout(df)
+        return navbar()
 
     app.layout = serve_layout
+
+    @callback(Output("store", "data"), Input("url", "pathname"))
+    def update_store(pathname):
+        """
+        Parses and stores the pathname from dcc.Location dash component.
+        It utilizes urllib.parse module's unquote_pluse function to
+        parse pathname and stores it in local memory.
+
+        Parameters
+        ----------
+        pathname : str
+            pathname in window.location - e.g., "/experiment1".
+
+        Returns
+        ----------
+        str
+            Parsed pathname.
+        """
+        return urllib.parse.unquote_plus(pathname)
+
+    @callback(Output("content", "children"), Input("store", "data"))
+    def display_page(url):
+        """
+        Displays page based on url stored in the local memory.
+        If the input url is `/`, it returns index page layout otherwise it
+        returns the visualization layout for a dataframe created using
+        the input url and the input path of start function.
+
+        Parameters
+        ----------
+        url : str
+            url of the page to be displayed.
+
+        Returns
+        ----------
+        dash_bootstrap_components._components.Container.Container or
+        dash_bootstrap_components._components.Tabs.Tabs
+            Index page layout if the url is `/` otherwise visualization
+            layout.
+        """
+        if url == "/":
+            return index_layout(path)
+        else:
+            global df
+            df = process_files(os.path.join(path, url[1:]))
+            return vis_layout(df)
+
+    @app.callback(
+        Output("offcanvas", "is_open"),
+        Input("settings", "n_clicks"),
+        [State("offcanvas", "is_open")],
+    )
+    def toggle_offcanvas(n, is_open):
+        """
+        Toggles whether offcanvas is open.
+
+        Parameters
+        ----------
+        n : int
+            Number of times settings NavLink component has been clicked.
+        is_open : bool
+            Whether offcanvas is currently open.
+
+        Returns
+        ----------
+        bool
+            Whether offcanvas should be opened or closed.
+        """
+        if n:
+            return not is_open
+        return is_open
+
+    # See https://community.plotly.com/t/updating-external-stylesheets-via-callback/31635
+    app.clientside_callback(
+        """
+    function(url) {
+        var stylesheets = document.querySelectorAll('link[rel=stylesheet][href^="https://cdn.jsdelivr.net"]')
+
+        stylesheets[stylesheets.length - 1].href = url
+
+        setTimeout(function() {stylesheets[0].href = url;}, 100);
+    }
+    """,
+        Output("blank_output", "children"),
+        Input("themes", "value"),
+    )
 
     @callback(Output("hist-metadata-div", "children"), Input("histogram", "clickData"))
     def hist_click(clickData):

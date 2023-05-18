@@ -16,7 +16,13 @@
 <br>
 </div>
 
-Neuroimaging Results Visualization (NeRV) is a web interface developed in Python using [Plotly Dash](https://dash.plotly.com/),  [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/), and [pandas](https://pandas.pydata.org/) for visualization of neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines.
+Neuroimaging Results Visualization (NeRV) is a web interface developed in Python using [Plotly Dash](https://dash.plotly.com/), [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/), and [pandas](https://pandas.pydata.org/) for visualization of neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines.
+
+- [Getting Started](#getting-started)
+  - [Installation](#local-installation)
+  - [Example usage](#example-usage)
+- [Deployment](#deployment)
+- [License](#license)
 
 ______________________________________________________________________
 
@@ -24,13 +30,15 @@ ______________________________________________________________________
 
 ### Installation
 
+Install NeRV using PyPI:
+
 ```bash
 pip install nerv
 ```
 
-In order for NeRV to generate and populate plots the underlying app requires access to the directory containing the datasets. The path to directory can be passed to the app module as input to the start function.
-
 ### Example usage
+
+In order for NeRV to generate and populate plots the underlying app requires access to the directory that houses subdirectories, which in turn contain the JSON files to be visualized. The path to directory can be passed to the app as input to the `start` function.
 
 ```python
 from nerv import app
@@ -40,13 +48,23 @@ app.start("path-to-data-directory")
 
 After executing the file containing the above code snippet, a local server is started at port 8050 (by default). You can access the running NeRV application using a browser through the URL `localhost:8050`.
 
-<p alt="ui" align="center"><a href="https://github.com/rmanaem/nerv/blob/master/img/ui.png"><img src="https://github.com/rmanaem/nerv/blob/master/img/ui.png?raw=true"/></a></p>
+![ui](https://github.com/rmanaem/nerv/blob/master/img/ui.png?raw=true)
 
 ______________________________________________________________________
 
 ## Deployment
 
-_Work in progress_
+To deploy your NeRV app, you can utilize [Gunicorn](https://gunicorn.org/). Simply follow the instructions outlined in the Dash documentation [here](https://dash.plotly.comdeployment#heroku-for-sharing-public-dash-apps), making the necessary adjustment in the app.py module content:
+
+**app.py**
+
+```Python
+from nerv import app
+
+server = app.start("path-to-data-directory", False)
+```
+
+Note that when the `local` parameter of the `start` function is set to `False`, it will return the `app.server` object. This object represents the underlying Flask server that drives the Dash application. You can utilize the `app.server` object to customize and extend the NeRV application, going beyond the default functionality offered. For more details, refer to the [Flask documentation](https://flask.palletsprojects.com/).
 
 ______________________________________________________________________
 

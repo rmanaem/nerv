@@ -8,12 +8,43 @@ import plotly.express as px
 from dash import html
 
 COLORS = [
-    px.colors.qualitative.G10,
     px.colors.sequential.Teal,
-    px.colors.sequential.Brwnyl,
-    px.colors.sequential.Burg,
+    px.colors.sequential.OrRd,
     px.colors.sequential.Purp,
+    px.colors.sequential.Greens,
+    px.colors.sequential.Pinkyl,
+    px.colors.sequential.Brwnyl,
+    px.colors.sequential.solar,
+    px.colors.sequential.turbid,
 ]
+
+DBC_THEMES = {
+    "BOOTSTRAP": dbc.themes.BOOTSTRAP,
+    "CERULEAN": dbc.themes.CERULEAN,
+    "COSMO": dbc.themes.COSMO,
+    "CYBORG": dbc.themes.CYBORG,
+    "DARKLY": dbc.themes.DARKLY,
+    "FLATLY": dbc.themes.FLATLY,
+    "JOURNAL": dbc.themes.JOURNAL,
+    "LITERA": dbc.themes.LITERA,
+    "LUMEN": dbc.themes.LUMEN,
+    "LUX": dbc.themes.LUX,
+    "MATERIA": dbc.themes.MATERIA,
+    "MINTY": dbc.themes.MINTY,
+    "MORPH": dbc.themes.MORPH,
+    "PULSE": dbc.themes.PULSE,
+    "SANDSTONE": dbc.themes.SANDSTONE,
+    "SIMPLEX": dbc.themes.SIMPLEX,
+    "SKETCHY": dbc.themes.SKETCHY,
+    "SLATE": dbc.themes.SLATE,
+    "SOLAR": dbc.themes.SOLAR,
+    "SPACELAB": dbc.themes.SPACELAB,
+    "SUPERHERO": dbc.themes.SUPERHERO,
+    "UNITED": dbc.themes.UNITED,
+    "VAPOR": dbc.themes.VAPOR,
+    "YETI": dbc.themes.YETI,
+    "ZEPHYR": dbc.themes.ZEPHYR,
+}
 
 
 def pull_files(path):
@@ -111,29 +142,6 @@ def process_files(path):
     for i, j in enumerate(files):
         dfs.append(process_file(j, i))
     return pd.concat(dfs)
-
-
-def pull_directories(path):
-    """
-    Generates a list of tuples for each directory located in the input path.
-    Tuples are in (directory name, dataframe generated from the files
-    in directory) form. Dataframes are generated using pull_files function.
-
-    Parameters
-    ----------
-    path : str
-        Path of the directory containing direcotries that all contain .json files
-        to be visualized.
-
-    Returns
-    ----------
-    list
-        A list of tuples in (directory name, directory dataframe) form.
-    """
-    files = []
-    for directory in os.listdir(path):
-        files.append((directory, process_files(os.path.join(path, directory))))
-    return files
 
 
 def generate_summary(df):

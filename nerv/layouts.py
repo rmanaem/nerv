@@ -1,14 +1,151 @@
 """Layout of the app."""
+import datetime
+import os
+
 import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import dcc, html
 
-from nerv import utility as util
+from nerv.utility import DBC_THEMES, generate_summary
 
 
-def layout(df):
+def navbar():
     """
-    Generates the app layout.
+    Generates the app navigation bar.
+
+    Returns
+    -------
+    dash_bootstrap_components._components.Container.Container
+        The navigation bar is made up of various dash bootstrap components
+        and dash core components wrapped with a dash bootstrap componenets
+        container component.
+    """
+    brand = dbc.NavLink(
+        [
+            html.I(className="bi bi-bar-chart-line-fill"),
+            html.B(" Ne"),
+            "uroimaging ",
+            html.B("R"),
+            "esults ",
+            html.B("V"),
+            "isualization",
+        ],
+        href="#",
+    )
+
+    home = dbc.NavLink("Home", href="/")
+
+    docs = dbc.NavLink(
+        "Docs",
+        external_link=True,
+        href="https://rmanaem.github.io/nerv/",
+    )
+
+    settings = dbc.NavLink(
+        html.I(className="bi bi-gear-fill"),
+        id="settings",
+        href="#",
+    )
+
+    github = dbc.NavLink(
+        html.I(className="bi bi-github"),
+        external_link=True,
+        href="https://github.com/rmanaem/nerv",
+    )
+
+    navbar = dbc.NavbarSimple(
+        [home, docs, settings, github],
+        brand=brand,
+        fluid=True,
+        sticky="top",
+    )
+
+    offcanvas = dbc.Offcanvas(
+        [
+            html.P("Theme: "),
+            dcc.Dropdown(
+                options=[{"label": str(i), "value": DBC_THEMES[i]} for i in DBC_THEMES],
+                value=DBC_THEMES["BOOTSTRAP"],
+                clearable=False,
+                id="themes",
+                persistence=True,
+            ),
+        ],
+        id="offcanvas",
+        placement="end",
+        scrollable=True,
+        title="Settings",
+    )
+
+    spinner = dbc.Spinner(
+        [
+            navbar,
+            offcanvas,
+            dcc.Store(id="store", storage_type="local"),
+            dcc.Location(id="url"),
+            html.Div(id="content"),
+            html.Div(id="blank_output"),
+        ],
+        delay_hide=250,
+        delay_show=250,
+        fullscreen=True,
+        type="grow",
+    )
+
+    return dbc.Container(
+        spinner,
+        fluid=True,
+    )
+
+
+def index_layout(path):
+    """
+    Generates the index page layout.
+
+    Parameters
+    ----------
+    path : str
+        Path of the directory of directories containing files to be visualized.
+
+    Returns
+    -------
+    dash_bootstrap_components._components.Container.Container
+        The index page layout made up of various dash bootstrap components
+        and dash core components wrapped with a dash bootstrap componenets
+        container component.
+    """
+    dirs = sorted([d for d in os.listdir(path)])
+    return dbc.Container(
+        [
+            dcc.Link(
+                [
+                    dbc.Card(
+                        [
+                            html.H5(d),
+                            html.P(
+                                "Last modified: "
+                                + datetime.datetime.fromtimestamp(
+                                    os.path.getmtime(os.path.join(path, d))
+                                ).strftime("%c"),
+                                className="small",
+                            ),
+                        ],
+                        body=True,
+                    )
+                ],
+                href="/" + d,
+                id=d,
+                className="m-2 col-md-3 text-center",
+            )
+            for d in dirs
+        ],
+        className="d-flex flex-row flex-wrap justify-content-center align-items-center",
+    )
+
+
+def vis_layout(df):
+    """
+    Generates the visualization layout.
 
     Parameters
     ----------
@@ -17,10 +154,9 @@ def layout(df):
 
     Returns
     -------
-    dash_bootstrap_components._components.Container.Container
-        The app layout made up of various dash bootstrap components and
-        dash core components wrapped with a dash bootstrap componenets
-        container component.
+    dash_bootstrap_components._components.Tabs.Tabs
+        The visualization layout made up of various dash bootstrap components and
+        dash core components.
     """
     hist_plot = dcc.Graph(
         id="histogram",
@@ -60,7 +196,7 @@ def layout(df):
         mathjax=True,
     )
 
-    summary = util.generate_summary(df)
+    summary = generate_summary(df)
 
     hist_metadata = html.Div(id="hist-metadata-div")
 
@@ -151,13 +287,6 @@ def layout(df):
         label="Joint Plot",
     )
 
-    layout = dbc.Container(
-        [
-            dbc.Tabs(
-                [hist_tab, scatter_tab],
-            ),
-        ],
-        fluid=True,
+    return dbc.Tabs(
+        [hist_tab, scatter_tab],
     )
-
-    return layout
