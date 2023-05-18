@@ -1,14 +1,18 @@
 from setuptools import find_packages, setup
 
+with open("CHANGELOG.md", "r") as file:
+    changelog = file.readlines()[9:20]
+
 with open("README.md", "r") as file:
     readme = file.read()
+
 
 with open("requirements.txt", "r") as file:
     install_requires = file.read().split("\n")
 
-VERSION = "0.1.1"
+VERSION = "0.2.0"
 DESCRIPTION = "Neuroimaging Results Visualization"
-LONG_DESCRIPTION = readme
+LONG_DESCRIPTION = f"## What's new in {VERSION}\n\n{''.join(changelog)}\n\n{readme}"
 
 setup(
     name="nerv",
