@@ -40,7 +40,7 @@ app.start("path-to-data-directory")
 
 After executing the file containing the above code snippet, a local server is started at port 8050 (by default). You can access the running NeRV application using a browser through the URL `localhost:8050`.
 
-<a href="https://github.com/rmanaem/nerv/blob/master/img/ui.png"><img src="https://github.com/rmanaem/nerv/blob/master/img/ui.png?raw=true" alt="ui" align="center"/></a>
+![ui](https://github.com/rmanaem/nerv/blob/master/img/ui.png?raw=true)
 
 ______________________________________________________________________
 
