@@ -10,7 +10,7 @@ with open("README.md", "r") as file:
 with open("requirements.txt", "r") as file:
     install_requires = file.read().split("\n")
 
-VERSION = "0.2.4"
+VERSION = "0.2.5"
 DESCRIPTION = "Neuroimaging Results Visualization"
 LONG_DESCRIPTION = f"## What's new in {VERSION}\n\n{''.join(changelog)}\n\n{readme}"
 
