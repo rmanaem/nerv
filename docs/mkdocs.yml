@@ -1,3 +1,20 @@
 site_name: NeRV Documentation
 theme:
   name: material
+  palette:
+  - media: '(prefers-color-scheme: light)'
+    scheme: default
+    accent: blue
+    toggle:
+      icon: material/weather-night
+      name: Switch to dark mode
+  - media: '(prefers-color-scheme: dark)'
+    scheme: slate
+    accent: blue
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to light mode
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+repo_url: https://github.com/rmanaem/nerv
