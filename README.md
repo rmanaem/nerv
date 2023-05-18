@@ -3,20 +3,24 @@
 # Neuroimaging Results Visualization
 
 <div>
+    <a href="https://pypi.org/project/nerv/">
+        <img src="https://img.shields.io/pypi/v/nerv?color=8FBC8F&style=flat-square" alt="demo">
+    </a>
     <a href="https://github.com/rmanaem/nerv/actions/workflows/test.yaml">
-        <img src="https://img.shields.io/github/actions/workflow/status/neurobagel/api/test.yaml?color=BDB76B&label=test&style=flat-square">
+        <img src="https://img.shields.io/github/actions/workflow/status/neurobagel/api/test.yaml?color=BDB76B&label=test&style=flat-square" alt="test">
     </a>
     <a href="https://www.python.org/">
-        <img src="https://img.shields.io/badge/python-3.10-4682B4?style=flat-square" alt="Python">
+        <img src="https://img.shields.io/badge/python-3.10-4682B4?style=flat-square" alt="python">
     </a>
     <a href="LICENSE">
-        <img src="https://img.shields.io/github/license/neurobagel/api?color=CD5C5C&style=flat-square" alt="GitHub license">
+        <img src="https://img.shields.io/github/license/neurobagel/api?color=CD5C5C&style=flat-square" alt="license">
     </a>
 </div>
 <br>
 </div>
 
-Neuroimaging Results Visualization (NeRV) is a web interface developed in Python using [Plotly Dash](https://dash.plotly.com/), [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/), and [pandas](https://pandas.pydata.org/) for visualization of neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines.
+Neuroimaging Results Visualization (NeRV) is a Python-based web interface designed for visualizing neuroimaging results obtained from continuous testing of neuroimaging data across software pipelines. It utilizes [Plotly Dash](https://dash.plotly.com/), [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/), and [pandas](https://pandas.pydata.org/) to provide an interactive and informative visualization experience.\
+NeRV is released as a PyPI package, available [here](https://pypi.org/project/nerv/). Explore the [demo](https://nerv-demo.onrender.com/) and experience NeRV in action firsthand. For more information, refer to the [documentation](https://rmanaem.github.io/nerv/).
 
 - [Getting Started](#getting-started)
   - [Installation](#installation)
