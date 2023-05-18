@@ -23,8 +23,9 @@ Here is an example of the directory structure:
 
 NeRV processes JSON files that adhere to a specific format.
 
-!!! info "info"
-For a more comprehensive example, please refer to this [link](https://raw.githubusercontent.com/rmanaem/nerv/master/tests/data/prevent-AD.json).
+!!! info "Info"
+
+    For a more comprehensive example, please refer to this [link](https://raw.githubusercontent.com/rmanaem/nerv/master/tests/data/prevent-AD.json).
 
 Below is a portion of the file that follows this specific format as an example of its structure:
 
