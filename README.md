@@ -24,6 +24,8 @@ ______________________________________________________________________
 
 ### Installation
 
+Install NeRV using PyPI:
+
 ```bash
 pip install nerv
 ```
