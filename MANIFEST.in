@@ -1,2 +1,3 @@
+include requirements.txt
 include assets/*
 include CHANGELOG.md
