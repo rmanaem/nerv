@@ -28,9 +28,9 @@ ______________________________________________________________________
 pip install nerv
 ```
 
-In order for NeRV to generate and populate plots the underlying app requires access to the directory containing the datasets. The path to directory can be passed to the app module as input to the start function.
-
 ### Example usage
+
+In order for NeRV to generate and populate plots the underlying app requires access to the directory that houses subdirectories, which in turn contain the JSON files to be visualized. The path to directory can be passed to the app as input to the `start` function.
 
 ```python
 from nerv import app
