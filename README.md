@@ -3,14 +3,17 @@
 # Neuroimaging Results Visualization
 
 <div>
+    <a href="https://nerv-demo.onrender.com/">
+        <img src="https://img.shields.io/website?down_color=D8BFD8&label=demo&style=flat-square&up_color=8FBC8F&url=https%3A%2F%2Fnerv-demo.onrender.com%2Fexperiment7" alt="demo">
+    </a>
     <a href="https://github.com/rmanaem/nerv/actions/workflows/test.yaml">
-        <img src="https://img.shields.io/github/actions/workflow/status/neurobagel/api/test.yaml?color=BDB76B&label=test&style=flat-square">
+        <img src="https://img.shields.io/github/actions/workflow/status/neurobagel/api/test.yaml?color=BDB76B&label=test&style=flat-square" alt="test">
     </a>
     <a href="https://www.python.org/">
-        <img src="https://img.shields.io/badge/python-3.10-4682B4?style=flat-square" alt="Python">
+        <img src="https://img.shields.io/badge/python-3.10-4682B4?style=flat-square" alt="python">
     </a>
     <a href="LICENSE">
-        <img src="https://img.shields.io/github/license/neurobagel/api?color=CD5C5C&style=flat-square" alt="GitHub license">
+        <img src="https://img.shields.io/github/license/neurobagel/api?color=CD5C5C&style=flat-square" alt="license">
     </a>
 </div>
 <br>
