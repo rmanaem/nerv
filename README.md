@@ -3,8 +3,8 @@
 # Neuroimaging Results Visualization
 
 <div>
-    <a href="https://nerv-demo.onrender.com/">
-        <img src="https://img.shields.io/website?down_color=D8BFD8&label=demo&style=flat-square&up_color=8FBC8F&url=https%3A%2F%2Fnerv-demo.onrender.com%2Fexperiment7" alt="demo">
+    <a href="https://pypi.org/project/nerv/">
+        <img src="https://img.shields.io/pypi/v/nerv?color=8FBC8F&style=flat-square" alt="demo">
     </a>
     <a href="https://github.com/rmanaem/nerv/actions/workflows/test.yaml">
         <img src="https://img.shields.io/github/actions/workflow/status/neurobagel/api/test.yaml?color=BDB76B&label=test&style=flat-square" alt="test">
