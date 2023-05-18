@@ -17,3 +17,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The `start` function now expects a directory path as input, where each subdirectory represents an experiment and contains the corresponding JSON files for visualization
+- favicon
