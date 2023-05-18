@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 dir = os.path.abspath(os.path.dirname(__file__))
 
 with open(os.path.join(dir, "CHANGELOG.md"), "r") as file:
-    changelog = file.readlines()[9:20]
+    changelog = file.readlines()[9:12]
 
 
 with open(os.path.join(dir, "README.md"), "r") as file:
@@ -15,7 +15,7 @@ with open(os.path.join(dir, "README.md"), "r") as file:
 with open("requirements.txt", "r") as file:
     install_requires = file.read().split("\n")
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 DESCRIPTION = "Neuroimaging Results Visualization"
 LONG_DESCRIPTION = f"## What's new in {VERSION}\n\n{''.join(changelog)}\n\n{readme}"
 
