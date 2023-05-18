@@ -18,3 +18,6 @@ theme:
     text: IBM Plex Sans
     code: IBM Plex Mono
 repo_url: https://github.com/rmanaem/nerv
+
+markdown_extensions:
+- admonition
